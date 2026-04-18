@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUXURY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h2>JUXURY</h2>
+        </a>
+    </div>
+    
+    <div class="mobile-toggle" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+   <nav class="main-nav">
+    <a href="index.html" class="active">HOME</a>
+    <a href="fashion.html">FASHION</a> 
+<a href="lifestyle.html">LIFESTYLE</a>
+    <a href="forum.html">FORUM</a>
+</nav>
+        <div class="header-actions">
+            <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+            
+            <div class="menu-filter" id="filterToggle">
+                <i class="fas fa-bars"></i>
+                <div class="filter-dropdown" id="filterMenu">
+                    <div class="filter-column">
+                        <h3>Fashion</h3>
+                        <a href="#">Гид за стил</a>
+                        <a href="#">Вечни класики</a>
+                        <a href="#">Модни ревюта</a>
+                        <a href="#">Звезден стил</a>
+                        <a href="#">Тенденции</a>
+                    </div>
+                    <div class="filter-column">
+                        <h3>Lifestyle</h3>
+                        <a href="#">Здравословно хранене</a>
+                        <a href="#">Фитнес и спорт</a>
+                        <a href="#">Баланс и здраве</a>
+                        <a href="#">Луксозни пътувания</a>
+                        <a href="#">Фокус</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lang-wrapper">
+                <div class="lang-icon" onclick="toggleTranslate(event)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </div>
+                
+                <div class="custom-lang-menu notranslate" id="customLangMenu">
+                    <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                    <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                    <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                    <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                    <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                    <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                    <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                    <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+                </div>
+
+                <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+            </div>
+
+            <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+
+            <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+                <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                
+                <div class="user-dropdown" id="user-dropdown-menu">
+                    <a href="profile.html">Управление на профила</a>
+                    <a href="saved.html">Запазени статии</a>
+                    <a href="#" onclick="logoutUser(); return false;">Изход</a>
+                </div>
+            </div>
+
+        </div> 
+    </div> 
+    <div class="search-overlay" id="searchBar">
+        <form action="#" method="GET" class="search-form">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" placeholder="Въведете ключова дума..." name="q">
+            <button type="submit">Търсене</button>
+        </form>
+    </div>
+</header>
+
+<section class="hero-section reveal">
+    <div class="hero-text">
+        <h1>JUXURY</h1>
+        <h2>Елегантност и Лукс<br>Където модата се анализира, а не просто се носи.</h2>
+        <p>ЕЛЕГАНТНОСТТА НЕ Е ЛУКС – ТЯ Е ОРЪЖИЕ. ДОБРЕ ДОШЛИ В СВЯТ, КЪДЕТО ШЕВОВЕТЕ ГОВОРЯТ МНОГО, СИЛУЕТИТЕ ИЗДАВАТ ТАЙНИ, А ВСЕКИ БОД Е ПРЕСМЕТНАТ ХОД В ИГРАТА НА СТИЛА.</p>
+    </div>
+    <div class="hero-image">
+        <img src="images/slika1.jpg" alt="Модерни обувки">
+    </div>
+</section>
+
+<section class="middle-section reveal">
+    <div class="middle-content">
+        <h2>Добре дошли в моя блог, където модата среща интелекта.</h2>
+        <p>Ние изследваме артистичността зад емблематичните стилове, декодираме тенденциите от модния подиум и празнуваме силата на личното изразяване чрез облеклото.</p>
+        <p>От вечна изтънченост до смели съвременни изявления, нашето подбрано съдържание предлага вдъхновение, прозрения и свежа перспектива за това какво означава да се обличаш с намерение.</p>
+        <p>Присъединете се към нас в пътешествие из света на луксозната мода – където всеки детайл разказва история.</p>
+        <p class="italic-text">Стилът е вечен. Как ще го носите вие?</p>
+    </div>
+</section>
+
+<section class="bottom-section reveal">
+    <div class="bottom-image">
+        <img src="images/slika3.jpg" alt="Момиче с обувка">
+    </div>
+    <div class="bottom-text">
+        <h2>Истинската мода не е в това какво носиш – а как това, което носиш, те кара да се чувстваш.</h2>
+        <p>Открийте вдъхновение за онези, които ценят стила със съдържание.</p>
+    </div>
+</section>
+
+<footer class="site-footer reveal">
+    <div class="footer-content">
+        <div class="footer-logo">
+            <h2>JUXURY</h2>
+            <p>Елегантността не е лукс – тя е оръжие. <br>Стилът е вечен.</p>
+        </div>
+        <div class="footer-links">
+            <a href="#">За нас</a>
+            <a href="#">Контакти</a>
+            <a href="#">Поверителност</a>
+        </div>
+        <div class="footer-social">
+            <a href="#">Instagram</a>
+            <a href="#">Pinterest</a>
+            <a href="#">TikTok</a>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; Copyright 2026 JUXURY - All Rights Reserved.</p>
+    </div>
+</footer>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'bg',
+        includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+        // ПРЕМАХНАТО Е layout: SIMPLE, за да сме сигурни, че Google генерира нужното меню
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function doTranslate(langCode) {
+        // Скриваме менюто веднага при клик
+        var menu = document.getElementById('customLangMenu');
+        if (menu) menu.classList.remove('show');
+
+        // 1. Ако връщаме на Български (оригинала)
+        if (langCode === 'bg') {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+            return;
+        }
+
+        // 2. Опит за директна, мигновена смяна 
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+        } else {
+            // 3. Резервен план: ако менюто не се е появило в кода, ползваме бисквитка
+            document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+            document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+        }
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    function toggleTranslate(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('customLangMenu').classList.toggle('show');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const filterToggle = document.getElementById('filterToggle');
+        const filterMenu = document.getElementById('filterMenu');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchBar = document.getElementById('searchBar');
+        const langMenu = document.getElementById('customLangMenu');
+
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+        }
+
+        if(filterToggle && filterMenu) {
+            filterToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (searchBar) searchBar.classList.remove('active');
+                if (langMenu) langMenu.classList.remove('show');
+                filterMenu.classList.toggle('show');
+            });
+        }
+
+        if(searchToggle && searchBar) {
+            searchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (filterMenu) filterMenu.classList.remove('show');
+                if (langMenu) langMenu.classList.remove('show');
+                searchBar.classList.toggle('active');
+            });
+        }
+
+        [filterMenu, searchBar, langMenu].forEach(el => {
+            if(el) el.addEventListener('click', e => e.stopPropagation());
+        });
+
+        const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+        const loginIcon = document.getElementById('nav-login-icon');
+        const profileMenuContainer = document.getElementById('nav-profile-menu');
+        const profileBtn = document.getElementById('profile-dropdown-btn');
+        const userDropdown = document.getElementById('user-dropdown-menu');
+
+        if (isLoggedIn) {
+            if(loginIcon) loginIcon.style.display = 'none';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+            if(profileBtn) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    userDropdown.classList.toggle('show');
+                });
+            }
+        } else {
+            if(loginIcon) loginIcon.style.display = 'inline-flex';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+        }
+
+        window.addEventListener('click', function(e) {
+            if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+            if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+            if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+        });
+
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        reveal(); 
+    });
+
+    function logoutUser() {
+        localStorage.removeItem('juxury_logged_in');
+        window.location.href = 'login.html'; 
+    }
+</script>
+<script src="main.js"></script>
+</body>
+</html>

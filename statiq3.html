@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Контур - JUXURY</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        /* --- ОСНОВНИ СТИЛОВЕ ЗА СТАТИЯТА (С ПЕРФЕКТНИЯ "ВЪЗДУХ") --- */
+        .article-container {
+            max-width: 1000px; /* Това контролира ширината на статията. 1000px стои много луксозно */
+            margin: 60px auto; /* Центрира контейнера */
+            padding: 0 40px; /* Дава въздух отляво и отдясно, дори на по-малки екрани */
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .article-category {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .article-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .article-subtitle {
+            font-size: 18px;
+            color: #555;
+            font-style: italic;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .article-content p {
+            margin-bottom: 25px;
+            font-size: 17px;
+            color: #333;
+        }
+
+        /* --- СТИЛОВЕ ЗА ТЕКСТ СЪС СНИМКА ОТСТРАНИ --- */
+        .text-image-row {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            margin: 50px 0;
+        }
+
+        .text-image-row.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .text-image-content {
+            flex: 1; 
+        }
+
+        .text-image-img {
+            flex: 1; 
+        }
+
+        .text-image-img img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        @media (max-width: 768px) {
+            .text-image-row, .text-image-row.reverse {
+                flex-direction: column;
+            }
+        }
+
+        /* --- СТИЛОВЕ ЗА ГРИДОВЕТЕ ОТ СНИМКИ --- */
+        .image-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin: 40px 0;
+        }
+
+        .image-grid.grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .image-grid img {
+            width: 100%;
+            height: auto; 
+            cursor: pointer;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-radius: 4px;
+        }
+
+        .image-grid img:hover {
+            opacity: 0.8;
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 600px) {
+            .image-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* --- СТИЛОВЕ ЗА LIGHTBOX (ГАЛЕРИЯТА НА ЦЯЛ ЕКРАН) --- */
+        .lightbox-overlay {
+            display: none; 
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            justify-content: center; align-items: center; flex-direction: column;
+        }
+
+        .lightbox-overlay.active { display: flex; }
+
+        .lightbox-content {
+            position: relative; max-width: 90%; max-height: 80vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        .lightbox-img {
+            max-width: 100%; max-height: 80vh;
+            object-fit: contain; border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute; top: 20px; right: 30px;
+            color: #fff; font-size: 40px; cursor: pointer; transition: color 0.3s;
+        }
+        .lightbox-close:hover { color: #d4af37; }
+
+        .lightbox-prev, .lightbox-next {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            color: #fff; font-size: 40px; cursor: pointer; padding: 20px; user-select: none;
+        }
+        .lightbox-prev { left: -60px; }
+        .lightbox-next { right: -60px; }
+        .lightbox-prev:hover, .lightbox-next:hover { color: #d4af37; }
+         .article-footer-actions {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin-top: 80px;
+            padding-top: 50px;
+            border-top: 1px solid #eee;
+            margin-bottom: 80px;
+        }
+
+        .btn-all-articles {
+            display: inline-block;
+            padding: 16px 45px;
+            background-color: #111;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            border: 1px solid #111;
+            transition: all 0.3s ease;
+        }
+
+        .btn-all-articles:hover {
+            background-color: transparent;
+            color: #111;
+        }
+
+        .back-to-fashion {
+            color: #888;
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+        }
+
+        .back-to-fashion i { margin-right: 10px; font-size: 16px; transition: transform 0.3s ease; }
+        .back-to-fashion:hover { color: #d4af37; }
+        .back-to-fashion:hover i { transform: translateX(-5px); }
+        /* --- БУТОНИ ЗА СПОДЕЛЯНЕ И ЗАПАЗВАНЕ --- */
+        .article-actions-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .action-btn i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .action-btn:hover {
+            color: #d4af37; /* Златистият цвят */
+        }
+
+        .action-btn:hover i {
+            transform: translateY(-2px);
+        }
+
+        .action-btn.saved i {
+            color: #d4af37;
+            font-weight: 900; /* Прави иконката запълнена */
+        }
+
+        /* Изскачащо съобщение (Toast) */
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            z-index: 10000;
+        }
+
+        .toast-message.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <h2>JUXURY</h2>
+            </a>
+        </div>
+        
+        <div class="mobile-toggle" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+       <nav class="main-nav" id="navMenu">
+        <a href="index.html">HOME</a>
+        <a href="fashion.html" class="active">FASHION</a> 
+        <a href="lifestyle.html">LIFESTYLE</a>
+        <a href="forum.html">FORUM</a>
+       </nav>
+
+        <div class="header-actions">
+            <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+            
+            <div class="menu-filter" id="filterToggle">
+                <i class="fas fa-bars"></i>
+                <div class="filter-dropdown" id="filterMenu">
+                    <div class="filter-column">
+                        <h3>Fashion</h3>
+                        <a href="#">Гид за стил</a>
+                        <a href="#">Вечни класики</a>
+                        <a href="#">Модни ревюта</a>
+                        <a href="#">Звезден стил</a>
+                        <a href="#">Тенденции</a>
+                    </div>
+                    <div class="filter-column">
+                        <h3>Lifestyle</h3>
+                        <a href="#">Здравословно хранене</a>
+                        <a href="#">Фитнес и спорт</a>
+                        <a href="#">Баланс и здраве</a>
+                        <a href="#">Луксозни пътувания</a>
+                        <a href="#">Фокус</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lang-wrapper">
+                <div class="lang-icon" onclick="toggleTranslate(event)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                </div>
+                
+                <div class="custom-lang-menu notranslate" id="customLangMenu">
+                    <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                    <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                    <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                    <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                    <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                    <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                    <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                    <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+                </div>
+                <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+            </div>
+
+            <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </a>
+
+            <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+                <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </div>
+                
+                <div class="user-dropdown" id="user-dropdown-menu">
+                    <a href="profile.html">Управление на профила</a>
+                    <a href="saved.html">Запазени статии</a>
+                    <a href="#" onclick="logoutUser(); return false;">Изход</a>
+                </div>
+            </div>
+        </div> 
+        
+        <div class="search-overlay" id="searchBar">
+            <form action="#" method="GET" class="search-form">
+                <i class="fas fa-search search-icon-inside"></i>
+                <input type="text" placeholder="Въведете ключова дума..." name="q">
+                <button type="submit">Търсене</button>
+            </form>
+        </div>
+    </header>
+<div class="article-actions-bar">
+            <button class="action-btn" id="shareBtn" title="Сподели статията">
+                <i class="fa-solid fa-share-nodes"></i> Сподели
+            </button>
+            <button class="action-btn" id="saveArticleBtn" title="Запази в профила">
+                <i class="fa-regular fa-bookmark"></i> Запази
+            </button>
+        </div>
+        
+        <div class="toast-message" id="toastMessage">Съобщение...</div>
+    <div class="article-container">
+        
+        <div class="article-header">
+            <span class="article-category">ГИД ЗА СТИЛ</span>
+            <h1>Как да използваш контуриране, за да промениш формата на лицето си (като знаменитост)</h1>
+            <p class="article-subtitle">Забравете всичко, което са ви казвали за едва доловимите корекции – това е лицева архитектура в нейния най-трансформиращ вид. От десетилетия гримьорите на звездите тихомълком прекрояват костната структура само с пигмент и светлина, а ние разгадахме техния код.</p>
+        </div>
+
+        <div class="article-content">
+            
+            <h3>Пренаписване на формите</h3>
+            <p>Квадратните и сърцевидните лица изискват стратегическо разположение на сенките. Екипът на Марго Роби създава тази илюзия, като концентрира контура точно под естествената извивка на скулата, след което го прелива нагоре към слепоочията. Ефектът? Изискано издължаване, което изглежда като генетичен дар, а не като тежък грим.</p>
+            <h3>Пълно ръководство за формите на лицето и перфектния грим</h3>
+            <p>Всяко лице разказва история и вашето заслужава да бъде рамкирано безупречно. В света на луксозната красота разбирането на вашата уникална костна структура е „златният билет“ към излъчване, което изглежда полирано без усилие. Нека разгледаме всичко, което трябва да знаете за определянето на формата на лицето ви и нанасянето на грим като истинска знаменитост – защото истинският лукс е в персонализацията.</p>
+            <p>За визуално издължаване на кръгло лице, гримьорът на Флорънс Пю използва техниката на 45-градусовия ъгъл. Започвайки от средата на ухото, той прокарва контура надолу към ъгъла на устата, но спира точно на един пръст разстояние над линията на челюстта. Това поддържа дефиницията, като същевременно избягва нежелания ефект на „изцапано лице“.</p>
+            <div class="text-image-row">
+                <div class="text-image-content">
+                     <h3>Откриване на вашата истинска форма</h3>
+                    <p> Преди да посегнете към четките, отделете момент, за да видите лицето си истински. Дръпнете косата си назад, застанете на естествена светлина и наблюдавайте общия контур в огледалото. Ето как да идентифицирате своята категория:</p>
+                </div>
+                <div class="text-image-img">
+                    <img src="images/kontur1.jpg" alt="Снимка отдясно">
+                </div>
+            </div>
+            <p>Овални лица: Красиво балансирани, малко по-дълги, отколкото широки, с нежно заоблена линия на косата и челюстта. Помислете за хармоничните пропорции на Бионсе или меката симетрия на Джесика Алба.</p>
+            <p>Квадратни лица: Отличават се със силна, ъгловата челюст с почти еднаква ширина на челото, скулите и челюстта. Поразителните черти на Анджелина Джоли и дефинираната костна структура на Оливия Уайлд са перфектни примери.</p>
+            <p>Кръгли лица: Имат почти еднаква дължина и ширина, с пълни бузи и меки извивки. Младежкото сияние на Селена Гомес и чарът на Ема Стоун олицетворяват тази форма.</p>
+            <p>Сърцевидни лица: Характеризират се с по-широко чело, което се стеснява към деликатна брадичка – като класическата красота на Рийз Уидърспун или гламурния силует на Скарлет Йохансон.</p>
+            <p>Диамантени лица: Те са ъгловати чудеса – тесни в челото и челюстта с драматични скули. Иконичната костна структура на Риана и дръзката елегантност на Зоуи Кравиц демонстрират тази форма перфектно.</p>
+            <p>Правоъгълни/Продълговати лица: По-дълги, отколкото широки, с прави линии на скулите. Изтънченият вид на Сара Джесика Паркър и елегантният профил на Лив Тайлър представят тази категория.</p>
+            <div class="text-image-row reverse">
+                <div class="text-image-content">
+                <h3>Индивидуални стратегии за всяка форма</h3>
+                <p>Овално лице: Поддържайте баланса с мек контур под скулите и руж, нанесен в нежна форма на числото „3“ от слепоочията към центъра на бузите. Хайлайтър в средата на челото и брадичката ще запази хармонията.</p>
+                <p>Квадратно лице: Използвайте кръгово нанасяне на руж за омекотяване на ъглите, с контур по външната линия на челюстта и слепоочията. Малко светлина в центъра на челото и под очите създава елегантно издължаване.</p>
+                <p>Кръгло лице: Фокусирайте се върху създаването на дефиниция. Контурирайте по линията на косата и под скулите, нанесете руж диагонално и използвайте вертикални ивици хайлайтър, за да добавите дължина.</p>
+               <p>Диамантено лице: Блести, когато ъгловатите скули са омекотени с руж, поставен малко под костта. Контурирането на слепоочията и челюстта създава баланс.</p>
+                <p>Сърцевидно лице: Нуждае се от балансиране – лек контур по линията на косата минимизира широкото чело, докато ружът, концентриран в центъра на бузите, насочва вниманието нагоре. Точка светлина върху брадичката носи симетрия.</p>
+                <p>Правоъгълно лице: Контурът при брадичката и линията на косата скъсява лицето, докато хоризонталното нанасяне на руж придава ширина.</p>
+            </div>
+                <div class="text-image-img">
+                    <img src="images/kontur2.jpg" alt="Снимка отляво">
+                </div>
+            </div>
+
+            <div class="image-grid">
+                <img src="images/kontur3.jpeg" alt="Детайл 1">
+                <img src="images/kontur4.jpeg" alt="Детайл 2">
+                <img src="images/kontur5.jpeg" alt="Детайл 3">
+                <img src="images/kontur6.jpeg" alt="Детайл 4">
+            </div>
+
+            <h3> Универсалните тайни на луксозния грим</h3>
+            <p>Независимо от формата на лицето ви, тези техники ще издигнат рутината ви на ново ниво:</p>
+            <p>Преливането (Blending) е не възпетият герой. Винаги използвайте влажна гъбичка (beauty blender) и не бързайте – в луксозната визия няма място за резки линии.
+            <p>По-малкото е повече. Гримьорите на звездите надграждат продуктите на тънки, прозрачни слоеве. Това създава естествен, безупречен завършек, който изглежда скъп, а не прекален.
+            <p>Светлината е всичко. Винаги проверявайте грима си на естествена светлина. Това, което изглежда фино в банята, може да изглежда тежко на дневна светлина.</p>
+            </p>
+            </p>
+            <div class="image-grid grid-2">
+                <img src="images/kontur7.jpeg" alt="Аксесоар 1">
+                <img src="images/kontur8.png" alt="Аксесоар 2">
+            </div>
+            <h3>Продуктите, които наистина работят</h3>
+            <p>Крем-контурите превъзхождат пудрите за реалистична симулация на сенки. Ключът е да намерите сивкав нюанс, който имитира естествената сянка – повечето марки отиват твърде много към топлата (оранжева) гама. Професионалистите препоръчват:
+             <p>Kevyn Aucoin The Sculpting Contour – заради перфектния неутрален подтон.
+            <p>Fenty Beauty Match Stix в цвят Amber – за светла до средна кожа.
+                <p>Danessa Myricks Vision Flush в цвят Tiramisu – за по-тъмен тен
+                    <p>За начинаещи: Westman Atelier Face Trace Stick се прелива без усилие.</p>
+                </p>
+            </p>
+             </p>   
+            </p>
+
+        </div> </div> <div class="lightbox-overlay" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <div class="lightbox-content">
+            <i class="fas fa-chevron-left lightbox-prev" id="lightboxPrev"></i>
+            <img src="" alt="Full Screen" class="lightbox-img" id="lightboxImg">
+            <i class="fas fa-chevron-right lightbox-next" id="lightboxNext"></i>
+        </div>
+        
+    </div>
+
+      <div class="article-footer-actions">
+            <a href="all-articles.html" class="btn-all-articles">ВИЖТЕ ВСИЧКИ СТАТИИ</a>
+            <a href="fashion.html" class="back-to-fashion">
+                <i class="fas fa-long-arrow-alt-left"></i> Обратно към Fashion
+            </a>
+        </div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'bg',
+            includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
+
+        function doTranslate(langCode) {
+            var menu = document.getElementById('customLangMenu');
+            if (menu) menu.classList.remove('show');
+
+            if (langCode === 'bg') {
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+                window.location.reload();
+                return;
+            }
+
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = langCode;
+                select.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+                document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+                window.location.reload();
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        // --- 1. ЛОГИКА ЗА ХЕДЪРА И МЕНЮТАТА ---
+        function toggleTranslate(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('customLangMenu').classList.toggle('show');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            const filterToggle = document.getElementById('filterToggle');
+            const filterMenu = document.getElementById('filterMenu');
+            const searchToggle = document.getElementById('searchToggle');
+            const searchBar = document.getElementById('searchBar');
+            const langMenu = document.getElementById('customLangMenu');
+
+            if(mobileBtn && navMenu) {
+                mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+            }
+
+            if(filterToggle && filterMenu) {
+                filterToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (searchBar) searchBar.classList.remove('active');
+                    if (langMenu) langMenu.classList.remove('show');
+                    filterMenu.classList.toggle('show');
+                });
+            }
+
+            if(searchToggle && searchBar) {
+                searchToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    searchBar.classList.toggle('active');
+                });
+            }
+
+            [filterMenu, searchBar, langMenu].forEach(el => {
+                if(el) el.addEventListener('click', e => e.stopPropagation());
+            });
+
+            const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+            const loginIcon = document.getElementById('nav-login-icon');
+            const profileMenuContainer = document.getElementById('nav-profile-menu');
+            const profileBtn = document.getElementById('profile-dropdown-btn');
+            const userDropdown = document.getElementById('user-dropdown-menu');
+
+            if (isLoggedIn) {
+                if(loginIcon) loginIcon.style.display = 'none';
+                if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+                if(profileBtn) {
+                    profileBtn.addEventListener('click', function(e) {
+                        e.stopPropagation(); 
+                        if (filterMenu) filterMenu.classList.remove('show');
+                        if (langMenu) langMenu.classList.remove('show');
+                        userDropdown.classList.toggle('show');
+                    });
+                }
+            } else {
+                if(loginIcon) loginIcon.style.display = 'inline-flex';
+                if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+            }
+
+            window.addEventListener('click', function(e) {
+                if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+                if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+                if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+            });
+        });
+
+        function logoutUser() {
+            localStorage.removeItem('juxury_logged_in');
+            window.location.href = 'login.html'; 
+        }
+
+        // --- 2. ЛОГИКА ЗА LIGHTBOX ГАЛЕРИЯТА (Поправена) ---
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('lightboxClose');
+        const prevBtn = document.getElementById('lightboxPrev');
+        const nextBtn = document.getElementById('lightboxNext');
+
+        let currentGroup = [];
+        let currentIndex = 0;
+
+        // Намираме всички снимки в гридовете и им слагаме клик събитие
+        const grids = document.querySelectorAll('.image-grid');
+        grids.forEach(grid => {
+            const images = Array.from(grid.querySelectorAll('img'));
+            images.forEach((img, index) => {
+                img.addEventListener('click', () => {
+                    currentGroup = images;
+                    currentIndex = index;
+                    openLightbox();
+                });
+            });
+        });
+
+        function openLightbox() {
+            lightboxImg.src = currentGroup[currentIndex].src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        closeBtn.addEventListener('click', () => {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                lightbox.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentIndex++;
+            if (currentIndex >= currentGroup.length) currentIndex = 0;
+            lightboxImg.src = currentGroup[currentIndex].src;
+        });
+
+        prevBtn.addEventListener('click', () => {
+            currentIndex--;
+            if (currentIndex < 0) currentIndex = currentGroup.length - 1;
+            lightboxImg.src = currentGroup[currentIndex].src;
+        });
+    </script>
+<script>
+        // --- ЛОГИКА ЗА СПОДЕЛЯНЕ И ЗАПАЗВАНЕ ---
+        document.addEventListener("DOMContentLoaded", function() {
+            const saveBtn = document.getElementById('saveArticleBtn');
+            const shareBtn = document.getElementById('shareBtn');
+            const toast = document.getElementById('toastMessage');
+            
+            // Проверяваме дали сме логнати (използваме същата променлива от твоя код)
+            const isUserLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+
+            // Взимаме името на файла като уникално ID за статията (напр. "statiq1.html")
+            const articleId = window.location.pathname.split('/').pop() || 'current_article';
+
+            // Ако е логнат, проверяваме дали статията вече е запазена
+            if (isUserLoggedIn && saveBtn) {
+                let savedArticles = JSON.parse(localStorage.getItem('juxury_saved_articles')) || [];
+                if (savedArticles.includes(articleId)) {
+                    saveBtn.classList.add('saved');
+                    saveBtn.querySelector('i').classList.replace('fa-regular', 'fa-solid');
+                }
+
+                saveBtn.addEventListener('click', function() {
+                    let articles = JSON.parse(localStorage.getItem('juxury_saved_articles')) || [];
+                    
+                    if (articles.includes(articleId)) {
+                        // Премахва от запазени
+                        articles = articles.filter(id => id !== articleId);
+                        saveBtn.classList.remove('saved');
+                        saveBtn.querySelector('i').classList.replace('fa-solid', 'fa-regular');
+                        showToast('Статията е премахната от запазени');
+                    } else {
+                        // Добавя в запазени
+                        articles.push(articleId);
+                        saveBtn.classList.add('saved');
+                        saveBtn.querySelector('i').classList.replace('fa-regular', 'fa-solid');
+                        showToast('Статията е запазена в профила ви');
+                    }
+                    // Записваме в паметта на браузъра (за да го ползваме в профил менюто после)
+                    localStorage.setItem('juxury_saved_articles', JSON.stringify(articles));
+                });
+            } else if (saveBtn) {
+                // Ако не е логнат, го пращаме към логин страницата
+                saveBtn.addEventListener('click', function() {
+                    window.location.href = 'login.html'; 
+                });
+            }
+
+            // Логика за Споделяне
+            if(shareBtn) {
+                shareBtn.addEventListener('click', function() {
+                    // Ако е на телефон, отваря вграденото меню за споделяне на iOS/Android
+                    if (navigator.share) {
+                        navigator.share({
+                            title: document.title,
+                            url: window.location.href
+                        }).catch(console.error);
+                    } else {
+                        // Ако е на компютър, копира линка
+                        navigator.clipboard.writeText(window.location.href).then(() => {
+                            showToast('Линкът към статията е копиран!');
+                        });
+                    }
+                });
+            }
+
+            // Функция за показване на черното съобщение долу
+            function showToast(message) {
+                if(toast) {
+                    toast.textContent = message;
+                    toast.classList.add('show');
+                    setTimeout(() => {
+                        toast.classList.remove('show');
+                    }, 3000);
+                }
+            }
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Article - JUXURY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        .article-wrapper {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 40px;
+        }
+
+        /* ХЕДЪР НА СТАТИЯТА */
+        .review-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .review-header h1 {
+            font-family: 'Playfair Display', serif; font-size: 48px; margin-bottom: 15px; text-transform: uppercase;
+        }
+        .review-meta {
+            font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        /* РАЗДЕЛЕН ИЗГЛЕД: ТЕКСТ / ГАЛЕРИЯ */
+        .split-layout {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr; 
+            gap: 60px;
+            margin-bottom: 80px;
+            align-items: start;
+        }
+
+        /* ЛЯВА ЧАСТ: ТЕКСТ */
+        .review-text {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16px; line-height: 1.8; color: #333;
+        }
+        .review-text p { margin-bottom: 20px; }
+        .review-text .author { font-weight: bold; text-transform: uppercase; font-size: 12px; letter-spacing: 1px; margin-bottom: 30px; display: block; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+
+        /* ДЯСНА ЧАСТ: ГАЛЕРИЯ (ГЛАВНА) */
+        .review-gallery-container {
+            position: relative;
+        }
+        
+        .gallery-scroll-area {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-height: 800px;
+            overflow: hidden; 
+            transition: max-height 0.5s ease;
+        }
+
+        .gallery-scroll-area.expanded {
+            overflow-y: auto; 
+            padding-right: 10px; 
+        }
+        
+        .gallery-scroll-area::-webkit-scrollbar,
+        .details-scroll-area::-webkit-scrollbar { width: 6px; }
+        .gallery-scroll-area::-webkit-scrollbar-track,
+        .details-scroll-area::-webkit-scrollbar-track { background: #f1f1f1; }
+        .gallery-scroll-area::-webkit-scrollbar-thumb,
+        .details-scroll-area::-webkit-scrollbar-thumb { background: #111; }
+
+        .gallery-scroll-area img {
+            width: 100%;
+            aspect-ratio: 2/3; 
+            object-fit: cover;
+        }
+
+        /* БУТОНИ ЗА ПОКАЗВАНЕ НА ОЩЕ */
+        .btn-show-more {
+            display: block; width: 100%; padding: 20px; text-align: center; background: #111; color: #fff; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; border: none; cursor: pointer; margin-top: 20px; transition: 0.3s;
+        }
+        .btn-show-more:hover { background: #333; }
+
+        /* ДОЛНА ГАЛЕРИЯ (ДЕТАЙЛИ) */
+        .details-section {
+            max-width: 1600px; margin: 0 auto 80px auto; text-align: center;
+        }
+        .details-section h3 {
+            font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 30px; text-transform: uppercase;
+        }
+        .details-scroll-area {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px; 
+            max-height: 800px; 
+            overflow: hidden;
+            margin-bottom: 20px;
+            transition: max-height 0.5s ease;
+        }
+        .details-scroll-area.expanded {
+            overflow-y: auto;
+            max-height: 1200px;
+            padding-right: 10px;
+        }
+        .details-scroll-area img {
+            width: 100%;
+            aspect-ratio: 2/3; 
+            object-fit: cover;
+        }
+
+        /* ОЩЕ ОТ МАРКАТА (LATEST FROM) */
+        .related-articles {
+            border-top: 1px solid #eee; padding-top: 50px; margin-bottom: 80px;
+        }
+        .related-articles h3 {
+            font-family: 'Playfair Display', serif; font-size: 28px; text-align: center; margin-bottom: 40px; text-transform: uppercase;
+        }
+        .related-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+        }
+        .related-card { text-decoration: none; color: inherit; }
+        .related-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; margin-bottom: 15px; }
+        .related-card .cat { font-size: 11px; text-transform: uppercase; color: #888; letter-spacing: 1px; display: block; margin-bottom: 5px; }
+        .related-card h4 { font-family: 'Playfair Display', serif; font-size: 18px; margin: 0; line-height: 1.3; }
+
+        /* --- БУТОНИ ЗА ЗАПАЗВАНЕ И СПОДЕЛЯНЕ --- */
+        .article-actions {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .article-actions button {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 8px 20px;
+            cursor: pointer;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .article-actions button:hover {
+            border-color: #111;
+            background: #fafafa;
+        }
+
+        .article-actions button.saved {
+            background: #111;
+            color: #fff;
+            border-color: #111;
+        }
+
+        /* --- TOAST СЪОБЩЕНИЕ --- */
+        .toast {
+            position: fixed;
+            bottom: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            color: #fff;
+            padding: 12px 24px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            z-index: 10000;
+            transition: bottom 0.3s ease;
+        }
+        .toast.show {
+            bottom: 30px;
+        }
+
+        /* --- БУТОН "НАЗАД КЪМ RUNWAY" --- */
+        .btn-back-runway {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #111;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            transition: 0.3s;
+            margin-top: 20px;
+        }
+        .btn-back-runway:hover {
+            background: #333;
+        }
+        
+        /* --- КОД ЗА СКРИВАНЕ И СКРОЛИРАНЕ НА ТЕКСТА --- */
+        .review-text-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100%; 
+        }
+
+        .review-text-content {
+            max-height: 400px; 
+            overflow: hidden;
+            position: relative;
+            transition: max-height 0.5s ease;
+        }
+
+        .review-text-content.expanded {
+            max-height: 100%; 
+            overflow-y: auto; 
+            padding-right: 15px; 
+        }
+
+        .text-fade-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .review-text-content.expanded .text-fade-overlay {
+            opacity: 0;
+        }
+
+        .read-more-btn {
+            display: block;
+            margin-top: 15px;
+            padding: 10px 0;
+            background: transparent;
+            color: #000;
+            text-transform: uppercase;
+            font-size: 13px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border: none;
+            border-bottom: 1px solid #000;
+            width: fit-content;
+            cursor: pointer;
+            transition: color 0.3s, border-color 0.3s;
+        }
+
+        .read-more-btn:hover {
+            color: #666;
+            border-bottom: 1px solid #666;
+        }
+
+        .review-text-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .review-text-content::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+        /* --- МАГИЯТА ЗА СКРОЛИРАЩИЯ СЕ ТЕКСТ --- */
+.review-text-container { position: relative; display: flex; flex-direction: column; height: 100%; }
+.review-text-content { max-height: 400px; overflow: hidden; position: relative; transition: max-height 0.5s ease; }
+.review-text-content.expanded { max-height: 600px; overflow-y: auto; padding-right: 15px; }
+
+.text-fade-overlay {
+    position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1));
+    pointer-events: none; transition: opacity 0.3s ease;
+}
+.review-text-content.expanded .text-fade-overlay { opacity: 0; display: none; }
+
+.read-more-btn {
+    display: block; margin-top: 15px; padding: 10px 0; background: transparent; color: #000;
+    text-transform: uppercase; font-size: 13px; font-weight: bold; letter-spacing: 1px;
+    border: none; border-bottom: 1px solid #000; width: fit-content; cursor: pointer; transition: 0.3s;
+}
+.read-more-btn:hover { color: #666; border-bottom: 1px solid #666; }
+
+/* Скролбар */
+.review-text-content::-webkit-scrollbar { width: 6px; }
+.review-text-content::-webkit-scrollbar-track { background: transparent; }
+.review-text-content::-webkit-scrollbar-thumb { background: #dddddd; border-radius: 10px; }
+.review-text-content::-webkit-scrollbar-thumb:hover { background: #aaaaaa; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h2>JUXURY</h2>
+        </a>
+    </div>
+   
+    <div class="mobile-toggle" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+   <nav class="main-nav" id="navMenu">
+    <a href="index.html">HOME</a>
+    <a href="fashion.html">FASHION</a>
+    <a href="lifestyle.html">LIFESTYLE</a>
+    <a href="forum.html">FORUM</a>
+   </nav>
+
+    <div class="header-actions">
+        <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+       
+        <div class="menu-filter" id="filterToggle">
+            <i class="fas fa-bars"></i>
+            <div class="filter-dropdown" id="filterMenu">
+                <div class="filter-column">
+                    <h3>Fashion</h3>
+                    <a href="#">Гид за стил</a>
+                    <a href="#">Вечни класики</a>
+                    <a href="#">Модни ревюта</a>
+                    <a href="#">Звезден стил</a>
+                    <a href="#">Тенденции</a>
+                </div>
+                <div class="filter-column">
+                    <h3>Lifestyle</h3>
+                    <a href="#">Здравословно хранене</a>
+                    <a href="#">Фитнес и спорт</a>
+                    <a href="#">Баланс и здраве</a>
+                    <a href="#">Луксозни пътувания</a>
+                    <a href="#">Фокус</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="lang-wrapper">
+            <div class="lang-icon" onclick="toggleTranslate(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </div>
+           
+            <div class="custom-lang-menu notranslate" id="customLangMenu">
+                <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+            </div>
+
+            <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+        </div>
+
+        <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+
+        <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+            <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+           
+            <div class="user-dropdown" id="user-dropdown-menu">
+                <a href="profile.html">Управление на профила</a>
+                <a href="saved.html">Запазени статии</a>
+                <a href="#" onclick="logoutUser(); return false;">Изход</a>
+            </div>
+        </div>
+    </div>
+   
+    <div class="search-overlay" id="searchBar">
+        <form action="#" method="GET" class="search-form">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" placeholder="Въведете ключова дума..." name="q">
+            <button type="submit">Търсене</button>
+        </form>
+    </div>
+</header>
+
+<div class="article-wrapper" id="articleContent"></div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'bg',
+        includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function doTranslate(langCode) {
+        var menu = document.getElementById('customLangMenu');
+        if (menu) menu.classList.remove('show');
+
+        if (langCode === 'bg') {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+            return;
+        }
+
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+        } else {
+            document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+            document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+        }
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    function toggleTranslate(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('customLangMenu').classList.toggle('show');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const filterToggle = document.getElementById('filterToggle');
+        const filterMenu = document.getElementById('filterMenu');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchBar = document.getElementById('searchBar');
+        const langMenu = document.getElementById('customLangMenu');
+
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+        }
+
+        if(filterToggle && filterMenu) {
+            filterToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (searchBar) searchBar.classList.remove('active');
+                if (langMenu) langMenu.classList.remove('show');
+                filterMenu.classList.toggle('show');
+            });
+        }
+
+        if(searchToggle && searchBar) {
+            searchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (filterMenu) filterMenu.classList.remove('show');
+                if (langMenu) langMenu.classList.remove('show');
+                searchBar.classList.toggle('active');
+            });
+        }
+
+        [filterMenu, searchBar, langMenu].forEach(el => {
+            if(el) el.addEventListener('click', e => e.stopPropagation());
+        });
+
+        const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+        const loginIcon = document.getElementById('nav-login-icon');
+        const profileMenuContainer = document.getElementById('nav-profile-menu');
+        const profileBtn = document.getElementById('profile-dropdown-btn');
+        const userDropdown = document.getElementById('user-dropdown-menu');
+
+        if (isLoggedIn) {
+            if(loginIcon) loginIcon.style.display = 'none';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+            if(profileBtn) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    userDropdown.classList.toggle('show');
+                });
+            }
+        } else {
+            if(loginIcon) loginIcon.style.display = 'inline-flex';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+        }
+
+        window.addEventListener('click', function(e) {
+            if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+            if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+            if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+        });
+    });
+
+    function logoutUser() {
+        localStorage.removeItem('juxury_logged_in');
+        window.location.href = 'login.html';
+    }
+</script>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    let currentNewsId = urlParams.get('id') || 1; // ID на новината
+    let currentBrand = urlParams.get('brand') || "balenciaga"; // От коя марка идваме
+
+    // Предполага се, че ще създадеш get_news_article.php, който връща данните за новината по ID
+    fetch(`get_news_article.php?id=${currentNewsId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                document.getElementById('articleContent').innerHTML = `<h2 style="text-align:center; margin-top:50px;">${data.error}</h2>`;
+                return;
+            }
+
+            // ГЕНЕРИРАНЕ НА ГЛАВНА ГАЛЕРИЯ (Ако новината има снимки, ги показваме. Ако main_images_count е 0, ще е празно)
+            let mainGalleryHTML = '';
+            for(let i = 1; i <= data.main_images_count; i++) {
+                mainGalleryHTML += `<img src="images/news/${data.id}/main/${i}.webp" onerror="this.src='https://via.placeholder.com/400x600?text=Липсва+снимка'" alt="Look ${i}">`;
+            }
+
+            // ГЕНЕРИРАНЕ НА ГАЛЕРИЯ С ДЕТАЙЛИ
+            let detailsGalleryHTML = '';
+            for(let i = 1; i <= data.detail_images_count; i++) {
+                detailsGalleryHTML += `<img src="images/news/${data.id}/details/${i}.webp" onerror="this.src='https://via.placeholder.com/400x600?text=Липсва+детайл'" alt="Detail ${i}">`;
+            }
+
+            // СГЛОБЯВАНЕ НА HTML
+            const contentHTML = `
+                <div class="review-header">
+                    <h1>${data.title}</h1>
+                    <span class="review-meta">${data.meta}</span>
+                    
+                    <div class="article-actions">
+                        <button id="saveBtn"><i class="fa-regular fa-bookmark"></i> Запази</button>
+                        <button id="shareBtn"><i class="fa-solid fa-share-nodes"></i> Сподели</button>
+                    </div>
+                </div>
+
+                <div class="split-layout">
+                    <div class="review-text">
+                        <div class="review-text-container">
+                            <div class="review-text-content" id="textWrapper">
+                                <span class="author">${data.author}</span>
+                                ${data.content}
+                                <div class="text-fade-overlay"></div>
+                            </div>
+                            <button class="read-more-btn" id="readMoreBtn">Прочети още</button>
+                        </div>
+                    </div>
+                    
+                    <div class="review-gallery-container" ${data.main_images_count > 0 ? '' : 'style="display:none;"'}>
+                        <div class="gallery-scroll-area" id="mainGallery">
+                            ${mainGalleryHTML} 
+                        </div>
+                        <button class="btn-show-more" id="showMoreMainBtn">Виж всички ${data.main_images_count} снимки</button>
+                    </div>
+                </div> 
+
+                <div class="details-section" ${data.detail_images_count > 0 ? '' : 'style="display:none;"'}>
+                    <h3>Още кадри</h3>
+                    <div class="details-scroll-area" id="detailsGallery">
+                        ${detailsGalleryHTML} 
+                    </div>
+                    <button class="btn-show-more" id="showMoreDetailsBtn">Покажи още</button>
+                </div>
+
+                <div class="related-articles">
+                    <div style="text-align: center; margin-top: 60px;">
+                        <a href="runway-article.html?brand=${currentBrand}" class="btn-back-runway">
+                            <i class="fa-solid fa-arrow-left"></i> Обратно към ревюто на ${data.brand_name || currentBrand}
+                        </a>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('articleContent').innerHTML = contentHTML;
+
+            // Логиката за скролиращия текст (остава същата)
+            const readMoreBtn = document.getElementById('readMoreBtn');
+            const textWrapper = document.getElementById('textWrapper');
+
+            if (readMoreBtn && textWrapper) {
+                readMoreBtn.addEventListener('click', function() {
+                    if (textWrapper.classList.contains('expanded')) {
+                        textWrapper.classList.remove('expanded');
+                        readMoreBtn.innerHTML = 'Прочети още';
+                        textWrapper.scrollTop = 0;
+                    } else {
+                        textWrapper.classList.add('expanded');
+                        readMoreBtn.innerHTML = 'Скрий текста';
+                    }
+                });
+            }
+
+            // Логика за галериите
+            const mainGallery = document.getElementById('mainGallery');
+            const showMoreMainBtn = document.getElementById('showMoreMainBtn');
+            if(showMoreMainBtn && data.main_images_count > 0) {
+                showMoreMainBtn.addEventListener('click', function() {
+                    mainGallery.classList.add('expanded');
+                    showMoreMainBtn.style.display = 'none';
+                });
+            }
+
+            const detailsGallery = document.getElementById('detailsGallery');
+            const showMoreDetailsBtn = document.getElementById('showMoreDetailsBtn');
+            if(showMoreDetailsBtn && data.detail_images_count > 0) {
+                showMoreDetailsBtn.addEventListener('click', function() {
+                    detailsGallery.classList.add('expanded');
+                    showMoreDetailsBtn.style.display = 'none';
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Грешка:', error);
+            document.getElementById('articleContent').innerHTML = '<h2 style="text-align:center; margin-top:50px;">Грешка при връзката с базата данни!</h2>';
+        });
+</script>
+<script src="main.js"></script>
+</body>
+</html>

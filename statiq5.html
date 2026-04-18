@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Модни тенденции за 2026 - JUXURY</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+   <style>
+        .article-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 20px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .article-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .article-category {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .article-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: #111;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .article-subtitle {
+            font-size: 18px;
+            color: #555;
+            font-style: italic;
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .article-image {
+            display: block;
+            width: 70%;
+            margin: 40px auto; 
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .image-caption {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            margin-top: -25px;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+
+        .article-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            margin-top: 50px;
+            margin-bottom: 20px;
+            color: #111;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .article-content p {
+            margin-bottom: 25px;
+            font-size: 17px;
+            color: #333;
+        }
+
+        .quote {
+            border-left: 4px solid #d4af37; 
+            padding-left: 20px;
+            margin: 40px 0;
+            background: #fdfbf7;
+            padding: 20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-style: italic;
+            color: #000;
+        }
+
+        .more-articles-section {
+            margin-top: 80px;
+            padding-top: 50px;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-all-articles {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: #111;
+            color: #fff;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 14px;
+            border: 1px solid #111;
+            transition: all 0.3s ease;
+            margin-bottom: 60px;
+        }
+
+        .btn-all-articles:hover {
+            background-color: #fff;
+            color: #111;
+        }
+
+        .related-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            text-align: left;
+            margin-bottom: 30px;
+            color: #111;
+        }
+
+        .random-articles-grid {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .random-article-card {
+            width: 31%;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.3s ease;
+        }
+
+        .random-article-card:hover {
+            opacity: 0.8;
+        }
+
+        .random-article-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+
+        .random-article-card .cat {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .random-article-card h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 18px;
+            margin: 0;
+            color: #111;
+            line-height: 1.3;
+        }
+
+        @media (max-width: 768px) {
+            .random-articles-grid {
+                flex-direction: column;
+            }
+            .random-article-card {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+        }
+
+        .article-footer-actions {
+            display: flex;
+            flex-direction: column; 
+            align-items: center; 
+            gap: 25px; 
+            margin-top: 80px;
+            padding-top: 50px;
+            border-top: 1px solid #eee;
+            margin-bottom: 80px;
+        }
+
+        .btn-all-articles {
+            display: inline-block;
+            padding: 16px 45px;
+            background-color: #111; 
+            color: #fff; 
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            border: 1px solid #111;
+            transition: all 0.3s ease;
+        }
+
+        .btn-all-articles:hover {
+            background-color: transparent;
+            color: #111;
+        }
+
+        .back-to-fashion {
+            color: #888; 
+            text-decoration: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .back-to-fashion i {
+            margin-right: 10px;
+            font-size: 16px;
+            transition: transform 0.3s ease;
+        }
+
+        .back-to-fashion:hover {
+            color: #d4af37; 
+        }
+
+        .back-to-fashion:hover i {
+            transform: translateX(-5px); 
+        }
+
+        .article-container {
+            max-width: 1200px; 
+            margin: 60px auto;
+            padding: 0 20px;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            color: #333;
+            line-height: 1.8;
+        }
+
+        .article-subtitle {
+            font-size: 18px;
+            color: #555;
+            font-style: italic;
+            max-width: 900px; 
+            margin: 0 auto;
+        }
+
+        .article-actions-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 30px;
+            margin-bottom: 40px;
+            padding-top: 25px;
+            border-top: 1px solid #eaeaea;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #555;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: color 0.3s ease;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .action-btn i {
+            font-size: 18px;
+            transition: transform 0.3s ease;
+        }
+
+        .action-btn:hover {
+            color: #d4af37; 
+        }
+
+        .action-btn:hover i {
+            transform: translateY(-2px);
+        }
+
+        .action-btn.saved i {
+            color: #d4af37;
+            font-weight: 900; 
+        }
+
+        .toast-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #111;
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 4px;
+            font-size: 14px;
+            letter-spacing: 1px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            z-index: 10000;
+        }
+
+        .toast-message.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(-10px);
+        }
+
+        /* --- СТИЛОВЕ ЗА ВЕРТИКАЛНАТА ГАЛЕРИЯ И БУТОНИТЕ --- */
+        .vertical-gallery {
+            display: flex;
+            flex-direction: column; 
+            align-items: center;    
+            width: 100%;
+        }
+
+        .vertical-gallery .gallery-item {
+            display: none; 
+            animation: fadeInDown 0.6s ease forwards;
+        }
+
+        /* Показваме само ПЪРВАТА снимка по подразбиране */
+        .vertical-gallery .gallery-item:first-child {
+            display: block;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gallery-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            margin-top: 20px;
+        }
+
+        .btn-gallery {
+            padding: 15px 35px;
+            background-color: #111;
+            color: #fff;
+            border: 1px solid #111;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        .btn-gallery:hover {
+            background-color: transparent;
+            color: #111;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #888;
+            border-color: #ccc;
+        }
+
+        .btn-secondary:hover {
+            background-color: #111;
+            color: #fff;
+            border-color: #111;
+        }
+</style>
+</head>
+<body>
+
+    <header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h2>JUXURY</h2>
+        </a>
+    </div>
+    
+    <div class="mobile-toggle" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+   <nav class="main-nav" id="navMenu">
+    <a href="index.html">HOME</a>
+    <a href="fashion.html" class="active">FASHION</a> 
+    <a href="lifestyle.html">LIFESTYLE</a>
+    <a href="forum.html">FORUM</a>
+   </nav>
+
+    <div class="header-actions">
+        <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+        
+        <div class="menu-filter" id="filterToggle">
+            <i class="fas fa-bars"></i>
+            <div class="filter-dropdown" id="filterMenu">
+                <div class="filter-column">
+                    <h3>Fashion</h3>
+                    <a href="#">Гид за стил</a>
+                    <a href="#">Вечни класики</a>
+                    <a href="#">Модни ревюта</a>
+                    <a href="#">Звезден стил</a>
+                    <a href="#">Тенденции</a>
+                </div>
+                <div class="filter-column">
+                    <h3>Lifestyle</h3>
+                    <a href="#">Здравословно хранене</a>
+                    <a href="#">Фитнес и спорт</a>
+                    <a href="#">Баланс и здраве</a>
+                    <a href="#">Луксозни пътувания</a>
+                    <a href="#">Фокус</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="lang-wrapper">
+            <div class="lang-icon" onclick="toggleTranslate(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </div>
+            
+            <div class="custom-lang-menu notranslate" id="customLangMenu">
+                <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+            </div>
+
+            <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+        </div>
+
+        <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+
+        <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+            <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            
+            <div class="user-dropdown" id="user-dropdown-menu">
+                <a href="profile.html">Управление на профила</a>
+                <a href="saved.html">Запазени статии</a>
+                <a href="#" onclick="logoutUser(); return false;">Изход</a>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="search-overlay" id="searchBar">
+        <form action="#" method="GET" class="search-form">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" placeholder="Въведете ключова дума..." name="q">
+            <button type="submit">Търсене</button>
+        </form>
+    </div>
+</header>
+<div class="article-actions-bar">
+    <button class="action-btn" id="shareBtn" title="Сподели статията">
+        <i class="fa-solid fa-share-nodes"></i> Сподели
+    </button>
+    <button class="action-btn" id="saveArticleBtn" title="Запази в профила">
+        <i class="fa-regular fa-bookmark"></i> Запази
+    </button>
+</div>
+        
+<div class="toast-message" id="toastMessage">Съобщение...</div>
+
+<div class="article-container">
+    <div class="article-header">
+        <span class="article-category">STREET STYLE </span>
+        <h1>Вижте най-добрите street style снимки от ревютата пролет 2026 в Шанхай</h1>
+        <p class="article-subtitle">Снимки от Yumeng Zheng</p>
+    </div>
+
+    <img src="images/statiq51.webp" alt="Модна визия 2026" class="article-image">
+
+    <div class="article-content">
+        <p>Докато тук, в Ню Йорк, сме в разгара на силна буря (Nor’easter), на другия край на света, на Седмицата на модата в Шанхай, посетителите се наслаждават на седмица с горещи температури. На фронта на уличния стил това означава мини поли, прозрачни рокли и кроп топове. От друга страна, онези, които са готови да оставят лятото окончателно зад гърба си, залагат на карирани костюми – следвайки тенденцията, която видяхме пред последните ревюта в Ню Йорк, Лондон, Милано и Париж. Проследете заедно с нас обектива на Юменг Джън, който заснема най-добре облечените гости от ревютата за пролет 2026 в Шанхай.</p>
+        
+        <div class="vertical-gallery" id="verticalGallery">
+            <img src="images/statiq512.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq53.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq54.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq55.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq56.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq57.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq58.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq59.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq510.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq511.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq513.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq514.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq515.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq516.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq517.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq518.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq519.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq520.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq521.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq522.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq523.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq524.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq525.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq526.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq527.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq528.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq529.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq530.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq531.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq532.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq533.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq534.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq535.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq536.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq537.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq538.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq539.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq540.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq541.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq542.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq543.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq544.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq545.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq546.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq547.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq548.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq549.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq550.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq551.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq552.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq553.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq554.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq555.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq556.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq557.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq558.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq559.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq560.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq561.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq562.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq563.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq564.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq565.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq566.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq567.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq568.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq569.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq570.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq571.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq572.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq573.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq574.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq575.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq576.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq577.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq578.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq579.webp" alt="Модна визия 2026" class="article-image gallery-item">
+            <img src="images/statiq580.webp" alt="Модна визия 2026" class="article-image gallery-item">
+        </div>
+        
+        <div class="gallery-buttons" id="galleryButtons">
+            <button id="loadMoreBtn" class="btn-gallery">Вижте повече</button>
+            <button id="showLessBtn" class="btn-gallery btn-secondary" style="display: none;">Вижте по-малко</button>
+        </div>
+
+    </div>
+    
+    <div class="article-footer-actions">
+        <a href="fashion.html" class="back-to-fashion">
+            <i class="fas fa-long-arrow-alt-left"></i> Обратно към Fashion
+        </a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'bg',
+        includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function doTranslate(langCode) {
+        var menu = document.getElementById('customLangMenu');
+        if (menu) menu.classList.remove('show');
+
+        if (langCode === 'bg') {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+            return;
+        }
+
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+        } else {
+            document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+            document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+        }
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    function toggleTranslate(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('customLangMenu').classList.toggle('show');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const filterToggle = document.getElementById('filterToggle');
+        const filterMenu = document.getElementById('filterMenu');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchBar = document.getElementById('searchBar');
+        const langMenu = document.getElementById('customLangMenu');
+
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+        }
+
+        if(filterToggle && filterMenu) {
+            filterToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (searchBar) searchBar.classList.remove('active');
+                if (langMenu) langMenu.classList.remove('show');
+                filterMenu.classList.toggle('show');
+            });
+        }
+
+        if(searchToggle && searchBar) {
+            searchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (filterMenu) filterMenu.classList.remove('show');
+                if (langMenu) langMenu.classList.remove('show');
+                searchBar.classList.toggle('active');
+            });
+        }
+
+        [filterMenu, searchBar, langMenu].forEach(el => {
+            if(el) el.addEventListener('click', e => e.stopPropagation());
+        });
+
+        const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+        const loginIcon = document.getElementById('nav-login-icon');
+        const profileMenuContainer = document.getElementById('nav-profile-menu');
+        const profileBtn = document.getElementById('profile-dropdown-btn');
+        const userDropdown = document.getElementById('user-dropdown-menu');
+
+        if (isLoggedIn) {
+            if(loginIcon) loginIcon.style.display = 'none';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+            if(profileBtn) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    userDropdown.classList.toggle('show');
+                });
+            }
+        } else {
+            if(loginIcon) loginIcon.style.display = 'inline-flex';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+        }
+
+        window.addEventListener('click', function(e) {
+            if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+            if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+            if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+        });
+    });
+
+    function logoutUser() {
+        localStorage.removeItem('juxury_logged_in');
+        window.location.href = 'login.html'; 
+    }
+</script>
+
+<script>
+    // --- ЛОГИКА ЗА СПОДЕЛЯНЕ И ЗАПАЗВАНЕ ---
+    document.addEventListener("DOMContentLoaded", function() {
+        const saveBtn = document.getElementById('saveArticleBtn');
+        const shareBtn = document.getElementById('shareBtn');
+        const toast = document.getElementById('toastMessage');
+        
+        const isUserLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+        const articleId = window.location.pathname.split('/').pop() || 'current_article';
+
+        if (isUserLoggedIn && saveBtn) {
+            let savedArticles = JSON.parse(localStorage.getItem('juxury_saved_articles')) || [];
+            if (savedArticles.includes(articleId)) {
+                saveBtn.classList.add('saved');
+                saveBtn.querySelector('i').classList.replace('fa-regular', 'fa-solid');
+            }
+
+            saveBtn.addEventListener('click', function() {
+                let articles = JSON.parse(localStorage.getItem('juxury_saved_articles')) || [];
+                
+                if (articles.includes(articleId)) {
+                    articles = articles.filter(id => id !== articleId);
+                    saveBtn.classList.remove('saved');
+                    saveBtn.querySelector('i').classList.replace('fa-solid', 'fa-regular');
+                    showToast('Статията е премахната от запазени');
+                } else {
+                    articles.push(articleId);
+                    saveBtn.classList.add('saved');
+                    saveBtn.querySelector('i').classList.replace('fa-regular', 'fa-solid');
+                    showToast('Статията е запазена в профила ви');
+                }
+                localStorage.setItem('juxury_saved_articles', JSON.stringify(articles));
+            });
+        } else if (saveBtn) {
+            saveBtn.addEventListener('click', function() {
+                window.location.href = 'login.html'; 
+            });
+        }
+
+        if(shareBtn) {
+            shareBtn.addEventListener('click', function() {
+                if (navigator.share) {
+                    navigator.share({
+                        title: document.title,
+                        url: window.location.href
+                    }).catch(console.error);
+                } else {
+                    navigator.clipboard.writeText(window.location.href).then(() => {
+                        showToast('Линкът към статията е копиран!');
+                    });
+                }
+            });
+        }
+
+        function showToast(message) {
+            if(toast) {
+                toast.textContent = message;
+                toast.classList.add('show');
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            }
+        }
+    });
+</script>
+
+<script>
+    // --- ЛОГИКА ЗА ДИНАМИЧНАТА ГАЛЕРИЯ ---
+    document.addEventListener('DOMContentLoaded', function() {
+        const allImages = Array.from(document.querySelectorAll('.gallery-item'));
+        const loadMoreBtn = document.getElementById('loadMoreBtn');
+        const showLessBtn = document.getElementById('showLessBtn');
+        
+        let currentVisible = 1; // Започваме от 1, защото първата снимка се вижда
+        const imagesPerClick = 3;
+
+        if (loadMoreBtn && showLessBtn) {
+            loadMoreBtn.addEventListener('click', function() {
+                let limit = currentVisible + imagesPerClick;
+                let lastShownImage = null;
+                
+                // Показва следващите 3 снимки
+                for (let i = currentVisible; i < limit && i < allImages.length; i++) {
+                    allImages[i].style.display = 'block';
+                    lastShownImage = allImages[i];
+                }
+                
+                currentVisible += imagesPerClick;
+
+                // Показва бутона "Вижте по-малко"
+                if (currentVisible > 1) {
+                    showLessBtn.style.display = 'inline-block';
+                }
+
+                // Скрива "Вижте повече", ако сме стигнали до края
+                if (currentVisible >= allImages.length) {
+                    loadMoreBtn.style.display = 'none';
+                }
+
+                // Плавно скролване до последната показана снимка
+                if (lastShownImage) {
+                    setTimeout(() => {
+                        lastShownImage.scrollIntoView({ behavior: 'smooth', block: 'end' });
+                    }, 100);
+                }
+            });
+
+            showLessBtn.addEventListener('click', function() {
+                // Скрива всички снимки след първата
+                for (let i = 1; i < allImages.length; i++) {
+                    allImages[i].style.display = 'none';
+                }
+                
+                currentVisible = 1; // Нулира брояча
+                
+                // Възстановява бутоните
+                loadMoreBtn.style.display = 'inline-block';
+                showLessBtn.style.display = 'none';
+                
+                // Скролва обратно до първата снимка
+                allImages[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        }
+    });
+</script>
+<script src="main.js"></script>
+</body>
+</html>

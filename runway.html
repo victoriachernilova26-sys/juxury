@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runway Exclusive - JUXURY</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- RUNWAY ОСНОВНИ СТИЛОВЕ --- */
+        .runway-header {
+            text-align: center;
+            margin: 60px 0 40px;
+        }
+
+        .runway-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px;
+            color: #111;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .runway-header p {
+            color: #666;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .runway-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* --- БЕЗПЛАТНА ВЕРСИЯ --- */
+        #free-view {
+            position: relative;
+        }
+
+        .free-articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .article-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: opacity 0.3s ease;
+        }
+
+        .article-card:hover {
+            opacity: 0.8;
+        }
+
+        .article-card img {
+            width: 100%;
+            aspect-ratio: 3/4;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+
+        .article-card .category {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .article-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            line-height: 1.3;
+            margin: 0;
+        }
+
+        /* --- СТАРИЯТ ЗДРАВ СТИЛ ЗА ПРЕГРАДАТА И МОДАЛИТЕ (НЕПОКЪТНАТ) --- */
+        .paywall-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.9) 40%, rgba(255,255,255,1) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 40px;
+            z-index: 10;
+        }
+
+        .premium-badge {
+            background: #111;
+            color: #d4af37;
+            padding: 5px 15px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .paywall-overlay h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .paywall-overlay p {
+            color: #555;
+            margin-bottom: 25px;
+            text-align: center;
+            max-width: 500px;
+            line-height: 1.6;
+        }
+
+        .btn-subscribe {
+            padding: 16px 45px;
+            background-color: #111;
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            border: 1px solid #111;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-subscribe:hover {
+            background-color: transparent;
+            color: #111;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .subscription-modal {
+            background: #fff;
+            padding: 50px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .subscription-modal h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .price {
+            font-size: 40px;
+            font-weight: bold;
+            color: #111;
+            margin: 20px 0;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .price span {
+            font-size: 16px;
+            color: #888;
+            font-weight: normal;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 30px 0;
+            text-align: left;
+        }
+
+        .features-list li {
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #555;
+        }
+
+        .features-list i {
+            color: #d4af37;
+            margin-right: 10px;
+        }
+
+        .payment-form {
+            text-align: left;
+            margin-bottom: 25px;
+        }
+        
+        .payment-form label {
+            display: block;
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .payment-form input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .payment-form input:focus {
+            border-color: #111;
+        }
+
+        .payment-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* --- ПЛАТЕНА ВЕРСИЯ (МАРКИ И РЕВЮТА) --- */
+        #premium-view {
+            display: none;
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            margin-top: 50px;
+        }
+
+        /* --- НОВИЯТ ДИЗАЙН ЗА МАРКИТЕ (С ТВОИТЕ СНИМКИ) --- */
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-bottom: 80px;
+        }
+
+        .brand-item {
+            position: relative;
+            aspect-ratio: 2/3;
+            overflow: hidden;
+            display: block;
+            text-decoration: none;
+            background: #000;
+            border-radius: 4px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .brand-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(80%);
+            opacity: 0.8;
+            transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .brand-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 50%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 30px;
+            transition: all 0.4s ease;
+        }
+
+        .brand-name {
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            letter-spacing: 1px;
+            text-align: center;
+            text-transform: uppercase;
+            transform: translateY(10px);
+            transition: all 0.4s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .brand-item:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+            transform: scale(1.08);
+        }
+        .brand-item:hover .brand-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.2) 60%);
+        }
+        .brand-item:hover .brand-name {
+            transform: translateY(0);
+            color: #d4af37;
+            letter-spacing: 3px;
+        }
+
+        /* --- НОВИЯТ ДИЗАЙН ЗА СТАТИИТЕ --- */
+        .indie-brands-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .indie-card {
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        
+        .indie-card:hover { transform: translateY(-8px); }
+
+        .indie-img-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border-radius: 2px;
+        }
+
+        .indie-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s ease; }
+        .indie-card:hover .indie-img-wrapper img { transform: scale(1.05); }
+
+        .indie-img-wrapper .category {
+            position: absolute; top: 15px; left: 15px; background: #111; color: #d4af37;
+            padding: 6px 12px; font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+            z-index: 2; font-weight: bold; box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .indie-card h3 { font-family: 'Playfair Display', serif; font-size: 20px; line-height: 1.4; margin: 0; transition: color 0.3s ease; }
+        .indie-card:hover h3 { color: #666; }
+        
+        .read-more-text {
+            font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px;
+            color: #999; font-weight: bold; display: flex; align-items: center; gap: 5px; transition: color 0.3s;
+        }
+        .indie-card:hover .read-more-text { color: #111; }
+
+        @media (max-width: 1024px) {
+            .brands-grid { grid-template-columns: repeat(3, 1fr); }
+            .indie-brands-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 768px) {
+            .free-articles-grid { grid-template-columns: 1fr; }
+            .brands-grid { grid-template-columns: repeat(2, 1fr); }
+            .indie-brands-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h2>JUXURY</h2>
+        </a>
+    </div>
+    
+    <div class="mobile-toggle" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+   <nav class="main-nav" id="navMenu">
+    <a href="index.html">HOME</a>
+    <a href="fashion.html" class="active">FASHION</a> 
+    <a href="lifestyle.html">LIFESTYLE</a>
+    <a href="forum.html">FORUM</a>
+   </nav>
+
+    <div class="header-actions">
+        <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+        
+        <div class="menu-filter" id="filterToggle">
+            <i class="fas fa-bars"></i>
+            <div class="filter-dropdown" id="filterMenu">
+                <div class="filter-column">
+                    <h3>Fashion</h3>
+                    <a href="#">Гид за стил</a>
+                    <a href="#">Вечни класики</a>
+                    <a href="#">Модни ревюта</a>
+                    <a href="#">Звезден стил</a>
+                    <a href="#">Тенденции</a>
+                </div>
+                <div class="filter-column">
+                    <h3>Lifestyle</h3>
+                    <a href="#">Здравословно хранене</a>
+                    <a href="#">Фитнес и спорт</a>
+                    <a href="#">Баланс и здраве</a>
+                    <a href="#">Луксозни пътувания</a>
+                    <a href="#">Фокус</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="lang-wrapper">
+            <div class="lang-icon" onclick="toggleTranslate(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </div>
+            
+            <div class="custom-lang-menu notranslate" id="customLangMenu">
+                <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+            </div>
+
+            <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+        </div>
+
+        <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+
+        <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+            <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            
+            <div class="user-dropdown" id="user-dropdown-menu">
+                <a href="profile.html">Управление на профила</a>
+                <a href="saved.html">Запазени статии</a>
+                <a href="#" onclick="logoutUser(); return false;">Изход</a>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="search-overlay" id="searchBar">
+        <form action="#" method="GET" class="search-form">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" placeholder="Въведете ключова дума..." name="q">
+            <button type="submit">Търсене</button>
+        </form>
+    </div>
+</header>
+
+<div class="runway-header">
+    <h1>Runway Exclusive</h1>
+    <p>Достъп до най-новите колекции и анализи</p>
+</div>
+
+<div class="runway-container">
+
+     <div id="free-view">
+        <div class="free-articles-grid">
+            <a href="#" class="street-grid-item" style="text-decoration:none; color:inherit;">
+                <div class="runway-imgg-wrapper">
+                    <img src="images/runway1.jpg" alt="August Barron" style="width:100%; aspect-ratio:3/4; object-fit:cover; margin-bottom:15px;">
+                </div>
+                <h3 style="font-family:'Playfair Display',serif; font-size:20px; margin:0;">August Barron</h3>
+                <p style="font-size:11px; text-transform:uppercase; color:#888; margin-top:5px;">От Bror August Vestbø & Benjamin Barron</p>
+            </a>
+            
+            <a href="#" class="street-grid-item" style="text-decoration:none; color:inherit;">
+                <div class="runway-imgg-wrapper">
+                    <img src="images/runway2.jpg" alt="Vaquera" style="width:100%; aspect-ratio:3/4; object-fit:cover; margin-bottom:15px;">
+                </div>
+                <h3 style="font-family:'Playfair Display',serif; font-size:20px; margin:0;">Vaquera</h3>
+                <p style="font-size:11px; text-transform:uppercase; color:#888; margin-top:5px;">От Patric DiCaprio & Bryn Taubensee</p>
+            </a>
+            
+            <a href="#" class="street-grid-item" style="text-decoration:none; color:inherit;">
+                <div class="runway-imgg-wrapper">
+                    <img src="images/runway3.jpg" alt="Marie Adam-Leenaerdt" style="width:100%; aspect-ratio:3/4; object-fit:cover; margin-bottom:15px;">
+                </div>
+                <h3 style="font-family:'Playfair Display',serif; font-size:20px; margin:0;">Marie Adam-Leenaerdt</h3>
+                <p style="font-size:11px; text-transform:uppercase; color:#888; margin-top:5px;">От Marie Adam-Leenaerdt</p>
+            </a>
+        </div>
+
+
+        <div class="paywall-overlay" id="paywallOverlay">
+            <span class="premium-badge">Juxury Premium</span>
+            <h2>Отключете пълния архив Runway</h2>
+            <p>Получете ексклузивен достъп до всички ревюта на топ дизайнерски марки, пълни галерии и експертни анализи от първия ред.</p>
+            <button class="btn-subscribe" id="openSubscriptionBtn">Абонирайте се за €2/месец</button>
+        </div>
+    </div>
+
+    <div id="premium-view">
+        
+        <div style="text-align: right; margin-bottom: 20px;">
+            <a href="#" id="cancelSubscriptionBtn" style="color: #999; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; text-decoration: underline; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">Прекратяване на абонамента</a>
+        </div>
+
+        <h2 class="section-title">Топ Дизайнерски Марки</h2>
+        <div class="brands-grid">
+            <a href="runway-article.html?brand=chanel" class="brand-item">
+                <img src="images/chanel.webp" alt="Chanel">
+                <div class="brand-overlay"><span class="brand-name">Chanel</span></div>
+            </a>
+            <a href="runway-article.html?brand=dior" class="brand-item">
+                <img src="images/dior.webp" alt="Dior">
+                <div class="brand-overlay"><span class="brand-name">Dior</span></div>
+            </a>
+            <a href="runway-article.html?brand=rickowens" class="brand-item">
+                <img src="images/rickowens.webp" alt="Rick Owens">
+                <div class="brand-overlay"><span class="brand-name">Rick Owens</span></div>
+            </a>
+            <a href="runway-article.html?brand=victoriabekham" class="brand-item">
+                <img src="images/victoriabekham.webp" alt="Victoria Beckham">
+                <div class="brand-overlay"><span class="brand-name">Victoria Beckham</span></div>
+            </a>
+            <a href="runway-article.html?brand=saintlaurent" class="brand-item">
+                <img src="images/saintlaurent.webp" alt="Saint Laurent">
+                <div class="brand-overlay"><span class="brand-name">Saint Laurent</span></div>
+            </a>
+            <a href="runway-article.html?brand=loewe" class="brand-item">
+                <img src="images/loewe.webp" alt="Loewe">
+                <div class="brand-overlay"><span class="brand-name">Loewe</span></div>
+            </a>
+            <a href="runway-article.html?brand=balenciaga" class="brand-item">
+                <img src="images/balenciaga.webp" alt="Balenciaga">
+                <div class="brand-overlay"><span class="brand-name">Balenciaga</span></div>
+            </a>
+            <a href="runway-article.html?brand=valentino" class="brand-item">
+                <img src="images/valentino.webp" alt="Valentino">
+                <div class="brand-overlay"><span class="brand-name">Valentino</span></div>
+            </a>
+            <a href="runway-article.html?brand=mcqueen" class="brand-item">
+                <img src="images/mcqueen.webp" alt="Alexander McQueen">
+                <div class="brand-overlay"><span class="brand-name">McQueen</span></div>
+            </a>
+            <a href="runway-article.html?brand=junyawatanabe" class="brand-item">
+                <img src="images/junyawatanabe.webp" alt="Junya Watanabe">
+                <div class="brand-overlay"><span class="brand-name">Junya Watanabe</span></div>
+            </a>
+            <a href="runway-article.html?brand=givenchy" class="brand-item">
+                <img src="images/givenchy.webp" alt="Givenchy">
+                <div class="brand-overlay"><span class="brand-name">Givenchy</span></div>
+            </a>
+            <a href="runway-article.html?brand=miumiu" class="brand-item">
+                <img src="images/miumiu.webp" alt="Miu Miu">
+                <div class="brand-overlay"><span class="brand-name">Miu Miu</span></div>
+            </a>
+            <a href="runway-article.html?brand=celine" class="brand-item">
+                <img src="images/celine.webp" alt="Celine">
+                <div class="brand-overlay"><span class="brand-name">Celine</span></div>
+            </a>
+            <a href="runway-article.html?brand=bulmain" class="brand-item">
+                <img src="images/bulmain.webp" alt="Balmain">
+                <div class="brand-overlay"><span class="brand-name">Balmain</span></div>
+            </a>
+            <a href="runway-article.html?brand=schiaparelli" class="brand-item">
+                <img src="images/schiaparelli.webp" alt="Schiaparelli">
+                <div class="brand-overlay"><span class="brand-name">Schiaparelli</span></div>
+            </a>
+        </div>
+
+        
+               
+    </div>
+</div>
+
+<div class="modal-overlay" id="subscriptionModal">
+    <div class="subscription-modal">
+        <button class="close-modal" id="closeModalBtn">&times;</button>
+        <span class="premium-badge">Juxury Premium</span>
+        <h2>Runway Exclusive</h2>
+        <div class="price">€2 <span>/ месец</span></div>
+        <p style="color: #666; font-size: 14px;">Отменете по всяко време. Сигурно плащане.</p>
+        
+        <ul class="features-list">
+            <li><i class="fa-solid fa-check"></i> Пълен достъп до над 500+ Runway ревюта</li>
+            <li><i class="fa-solid fa-check"></i> Неограничен достъп до архиви на топ марки</li>
+            <li><i class="fa-solid fa-check"></i> Експертни модни анализи и прогнози</li>
+            <li><i class="fa-solid fa-check"></i> Липса на реклами</li>
+        </ul>
+
+        <button class="btn-subscribe" id="openPaymentBtn" style="width: 100%;">Плати сега</button>
+    </div>
+</div>
+
+<div class="modal-overlay" id="paymentDetailsModal">
+    <div class="subscription-modal" style="max-width: 450px;">
+        <button class="close-modal" id="closePaymentModalBtn">&times;</button>
+        <h2 style="font-size: 26px; margin-bottom: 25px;">Детайли за плащане</h2>
+        
+        <div class="payment-form">
+            <label>Имена върху картата</label>
+            <input type="text" placeholder="Иван Иванов">
+            
+            <label>Номер на карта</label>
+            <input type="text" placeholder="XXXX XXXX XXXX XXXX" maxlength="19">
+            
+            <div class="payment-row">
+                <div style="flex: 1;">
+                    <label>Валидна до</label>
+                    <input type="text" placeholder="ММ/ГГ" maxlength="5">
+                </div>
+                <div style="flex: 1;">
+                    <label>CVV код</label>
+                    <input type="password" placeholder="123" maxlength="4">
+                </div>
+            </div>
+        </div>
+
+        <button class="btn-subscribe" id="finishPaymentBtn" style="width: 100%;">Завърши плащането (€2)</button>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'bg',
+        includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function doTranslate(langCode) {
+        var menu = document.getElementById('customLangMenu');
+        if (menu) menu.classList.remove('show');
+
+        if (langCode === 'bg') {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+            return;
+        }
+
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+        } else {
+            document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+            document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+        }
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    function toggleTranslate(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('customLangMenu').classList.toggle('show');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const filterToggle = document.getElementById('filterToggle');
+        const filterMenu = document.getElementById('filterMenu');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchBar = document.getElementById('searchBar');
+        const langMenu = document.getElementById('customLangMenu');
+
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+        }
+
+        if(filterToggle && filterMenu) {
+            filterToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (searchBar) searchBar.classList.remove('active');
+                if (langMenu) langMenu.classList.remove('show');
+                filterMenu.classList.toggle('show');
+            });
+        }
+
+        if(searchToggle && searchBar) {
+            searchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (filterMenu) filterMenu.classList.remove('show');
+                if (langMenu) langMenu.classList.remove('show');
+                searchBar.classList.toggle('active');
+            });
+        }
+
+        [filterMenu, searchBar, langMenu].forEach(el => {
+            if(el) el.addEventListener('click', e => e.stopPropagation());
+        });
+
+        const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+        const loginIcon = document.getElementById('nav-login-icon');
+        const profileMenuContainer = document.getElementById('nav-profile-menu');
+        const profileBtn = document.getElementById('profile-dropdown-btn');
+        const userDropdown = document.getElementById('user-dropdown-menu');
+
+        if (isLoggedIn) {
+            if(loginIcon) loginIcon.style.display = 'none';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+            if(profileBtn) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    userDropdown.classList.toggle('show');
+                });
+            }
+        } else {
+            if(loginIcon) loginIcon.style.display = 'inline-flex';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+        }
+
+        window.addEventListener('click', function(e) {
+            if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+            if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+            if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+        });
+    });
+
+    function logoutUser() {
+        localStorage.removeItem('juxury_logged_in');
+        window.location.href = 'login.html'; 
+    }
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const freeView = document.getElementById('free-view');
+        const premiumView = document.getElementById('premium-view');
+        
+        const openSubscriptionBtn = document.getElementById('openSubscriptionBtn');
+        const subscriptionModal = document.getElementById('subscriptionModal');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        
+        const openPaymentBtn = document.getElementById('openPaymentBtn');
+        const paymentDetailsModal = document.getElementById('paymentDetailsModal');
+        const closePaymentModalBtn = document.getElementById('closePaymentModalBtn');
+        const finishPaymentBtn = document.getElementById('finishPaymentBtn');
+
+        const hasPremium = localStorage.getItem('juxury_premium') === 'true';
+        const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+
+        // Показване на правилния изглед
+        if (hasPremium) {
+            freeView.style.display = 'none';
+            premiumView.style.display = 'block';
+        } else {
+            freeView.style.display = 'block';
+            premiumView.style.display = 'none';
+        }
+
+        // Отваряне на Модал 1 (Абонамент)
+        if (openSubscriptionBtn) {
+            openSubscriptionBtn.addEventListener('click', function() {
+                if (!isLoggedIn) {
+                    alert("Моля, влезте в профила си, за да се абонирате.");
+                    window.location.href = 'login.html';
+                } else {
+                    subscriptionModal.classList.add('active');
+                }
+            });
+        }
+
+        // Затваряне на Модал 1
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function() {
+                subscriptionModal.classList.remove('active');
+            });
+        }
+
+        // Преход от Модал 1 към Модал 2 (Детайли за плащане)
+        if (openPaymentBtn) {
+            openPaymentBtn.addEventListener('click', function() {
+                subscriptionModal.classList.remove('active'); // Скрива първия прозорец
+                paymentDetailsModal.classList.add('active'); // Показва втория
+            });
+        }
+
+        // Затваряне на Модал 2
+        if (closePaymentModalBtn) {
+            closePaymentModalBtn.addEventListener('click', function() {
+                paymentDetailsModal.classList.remove('active');
+            });
+        }
+
+        // Финализиране на плащането (Бутонът във втория модал)
+        if (finishPaymentBtn) {
+            finishPaymentBtn.addEventListener('click', function() {
+                localStorage.setItem('juxury_premium', 'true');
+                finishPaymentBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Обработка...';
+                
+                setTimeout(() => {
+                    alert("Успешно плащане! Добре дошли в Runway Exclusive.");
+                    window.location.reload(); // Презарежда, за да отключи съдържанието
+                }, 1500);
+            });
+        }
+
+        // Логика за прекратяване на абонамента
+        const cancelSubscriptionBtn = document.getElementById('cancelSubscriptionBtn');
+        if (cancelSubscriptionBtn) {
+            cancelSubscriptionBtn.addEventListener('click', function(e) {
+                e.preventDefault(); 
+                
+                const isConfirmed = confirm("Сигурни ли сте, че искате да прекратите своя Runway Exclusive абонамент?");
+                
+                if (isConfirmed) {
+                    localStorage.setItem('juxury_premium', 'false');
+                    alert("Абонаментът ви е успешно прекратен.");
+                    window.location.reload();
+                }
+            });
+        }
+    });
+</script>
+<script src="main.js"></script>
+</body>
+</html>

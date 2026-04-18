@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUXURY - Lifestyle</title> <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Оригиналните стилове за хедъра от твоя файл */
+        header {
+            position: relative;
+            z-index: 9999 !important;
+        }
+        .search-overlay {
+            z-index: 9998 !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+        }
+        .lifestyle-hero {
+    width: 100%;
+}
+
+/* --- СТЪПКА 1: Главна снимка (Като във Fashion) --- */
+.lifestyle-hero {
+    width: 100%; /* Контейнерът заема целия екран от край до край */
+    display: flex; /* Най-сигурният начин за центриране */
+    justify-content: center; /* Избутва снимката точно в центъра */
+    margin: 0 0 40px 0; /* 0 отгоре (за да е до менюто), 40px отдолу до статията */
+    padding: 0 20px;
+}
+
+.hero-img {
+    width: 100%;
+    max-width: 1100px; /* Ширината на самата снимка */
+    height: auto;
+    display: block;
+}
+
+/* --- СТЪПКА 2: Голяма статия --- */
+.featured-article {
+    display: flex; /* Разделя на две колони */
+    width: 100%;
+    background-color: #d8d8d8; /* Красивият леко бежов фон от снимката ти */
+    margin-top: 20px; /* Малко разстояние от горната снимка */
+}
+
+/* Лявата част да заема 50% */
+.article-image {
+    flex: 1; 
+}
+
+.article-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Прави така, че снимката да не се мачка */
+    display: block;
+}
+
+/* Дясната част (текста) да заема другите 50% */
+.article-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Центрира текста вертикално */
+    align-items: center; /* Центрира текста хоризонтално */
+    text-align: center;
+    padding: 50px;
+}
+
+.category-title {
+    font-size: 14px;
+    letter-spacing: 3px;
+    color: #555;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.main-title {
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #111;
+    margin-bottom: 40px;
+}
+
+.read-btn {
+    background-color: #111;
+    color: #fff;
+    padding: 12px 35px;
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: background-color 0.3s;
+}
+
+.read-btn:hover {
+    background-color: #444; /* Леко изсветлява при посочване с мишката */
+}
+.lifestyle-hero {
+    display: flex;
+    justify-content: center; 
+    margin: 40px 0 120px 0; /* ТУК Е ПРОМЯНАТА: 40px отгоре и 120px отдолу */
+}
+
+.hero-img {
+    width: 95%; /* Прави естествено леко разстояние отстрани */
+    max-width: 1100px; /* Заключва размера, за да е елегантна като във Fashion */
+    height: auto;
+    display: block;
+}
+/* --- АНИМАЦИЯ ЗА ПЛАВНО ПОЯВЯВАНЕ --- */
+@keyframes smoothAppear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Елементите стартират леко надолу */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Връщат се на оригиналната си позиция */
+    }
+}
+
+/* Закачаме анимацията за главната снимка и статията */
+.lifestyle-hero {
+    animation: smoothAppear 1s ease-out forwards;
+}
+
+.featured-article {
+    animation: smoothAppear 1.2s ease-out forwards; /* Малко по-бавно, за да се появят едно след друго */
+    opacity: 0; /* Държи статията невидима, докато не започне анимацията */
+}
+/* --- ЗАГЛАВИЕ "ПОСЛЕДНИ ПОСТОВЕ" --- */
+.latest-posts-title {
+    text-align: center;
+    margin: 80px 0 40px 0;
+}
+
+.latest-posts-title h2 {
+    font-size: 24px;
+    font-weight: 400;
+    letter-spacing: 4px;
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.title-line {
+    width: 40px;
+    height: 1px;
+    background-color: #111;
+    margin: 0 auto;
+}
+
+  .fashion-articles-section {
+            max-width: 1400px;
+            margin: 0 auto 80px auto;
+            padding: 0 40px;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .article-card {
+            position: relative;
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Прави снимките перфектни квадрати */
+            overflow: hidden;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover img {
+            transform: scale(1.05); /* Лек зуум ефект при посочване */
+        }
+
+        .article-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.65); /* По-прозрачен бял фон */
+            padding: 15px 20px; /* По-малка кутийка */
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .article-card:hover .article-info {
+            background: rgba(255, 255, 255, 0.85); /* Става малко по-плътно при посочване */
+        }
+
+        .article-category {
+            display: block;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin: 0;
+            line-height: 1.3;
+            color: #000;
+        }
+
+        /* Бутон "ВИЖТЕ ВСИЧКИ СТАТИИ" */
+        .view-all-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn-view-all {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: transparent;
+            color: #000;
+            border: 1px solid #000;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-all:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Респонсив дизайн за по-малки екрани */
+        @media (max-width: 1024px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            .fashion-articles-section {
+                padding: 0 20px;
+            }
+        }
+        /* --- Заглавието със списанския шрифт --- */
+.grid-item .grid-title {
+    font-family: 'Playfair Display', serif; /* Добавяме елегантния шрифт */
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    color: #111;
+}
+
+/* --- Малкото заглавие (Категорията) --- */
+.grid-item .category-title {
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* --- Бутонът ПРОЧЕТИ ПОВЕЧЕ --- */
+.grid-item .read-btn {
+    color: #111; /* Маха синия цвят */
+    text-decoration: none; /* Маха стандартната долна черта */
+    text-transform: uppercase; /* Прави буквите главни */
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    border-bottom: 1px solid #111; /* Елегантната линия отдолу */
+    padding-bottom: 3px;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+}
+
+/* Ефект при посочване на бутона */
+.grid-item .read-btn:hover {
+    opacity: 0.6;
+}
+/* --- СЕКЦИЯ С ВИДЕА --- */
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 30px; /* Малко повече въздух между видеата */
+    max-width: 1200px; /* Ограничаваме ширината, за да не се разпъват безкрайно */
+    width: 100%;
+    margin: 0 auto 60px auto; /* Центрира ги идеално в средата на екрана */
+}
+
+.video-card {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+/* Контейнер за снимката (Thumbnail) */
+.video-thumbnail {
+    width: 100%;
+    height: 200px; /* 👈 Леко намалена височина, тъй като снимките са по-тесни */
+    overflow: hidden;
+    position: relative; 
+    margin-bottom: 12px;
+}
+
+.video-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.video-card:hover .video-thumbnail img {
+    transform: scale(1.05);
+}
+
+/* --- PLAY БУТОН ВЪРХУ СНИМКАТА --- */
+.play-btn-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(17, 17, 17, 0.6); 
+    color: #fff;
+    width: 50px; /* 👈 Леко по-малък бутон за по-малките снимки */
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 18px;
+    transition: all 0.3s ease;
+}
+
+.video-card:hover .play-btn-overlay {
+    background-color: rgba(17, 17, 17, 0.9);
+    transform: translate(-50%, -50%) scale(1.1); 
+}
+
+/* Текст под видеото (само заглавие) */
+.video-title {
+    color: #111;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.video-card:hover .video-title {
+    color: #666;
+}
+/* --- SPOTLIGHT СЕКЦИЯ --- */
+.spotlight-section {
+    display: flex;
+    width: 100%;
+    background-color: #e2e2df; /* Светло сиво-бежов фон, като от снимката ти */
+    margin-bottom: 60px;
+    align-items: stretch; /* Прави двете половини с еднаква височина */
+}
+
+/* Лява част с текста */
+.spotlight-text-box {
+    flex: 1; /* Взима 50% от ширината */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 40px;
+    text-align: center;
+}
+
+.spotlight-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.spotlight-heading {
+    font-size: 32px;
+    font-family: 'Playfair Display', serif; /* Ако ползваш този шрифт, иначе го изтрий */
+    color: #111;
+    margin-bottom: 20px;
+    line-height: 1.3;
+    max-width: 450px; /* Пречи на текста да става прекалено широк */
+}
+
+.spotlight-paragraph {
+    font-size: 15px;
+    color: #444;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 400px;
+}
+
+.spotlight-read-more {
+    background-color: #111;
+    color: #fff;
+    padding: 12px 35px;
+    text-decoration: none;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: background-color 0.3s ease;
+}
+
+.spotlight-read-more:hover {
+    background-color: #444;
+}
+
+/* Дясна част със снимката */
+.spotlight-image-box {
+    flex: 1; /* Взима другите 50% от ширината */
+}
+
+.spotlight-image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Гарантира, че снимката запълва пространството без да се разпъва грозно */
+    display: block;
+    min-height: 500px; /* Задаваме минимална височина, за да изглежда масивно */
+}
+
+/* Мобилна версия (за екрани под 768px) */
+@media (max-width: 768px) {
+    .spotlight-section {
+        flex-direction: column-reverse; /* На телефон слага текста отдолу, а снимката отгоре */
+    }
+    .spotlight-image-box img {
+        min-height: 350px;
+    }
+}
+/* --- SOUNDTRACK & VIBES СЕКЦИЯ --- */
+.soundtrack-section {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+    padding: 0 20px; /* Предпазва от залепване по ръбовете на телефони */
+}
+
+.soundtrack-content {
+    max-width: 700px; /* Ограничава ширината, за да изглежда компактно и луксозно */
+    width: 100%;
+    text-align: center;
+}
+
+.soundtrack-subtitle {
+    font-size: 15px;
+    color: #666;
+    margin-bottom: 30px;
+    font-style: italic; /* Леко наклонен текст за по-артистично усещане */
+}
+
+.spotify-wrapper {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* Добавя много нежна сянка около плеъра */
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+/* Лек ефект при посочване с мишката */
+.spotify-wrapper:hover {
+    transform: translateY(-5px);
+}
+/* --- THE ESCAPE СЕКЦИЯ --- */
+.escape-section {
+    position: relative;
+    width: 100%;
+    height: 500px; /* Задаваме височина за кинематографичен ефект */
+    /* ТУК СЛАГАШ ИМЕТО НА ТВОЯТА СНИМКА */
+    background-image: url('images/putuvane.jpg'); 
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Създава много лек паралакс ефект при скролиране */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 80px;
+}
+
+.escape-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.35); /* Лек тъмен воал */
+}
+
+.escape-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #ffffff;
+    padding: 0 20px;
+}
+
+.escape-subtitle {
+    display: block;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.escape-title {
+    font-size: 42px;
+    margin-bottom: 35px;
+    max-width: 800px;
+    line-height: 1.2;
+    /* Ако ползваш серифен шрифт за заглавията (като Playfair), той ще се приложи тук */
+}
+
+/* Елегантният прозрачен бутон */
+.escape-btn {
+    display: inline-block;
+    padding: 12px 35px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.escape-btn:hover {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+/* Адаптивност за телефони */
+@media (max-width: 768px) {
+    .escape-section {
+        height: 400px;
+        background-attachment: scroll; /* Изключваме паралакса за мобилни, за да не бави */
+    }
+    .escape-title {
+        font-size: 30px;
+    }
+}
+    </style>
+
+</head>
+<body>
+    <header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h2>JUXURY</h2>
+        </a>
+    </div>
+    
+    <div class="mobile-toggle" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+   <nav class="main-nav" id="navMenu">
+    <a href="index.html">HOME</a>
+    <a href="fashion.html" >FASHION</a> 
+    <a href="lifestyle.html"class="active">LIFESTYLE</a>
+    <a href="forum.html">FORUM</a>
+   </nav>
+
+    <div class="header-actions">
+        <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+        
+        <div class="menu-filter" id="filterToggle">
+            <i class="fas fa-bars"></i>
+            <div class="filter-dropdown" id="filterMenu">
+                <div class="filter-column">
+                    <h3>Fashion</h3>
+                    <a href="#">Гид за стил</a>
+                    <a href="#">Вечни класики</a>
+                    <a href="#">Модни ревюта</a>
+                    <a href="#">Звезден стил</a>
+                    <a href="#">Тенденции</a>
+                </div>
+                <div class="filter-column">
+                    <h3>Lifestyle</h3>
+                    <a href="#">Здравословно хранене</a>
+                    <a href="#">Фитнес и спорт</a>
+                    <a href="#">Баланс и здраве</a>
+                    <a href="#">Луксозни пътувания</a>
+                    <a href="#">Фокус</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="lang-wrapper">
+            <div class="lang-icon" onclick="toggleTranslate(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </div>
+            
+            <div class="custom-lang-menu notranslate" id="customLangMenu">
+                <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+            </div>
+
+            <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+        </div>
+
+        <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+
+        <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+            <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            
+            <div class="user-dropdown" id="user-dropdown-menu">
+                <a href="profile.html">Управление на профила</a>
+                <a href="saved.html">Запазени статии</a>
+                <a href="#" onclick="logoutUser(); return false;">Изход</a>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="search-overlay" id="searchBar">
+        <form action="#" method="GET" class="search-form">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" placeholder="Въведете ключова дума..." name="q">
+            <button type="submit">Търсене</button>
+        </form>
+    </div>
+</header>
+
+<section class="lifestyle-hero">
+        <img src="images/lifestyle.jpg" alt="Lifestyle Cover" class="hero-img">
+    </section>
+
+    <section class="featured-article">
+        
+        <div class="article-image">
+            <img src="images/parijjena.jpg" alt="jeni">
+        </div>
+
+        <div class="article-content">
+            <h4 class="category-title">Здравословно хранене</h4>
+            <h2 class="main-title">Правилото 80/20 на парижанката:<br>Как да се храним добре без диети</h2>
+            <a href="#" class="read-btn">Прочети повече</a>
+        </div>
+      
+    </div>
+
+
+    </section>
+    </section>
+    
+        <div class="latest-posts-title">
+        <h2>ПОСЛЕДНИ ПОСТОВЕ</h2>
+        <div class="title-line"></div>
+    </div>
+
+<section class="fashion-articles-section">
+    <div class="articles-grid">
+        
+        <a href="article1.html" class="article-card">
+            <img src="images/fitnes.jpg" alt="fitnes">
+            <div class="article-info">
+                <span class="article-category">Фитнес и спорт</span>
+                <h3 class="article-title">Твоята фитнес рутина те кара да изглеждаш по-стара</h3>
+            </div>
+        </a>
+
+        <a href="article2.html" class="article-card">
+            <img src="images/spa.jpg" alt="spa">
+            <div class="article-info">
+                <span class="article-category">Баланс и здраве</span>
+                <h3 class="article-title">Луксозната спа измама: 5 процедури, които си струват парите, и 3, които са чист маркетинг</h3>
+            </div>
+        </a>
+
+        <a href="article3.html" class="article-card">
+            <img src="images/sun.jpg" alt="sun">
+            <div class="article-info">
+                <span class="article-category">Баланс и здраве</span>
+                <h3 class="article-title">Сънят е новият символ на статус</h3>
+            </div>
+        </a>
+         <a href="article1.html" class="article-card">
+            <img src="images/dieta.jpg" alt="fitnes">
+            <div class="article-info">
+                <span class="article-category">Здравословно хранене</span>
+                <h3 class="article-title">Тихата диета на свръхбогатите</h3>
+            </div>
+        </a>
+
+        <a href="article2.html" class="article-card">
+            <img src="images/butilka.jpg" alt="spa">
+            <div class="article-info">
+                <span class="article-category">Баланс и здраве</span>
+                <h3 class="article-title">Твоята бутилка за вода съсипва кожата ти</h3>
+            </div>
+        </a>
+
+        <a href="article3.html" class="article-card">
+            <img src="images/5min.jpg" alt="sun">
+            <div class="article-info">
+                <span class="article-category">Фитнес и спорт</span>
+                <h3 class="article-title">5-минутната сутрешна рутина, която заменя 60-минутна тренировка</h3>
+            </div>
+        </a>
+         <a href="statiq2.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+    <img src="images/statiq1.jpeg" alt="Гардероб">
+    <div class="article-info">
+        <span class="article-category">Здравословно хранене</span>
+        <h3 class="article-title">Как да изглеждаш сякаш имаш гардероб за 10 000 евро, когато нямаш пари</h3>
+    </div>
+</a>
+
+         <a href="statiq3.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+          <img src="images/statiq2.jpg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Здравословно хранене</span>
+                <h3 class="article-title">Как да използваш контуриране, за да промениш формата на лицето си (като знаменитост)</h3>
+            </div>
+        </a>
+
+        <a href="statiq4.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <img src="images/statiq3.jpeg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Здравословно хранене</span>
+                <h3 class="article-title">Дали Chanel наистина е „вечен“ или просто скъпа носталгия?</h3>
+            </div>
+        </a>
+    </div>
+
+   
+</section>
+
+ 
+
+    <section class="escape-section">
+        <div class="escape-overlay"></div>
+        
+        <div class="escape-content">
+            <span class="escape-subtitle">Дестинация на месеца</span>
+            <h2 class="escape-title">Сега е перфектният момент да посетите Коста Брава в Испания.</h2>
+            <a href="#" class="escape-btn">ПРОЧЕТИ ПОВЕЧЕ</a>
+        </div>
+    </section>
+
+    <div class="latest-posts-title">
+        <h2>SOUNDTRACK & VIBES</h2>
+        <div class="title-line"></div>
+    </div>
+
+     <section class="soundtrack-section">
+        <div class="soundtrack-content">
+            <p class="soundtrack-subtitle">Натисни Play и се наслади на нашата селекция, докато четеш.
+                Всяка седмица се обновава.
+            </p>
+            
+            <div class="spotify-wrapper">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/playlist/3gtuAgdd5d969DewVK1Wv6?utm_source=generator" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+            
+        </div>
+    </section>
+
+
+    <section class="spotlight-section">
+        <div class="spotlight-text-box">
+            <span class="spotlight-label">Фокус</span>
+            <h2 class="spotlight-heading">Нов документален филм акцентира върху Танцовата компания на Марта Греъм след 100 години</h2>
+            <p class="spotlight-paragraph">
+               Марта Греъм, легенда на модерния танц, комбинира древни влияния
+                с модерни теми и виждаше себе си част от американската култура.
+            </p>
+            <a href="ТВОЯТ_ЛИНК_КЪМ_СТАТИЯТА" class="spotlight-read-more">Прочети повече</a>
+        </div>
+
+        <div class="spotlight-image-box">
+            <img src="images/fokus1.jpg" alt="Spotlight Story">
+        </div>
+    </section>
+
+    <section class="fashion-articles-section">
+    <div class="articles-grid">
+        
+        <a href="article1.html" class="article-card">
+            <img src="images/fokus2.jpg" alt="fitnes">
+            <div class="article-info">
+                <span class="article-category">Фокус</span>
+                <h3 class="article-title">Най-добрите от Холивуд се подгряха за Оскарите на годишната вечеря на Шанел и Чарлз Финч</h3>
+            </div>
+        </a>
+
+        <a href="article2.html" class="article-card">
+            <img src="images/fokus3.jpg" alt="spa">
+            <div class="article-info">
+                <span class="article-category">Фокус</span>
+                <h3 class="article-title">Отворена покана за панорама на Източна и Югоизточна Азия: запознайте се с носителката на грант Наранцэцэг Хуягаа</h3>
+            </div>
+        </a>
+
+        <a href="article3.html" class="article-card">
+            <img src="images/fokus4.jpg" alt="sun">
+            <div class="article-info">
+                <span class="article-category">Фокус</span>
+                <h3 class="article-title">Мадисън Бийр за новия си албум, доверието на инстинкта и поп дивите</h3>
+            </div>
+        </a>
+
+    </div>
+
+    
+</section>
+
+
+
+
+    
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'bg',
+        includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function doTranslate(langCode) {
+        var menu = document.getElementById('customLangMenu');
+        if (menu) menu.classList.remove('show');
+
+        if (langCode === 'bg') {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+            return;
+        }
+
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+        } else {
+            document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+            document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+        }
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    function toggleTranslate(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('customLangMenu').classList.toggle('show');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const filterToggle = document.getElementById('filterToggle');
+        const filterMenu = document.getElementById('filterMenu');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchBar = document.getElementById('searchBar');
+        const langMenu = document.getElementById('customLangMenu');
+
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+        }
+
+        if(filterToggle && filterMenu) {
+            filterToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (searchBar) searchBar.classList.remove('active');
+                if (langMenu) langMenu.classList.remove('show');
+                filterMenu.classList.toggle('show');
+            });
+        }
+
+        if(searchToggle && searchBar) {
+            searchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (filterMenu) filterMenu.classList.remove('show');
+                if (langMenu) langMenu.classList.remove('show');
+                searchBar.classList.toggle('active');
+            });
+        }
+
+        [filterMenu, searchBar, langMenu].forEach(el => {
+            if(el) el.addEventListener('click', e => e.stopPropagation());
+        });
+
+        const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+        const loginIcon = document.getElementById('nav-login-icon');
+        const profileMenuContainer = document.getElementById('nav-profile-menu');
+        const profileBtn = document.getElementById('profile-dropdown-btn');
+        const userDropdown = document.getElementById('user-dropdown-menu');
+
+        if (isLoggedIn) {
+            if(loginIcon) loginIcon.style.display = 'none';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+            if(profileBtn) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    userDropdown.classList.toggle('show');
+                });
+            }
+        } else {
+            if(loginIcon) loginIcon.style.display = 'inline-flex';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+        }
+
+        window.addEventListener('click', function(e) {
+            if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+            if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+            if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+        });
+    });
+
+    function logoutUser() {
+        localStorage.removeItem('juxury_logged_in');
+        window.location.href = 'login.html'; 
+    }
+</script>
+<script src="main.js"></script>
+    </body>
+</html>

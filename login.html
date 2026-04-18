@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUXURY - Вход и Регистрация</title>
+    <link rel="stylesheet" href="style.css"> 
+    <script>
+    if (localStorage.getItem('juxury_logged_in') === 'true') {
+        window.location.replace('index.html');
+    }
+</script>
+</head>
+<body class="auth-page">
+
+    <div class="lang-wrapper floating-lang">
+        <div class="lang-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+        </div>
+        
+        <div class="custom-lang-menu">
+            <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+            <a href="#" onclick="doTranslate('en'); return false;">English</a>
+            <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+            <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+            <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+            <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+            <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+            <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+        </div>
+
+        <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+    </div>
+
+    <div class="auth-container">
+        <h1 class="logo">JUXURY</h1>
+
+        <div class="auth-box">
+            <div class="auth-section">
+                <h2>Вход</h2>
+                <form>
+                    <input type="email" placeholder="Имейл" required>
+                    <input type="password" placeholder="Парола" required>
+                    <button type="button" class="auth-btn" onclick="loginUser()">ВЛЕЗ</button>
+                </form>
+            </div>
+
+            <div class="auth-divider"></div>
+
+            <div class="auth-section">
+                <h2>Регистрация</h2>
+                <form>
+                    <input type="text" placeholder="Име" required>
+                    <input type="email" placeholder="Имейл" required>
+                    <input type="password" placeholder="Парола" required>
+                    <button type="submit" class="auth-btn secondary">СЪЗДАЙ АКАУНТ</button>
+                </form>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-home">← Обратно към началото</a>
+    </div>
+    <div class="user-wrapper" id="user-menu-container">
+    <a href="login.html" id="user-icon-link">
+    </a>
+    
+    <div class="user-dropdown" id="user-dropdown-menu">
+        <a href="profile.html">Управление на профила</a>
+        <a href="#">Запазени статии</a>
+        <a href="#" onclick="logoutUser()">Изход</a>
+    </div>
+</div>
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'bg', 
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        function doTranslate(langCode) {
+            var select = document.querySelector(".goog-te-combo");
+            if (select) {
+                select.value = langCode;
+                var event = document.createEvent('HTMLEvents');
+                event.initEvent('change', true, false);
+                select.dispatchEvent(event);
+            }
+        }
+       
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script>
+    function loginUser() {
+        // Записваме в паметта на браузъра, че сме влезли
+        localStorage.setItem('juxury_logged_in', 'true');
+        // Пренасочваме към началната страница
+        window.location.href = 'index.html';
+    }
+    </script>
+    <script>
+    // Проверяваме дали потребителят е логнат
+    if (localStorage.getItem('juxury_logged_in') === 'true') {
+        // Ако е логнат: махаме линка към login и разрешаваме падащото меню
+        document.getElementById('user-icon-link').removeAttribute('href');
+        document.getElementById('user-menu-container').classList.add('logged-in');
+    }
+
+    // Функция за изход
+    function logoutUser() {
+        localStorage.removeItem('juxury_logged_in'); // Изтриваме сесията
+        window.location.href = 'login.html'; // Връщаме в Login
+    }
+</script>
+</body>
+</html>

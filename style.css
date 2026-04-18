@@ -1,0 +1,1949 @@
+/* =========================================
+   1. ОБЩИ НАСТРОЙКИ (GLOBAL)
+========================================= */
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Playfair Display', serif;
+    background-color: #ffffff;
+    color: #333;
+    max-width: 100%;
+    overflow-x: hidden; /* Спира скролирането надясно */
+    box-sizing: border-box; 
+}
+
+*, *:before, *:after {
+    box-sizing: inherit; /* Предотвартява разпъване от padding */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* =========================================
+   2. ХЕДЪР И НАВИГАЦИЯ (ДЕСКТОП)
+========================================= */
+header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 20px 50px; 
+    background-color: #1a1a1a; 
+    position: relative;
+    z-index: 100;
+}
+
+header .logo h2 {
+    font-size: 38px; 
+    font-weight: 800; 
+    letter-spacing: 4px; 
+    color: #ffffff; 
+    margin: 0;
+}
+
+/* Бутонът за телефон е скрит на компютър */
+.mobile-toggle {
+    display: none; 
+    cursor: pointer;
+    font-size: 26px;
+    color: #ffffff;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 40px; 
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+}
+
+.main-nav a {
+    margin: 0 20px;
+    text-decoration: none;
+    color: #ffffff; 
+    font-size: 16px; 
+    font-weight: bold; 
+    text-transform: uppercase; 
+    letter-spacing: 2px;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover {
+    color: #e6d5c3; 
+}
+
+/* Икони и меню филтър */
+.header-actions {
+    display: flex; 
+    align-items: center; 
+    gap: 25px; 
+}
+
+.header-actions a, 
+.header-actions a i {
+    color: #ffffff !important; 
+    font-size: 22px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.header-actions a:hover, 
+.header-actions a:hover i {
+    color: #e6d5c3 !important; 
+}
+
+.menu-filter {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    position: relative;
+    color: #f4f4f4; 
+    transition: color 0.3s;
+}
+
+.menu-filter:hover {
+    color: #e6d5c3;
+}
+
+.menu-text {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.menu-filter i.fa-bars {
+    font-size: 24px;
+}
+
+/* Падащ прозорец с филтри */
+.filter-dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #1a1a1a; 
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
+    padding: 30px 40px;
+    display: flex;
+    gap: 50px;
+    border-top: 2px solid #e6d5c3; 
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(15px);
+    transition: all 0.3s ease;
+    z-index: 101;
+}
+
+.menu-filter:hover .filter-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.filter-column h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    border-bottom: 1px solid #333; 
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    color: #ffffff; 
+}
+
+.filter-column a {
+    display: block;
+    color: #aaaaaa; 
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 12px;
+    transition: color 0.3s, padding-left 0.3s;
+}
+
+.filter-column a:hover {
+    color: #e6d5c3;
+    padding-left: 5px;
+}
+
+/* =========================================
+   3. ПАДАЩА ТЪРСАЧКА
+========================================= */
+.search-overlay {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    width: 100%;
+    background-color: #ffffff; 
+    padding: 30px 50px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1); 
+    display: flex;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-15px); 
+    transition: all 0.3s ease; 
+    z-index: 99;
+}
+
+.search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    border: 1px solid #1a1a1a; 
+}
+
+.search-icon-inside {
+    padding: 15px 20px;
+    background: #fff;
+    color: #1a1a1a;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.search-form input {
+    flex-grow: 1;
+    border: none;
+    padding: 15px 10px;
+    font-size: 16px;
+    font-family: inherit; 
+    outline: none; 
+}
+
+.search-form button {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 0 40px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-form button:hover {
+    background-color: #e6d5c3; 
+    color: #1a1a1a; 
+}
+
+/* =========================================
+   4. СЕКЦИИ СЪС СЪДЪРЖАНИЕ (ДЕСКТОП)
+========================================= */
+
+/* Първа секция (Hero) */
+.hero-section {
+    display: flex; 
+    align-items: center; 
+    padding: 0 50px 50px 150px; 
+    min-height: 85vh; 
+}
+
+.hero-text {
+    flex: 1; 
+    padding-right: 50px;
+}
+
+.hero-text h1 {
+    font-size: 80px;
+    margin-bottom: 10px;
+    letter-spacing: 5px;
+    word-wrap: break-word;
+}
+
+.hero-text h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.hero-text p {
+    font-size: 14px;
+    line-height: 1.8;
+    letter-spacing: 1px;
+    color: #555;
+}
+
+.hero-image {
+    flex: 1; 
+    height: 100%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hero-image img {
+    max-width: 100%; 
+    max-height: 80vh;
+    object-fit: contain; 
+    object-position: top right; 
+}
+
+/* Втора секция (Блог с градиент) */
+.middle-section {
+    background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.18) 0%, rgba(255, 255, 255, 1) 60%);
+    padding: 80px 20px; 
+    text-align: center; 
+}
+
+.middle-content {
+    max-width: 800px;
+    margin: 0 auto; 
+}
+
+.middle-content h2 {
+    font-size: 32px;
+    margin-bottom: 30px;
+}
+
+.middle-content p {
+    font-size: 18px;
+    line-height: 1.8;
+    margin-bottom: 20px;
+}
+
+.italic-text {
+    font-style: italic;
+    margin-top: 40px;
+}
+
+/* Трета секция (Снимка с обувка) */
+.bottom-section {
+    display: flex; 
+    align-items: center; 
+    padding: 40px 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.bottom-image {
+    flex: 1; 
+    display: flex;
+    justify-content: flex-end; 
+    padding-right: 30px;
+}
+
+.bottom-image img {
+    max-width: 90%; 
+    height: auto;
+}
+
+.bottom-text {
+    flex: 1; 
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+
+.bottom-text h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    line-height: 1.4;
+}
+
+.bottom-text p {
+    font-size: 22px;
+    color: #555;
+}
+
+/* =========================================
+   5. ФУТЪР
+========================================= */
+.site-footer {
+    background-color: #1a1a1a; 
+    color: #f4f4f4;
+    padding: 40px 50px 20px 50px; 
+    margin-top: 50px; 
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 20px; 
+    border-bottom: 1px solid #333; 
+}
+
+.footer-logo h2 {
+    font-size: 32px;
+    letter-spacing: 3px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.footer-logo p {
+    font-size: 14px;
+    color: #999; 
+    line-height: 1.6;
+}
+
+.footer-links, .footer-social {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-links a, .footer-social a {
+    color: #ccc;
+    text-decoration: none;
+    font-size: 15px;
+    transition: color 0.3s ease; 
+}
+
+.footer-links a:hover, .footer-social a:hover {
+    color: #fff; 
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 20px;
+    font-size: 13px;
+    color: #777;
+    letter-spacing: 1px;
+}
+/* --- СМАЛЯВАНЕ НА ФУТЪРА (ОБЩИ СТИЛОВЕ) --- */
+.site-footer {
+    padding-top: 40px !important; /* Намалява огромното празно място отгоре */
+    padding-bottom: 20px !important; /* Намалява празното място отдолу */
+}
+
+.site-footer h1, .site-footer h2, .site-footer h3 {
+    margin-bottom: 10px !important; /* Прибира заглавията (като JUXURY) */
+}
+
+.site-footer p {
+    margin-bottom: 10px !important;
+    line-height: 1.4 !important;
+}
+
+.site-footer ul {
+    margin-bottom: 15px !important;
+    padding: 0 !important;
+}
+
+.site-footer li {
+    margin-bottom: 5px !important; /* Сгъстява линковете един до друг */
+}
+/* =========================================
+   6. МОБИЛНА ВЕРСИЯ (МАГИЯТА ЗА ТЕЛЕФОН)
+========================================= */
+@media (max-width: 768px) {
+    header {
+        padding: 10px 15px 0 15px !important; /* ВАЖНО: 0 отдолу, за да няма бяло място */
+        margin-bottom: 0 !important;
+        position: relative;
+        z-index: 100;
+    }
+
+    header .logo h2 {
+        font-size: 22px;
+    }
+
+    .mobile-toggle {
+        display: block !important; 
+    }
+
+    /* Главното падащо меню */
+    .header-wrapper {
+        display: none; 
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #1a1a1a;
+        padding: 15px 0;
+        border-top: 1px solid #333;
+        z-index: 1000;
+        gap: 15px;
+    }
+
+    .header-wrapper.open {
+        display: flex !important; 
+    }
+
+    .main-nav {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .main-nav a {
+        margin: 0;
+        font-size: 16px;
+    }
+
+    /* Иконките */
+    .header-actions {
+        justify-content: center;
+        width: 100%;
+        gap: 25px;
+        padding-bottom: 10px;
+    }
+    
+    .menu-text {
+        display: none; 
+    }
+
+    /* Филтрите */
+    .filter-dropdown {
+        display: none; 
+        position: static;
+        width: 100%;
+        box-shadow: none;
+        padding: 10px 15px;
+        background: #222;
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+    }
+
+    .filter-dropdown.show {
+        display: flex !important; 
+    }
+
+    /* Търсачката на телефон */
+    .search-overlay {
+        display: none;
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        width: 100%;
+        background-color: #ffffff !important;
+        padding: 10px;
+        z-index: 1100; 
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .search-overlay.active {
+        display: flex !important;
+    }
+
+    .search-form {
+        max-width: 100%;
+    }
+    
+    .search-icon-inside {
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+
+    .search-form input {
+        padding: 10px;
+        font-size: 14px; 
+    }
+
+    .search-form button {
+        padding: 0 15px; 
+        font-size: 12px;
+        white-space: nowrap; 
+    }
+
+    /* --- СНИМКАТА И ТЕКСТА (Магията, за да залепне и да е голяма) --- */
+    .hero-section {
+        display: flex !important;
+        flex-direction: column-reverse !important; 
+        padding: 0 !important; /* Премахваме целия въздух от секцията */
+        margin-top: 0 !important;
+        min-height: auto;
+        text-align: center;
+        background: transparent; 
+    }
+
+    .hero-image {
+        width: 75% !important; /* Тук я намаляваме с 25% */
+        margin: 0 auto 20px auto !important; /* Нулата отпред я държи залепена за хедъра, а 'auto' я центрира */
+        padding: 0 !important;
+        line-height: 0;
+    }
+
+    .hero-image img {
+        width: 100%;
+        height: auto;
+        display: block;          
+        margin: 0;             
+        border-radius: 0;
+    }
+
+/* Центрираме цялата кутия с текст под снимката */
+    .hero-text {
+        margin: 0 auto !important;
+        padding: 0 15px 20px 15px !important;
+        text-align: center !important;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Намаляване и центриране на заглавията (замества стари редове 577-578) */
+    .hero-text h1 { font-size: 34px !important; margin-bottom: 10px !important; text-align: center !important; }
+    .hero-text h2 { font-size: 20px !important; margin-bottom: 15px !important; text-align: center !important; }
+
+    /* ТУК СМАЛЯВАМЕ САМО ДЪЛГИЯ ТЕКСТ (първия параграф) */
+    .hero-text p:first-of-type { 
+        font-size: 12px !important; /* Ето го намаленият размер */
+        line-height: 1.6 !important;
+        text-align: center !important;
+        margin: 0 auto 15px auto !important;
+        max-width: 95%; 
+    }
+
+    /* Ако имаш други параграфи под заглавието, те остават големи и центрирани */
+    .hero-text p:not(:first-of-type) {
+        font-size: 15px !important;
+        text-align: center !important;
+    }
+
+    /* Текстовете в останалите секции надолу по страницата си остават 15px */
+    .middle-content p, .bottom-text p {
+        font-size: 15px !important;
+        margin-bottom: 10px;
+    }
+    /* Останалите секции */
+    .middle-section { padding: 25px 15px; }
+    .middle-content h2, .bottom-text h2 { font-size: 22px; }
+    
+    .bottom-section { flex-direction: column; padding: 20px 15px; text-align: center; }
+    .bottom-image { padding-right: 0; margin-bottom: 10px; }
+    .bottom-text { padding-left: 0; }
+
+   /* --- ФУТЪР НА МОБИЛЕН (КОМПАКТЕН) --- */
+    .site-footer {
+        padding: 30px 15px 15px 15px !important;
+    }
+    
+    /* Прибираме разстоянието между трите колонки */
+    .site-footer > div, .site-footer > section {
+        margin-bottom: 15px !important;
+    }
+
+    /* Правим текстовете малко по-фини за телефон */
+    .site-footer p {
+        font-size: 13px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .site-footer li {
+        margin-bottom: 8px !important;
+        font-size: 14px !important;
+    }
+    }
+    /* ========================================= */
+/* --- КОМПАКТЕН ФУТЪР (ДЕСКТОП И МОБИЛЕН) --- */
+/* ========================================= */
+
+/* Основен размер и прибиране на празното пространство (за компютър) */
+.site-footer {
+    padding: 30px 20px 15px 20px !important; /* Драстично намалява горното и долното празно пространство */
+}
+
+/* Смачкване на дупките между елементите вътре */
+.site-footer p, 
+.site-footer h1, 
+.site-footer h2, 
+.site-footer h3,
+.site-footer ul {
+    margin-bottom: 10px !important; 
+    margin-top: 0 !important;
+    padding: 0 !important;
+}
+
+.site-footer li {
+    margin-bottom: 5px !important;
+}
+
+/* Прибиране на празното място около колоните */
+.site-footer > div, 
+.site-footer > section {
+    margin-bottom: 15px !important;
+    padding: 0 !important;
+}
+
+/* --- ТУК ПРАВИМ ОЩЕ ПО-МАЛКО ЗА ТЕЛЕФОН --- */
+@media (max-width: 768px) {
+   /* --- ФУТЪР НА МОБИЛЕН --- */
+    .site-footer {
+        display: flex !important;
+        flex-direction: column !important; /* Това е командата, която ги подрежда едно под друго! */
+        align-items: center !important;
+        text-align: center !important;
+        padding: 30px 15px 15px 15px !important;
+    }
+
+    /* Разделяме трите колонки една от друга, за да дишат */
+    .site-footer > div, 
+    .site-footer > section {
+        width: 100% !important;
+        margin-bottom: 25px !important; 
+        padding: 0 !important;
+    }
+
+    /* Правим текстовете и линковете по-фини за телефон */
+    .site-footer p, 
+    .site-footer li, 
+    .site-footer a {
+        font-size: 14px !important;
+    }
+
+    /* Прибираме разстоянието под последните линкове преди Copyright-а */
+    .site-footer section:last-of-type {
+        margin-bottom: 10px !important;
+    }
+    }
+/* --- АБСОЛЮТЕН ФОРС ЗА МОБИЛЕН ФУТЪР --- */
+@media screen and (max-width: 768px) {
+    .site-footer {
+        display: flex !important;
+        flex-direction: column !important; /* Нарежда ги в колона едно под друго */
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        padding: 40px 20px 20px 20px !important;
+        height: auto !important;
+    }
+
+    /* Принуждаваме всички вътрешни колонки да заемат цял екран и да застанат в средата */
+    .site-footer > div, 
+    .site-footer > section,
+    .site-footer > nav,
+    .site-footer > ul {
+        width: 100% !important;
+        max-width: 100% !important;
+        text-align: center !important;
+        margin: 0 auto 30px auto !important; /* Разстояние между секциите */
+        padding: 0 !important;
+        display: block !important;
+    }
+
+    /* Центрираме заглавието JUXURY и мотото */
+    .site-footer h1, 
+    .site-footer h2, 
+    .site-footer h3 {
+        text-align: center !important;
+        margin-bottom: 10px !important;
+    }
+
+    /* Разделяме линковете */
+    .site-footer ul {
+        list-style: none !important;
+    }
+
+    .site-footer li {
+        margin-bottom: 10px !important;
+        display: block !important;
+    }
+}
+/* ========================================= */
+    /* --- 1. ОПРАВЯНЕ НА ТЪРСАЧКАТА ЗА МОБИЛЕН --- */
+    /* ========================================= */
+    header form, 
+    .search-container {
+        display: flex !important;
+        width: 90% !important; /* Не позволява да излиза от екрана */
+        max-width: 320px !important;
+        margin: 15px auto !important; /* Центрира я */
+        box-sizing: border-box !important;
+    }
+
+    /* Намаляваме полето за писане */
+    header input[type="text"], 
+    header input[type="search"] {
+        width: 70% !important;
+        font-size: 14px !important; /* По-малък текст */
+        padding: 8px 12px !important;
+    }
+
+    /* Намаляваме бутона "Търсене" */
+    header button, 
+    header input[type="submit"] {
+        width: 30% !important;
+        font-size: 13px !important;
+        padding: 8px 5px !important;
+        text-align: center !important;
+    }
+
+    /* ========================================= */
+    /* --- 2. ЦЕНТРИРАНЕ НА ЧЕРТАТА ВЪВ ФУТЪРА --- */
+    /* ========================================= */
+    /* Хващаме елемента, който държи Copyright текста (и чертата над него) */
+    .site-footer > div:last-child, 
+    .site-footer > p:last-child,
+    .site-footer > section:last-child {
+        width: 80% !important; /* Правим чертата по-прибрана */
+        margin: 20px auto 0 auto !important; /* Центрираме я перфектно по средата */
+        text-align: center !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.2) !important; /* Задаваме ясна центрирана рамка */
+        padding-top: 15px !important;
+        display: block !important;
+    }
+    
+    /* Ако чертата е направена с отделен таг <hr> */
+    .site-footer hr {
+        width: 80% !important;
+        margin: 20px auto !important;
+        border: none !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+    /* ========================================= */
+    /* --- ОПРАВЯНЕ НА ЧЕРТАТА И ПРАЗНОТО МЯСТО --- */
+    /* ========================================= */
+    
+    /* Скриваме всякакви допълнителни линии (ако има <hr> таг в HTML-а), за да не стават две черти */
+    .site-footer hr {
+        display: none !important;
+    }
+
+    /* Убиваме огромното разстояние под секцията с линковете (под TikTok) */
+    .site-footer > section,
+    .site-footer > div,
+    .site-footer > ul,
+    .site-footer > nav {
+        margin-bottom: 15px !important; /* Прибираме ги плътно */
+    }
+
+    /* Оформяме САМО зоната на Copyright текста с една единствена центрирана черта */
+    .site-footer > p:last-child,
+    .site-footer > div:last-child {
+        width: 60% !important; /* Ширина на чертата (по-къса и елегантна) */
+        margin: 10px auto 0 auto !important; /* Малко разстояние от горните елементи */
+        padding-top: 15px !important; /* Разстоянието между самата черта и текста "Copyright..." */
+        border-top: 1px solid rgba(255, 255, 255, 0.2) !important; /* Това е чертата */
+        text-align: center !important;
+        display: block !important;
+    }
+    /* ========================================= */
+    /* --- ИЗЧИСТВАНЕ НА ЧЕРТАТА ПОД TIKTOK И ВЪЗДУХА --- */
+    /* ========================================= */
+
+    /* Махаме всякакви дълги разделителни линии (рамки) от списъците и секциите */
+    .site-footer ul,
+    .site-footer nav,
+    .site-footer section,
+    .site-footer li {
+        border: none !important; /* Убива дългата черта */
+        border-bottom: none !important;
+        margin-bottom: 0 !important; /* Изсмуква въздуха под TikTok */
+        padding-bottom: 0 !important;
+    }
+
+    /* Гарантираме, че предпоследният елемент (менюто с TikTok) няма никакво отстояние надолу */
+    .site-footer > *:nth-last-child(2) {
+        margin-bottom: 5px !important; 
+        border-bottom: none !important;
+    }
+
+    /* Издърпваме Copyright секцията (с късата черта) нагоре */
+    .site-footer > p:last-child,
+    .site-footer > div:last-child {
+        margin-top: 0 !important; /* Прилепя се плътно към горните линкове */
+        padding-top: 15px !important; /* Оставя малко въздух само между самата къса черта и текста "Copyright" */
+    }
+/* ПЪЛНО ИЗПРАВЯНЕ НА ХЕДЪРА - FORCE */
+@media screen and (max-width: 768px) {
+    /* Хващаме всички възможни контейнери на хедъра */
+    header, 
+    .site-header, 
+    .header-inner,
+    [class*="header"] {
+        border-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+        -webkit-border-radius: 0 !important; /* За Safari/iPhone */
+        overflow: visible !important; /* Да не "реже" съдържанието */
+        margin-bottom: -1px !important; /* Леко застъпване, за да няма бяла линия */
+    }
+
+    /* Проверка за обвивката на логото и навигацията */
+    header div, 
+    header section, 
+    header nav {
+        border-radius: 0 !important;
+    }
+}
+/* Стил за страницата за вход */
+.auth-page {
+    background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%); /* Твоят сивкав градиент */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Playfair Display', serif;
+}
+
+.auth-container {
+    width: 90%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.auth-box {
+    background: rgba(255, 255, 255, 0.05); /* Леко прозрачен фон */
+    backdrop-filter: blur(10px); /* Модерен стъклен ефект */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 40px;
+    display: flex;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.auth-section {
+    flex: 1;
+}
+
+.auth-section h2 {
+    margin-bottom: 25px;
+    font-weight: 400;
+    letter-spacing: 2px;
+}
+
+/* Стил на полетата */
+.auth-section input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    outline: none;
+    transition: 0.3s;
+}
+
+.auth-section input:focus {
+    border-bottom-color: white;
+}
+
+/* Бутони */
+.auth-btn {
+    width: 100%;
+    padding: 15px;
+    background: white;
+    color: black;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    margin-top: 10px;
+}
+
+.auth-btn:hover {
+    background: #ccc;
+}
+
+.auth-btn.secondary {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.auth-btn.secondary:hover {
+    background: white;
+    color: black;
+}
+
+.auth-divider {
+    width: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.back-home {
+    display: block;
+    margin-top: 20px;
+    color: rgba(255, 255, 255, 0.5);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+/* МОБИЛНА ВЕРСИЯ */
+@media (max-width: 768px) {
+    .auth-box {
+        flex-direction: column; /* Нарежда ги едно под друго */
+        padding: 20px;
+        gap: 30px;
+    }
+    
+    .auth-divider {
+        width: 100%;
+        height: 1px;
+    }
+}
+/* Дефинираме самата анимация */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* Започва 30px по-надолу */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0); /* Завършва на оригиналната позиция */
+    }
+}
+
+/* Прилагаме анимацията върху контейнера */
+.auth-container {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* Правим логото да се появи малко по-рано за акцент */
+.auth-container .logo {
+    animation: fadeInUp 0.8s ease-out forwards;
+    animation-delay: 0.2s; /* Леко закъснение */
+    opacity: 0; /* Първоначално е скрито, докато не започне анимацията */
+}
+
+/* Правим самата кутия да се появи със закъснение за по-динамичен ефект */
+.auth-box {
+    animation: fadeInUp 1s ease-out forwards;
+    animation-delay: 0.5s;
+    opacity: 0;
+}
+/* Дефинираме анимацията */
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Прилагаме я САМО върху съдържанието под хедъра */
+main, 
+.hero-section, 
+.content-wrapper {
+    animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+/* Хедърът остава без анимация - гарантирано */
+header, .site-header {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+}
+/* Анимация само за кутията и заглавието в центъра */
+.auth-container {
+    animation: pageFadeIn 1s ease-out forwards;
+}
+
+/* Ако логото ти е част от анимирания контейнер, то ще се движи с него. 
+   Ако искаш ЛОГОТО да не мърда, го извади извън .auth-container или му сложи: */
+.auth-page .logo {
+    animation: none !important;
+    opacity: 1 !important;
+}
+/* Начално състояние на елементите (скрити) */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+}
+
+/* Състояние, когато елементът стане видим */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* --- Скрол Анимация (Reveal) --- */
+
+/* Първоначално състояние на всички секции с клас .reveal */
+.reveal {
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.17, 0.67, 0.83, 0.67); /* Луксозно, плавно движение */
+    visibility: hidden; /* Предотвратява кликане върху невидими елементи */
+}
+
+/* Състояние, когато елементът влезе в екрана */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+}
+
+/* Добавяме малко забавяне за всяка следваща секция, ако са близо една до друга */
+.reveal:nth-child(even) {
+    transition-delay: 0.1s;
+}
+/* Скрива горната лента на Google Translate */
+.skiptranslate iframe {
+    display: none !important;
+}
+
+/* Връща страницата на нормалната й позиция (Google я бута надолу) */
+body {
+    top: 0px !important; 
+}
+
+/* Лек стил за самото падащо меню, за да пасне на тъмния дизайн */
+.language-selector {
+    margin-top: 10px;
+}
+.goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: 1px solid rgba(255,255,255,0.3) !important;
+    padding: 5px 10px !important;
+    border-radius: 4px;
+    font-family: 'Playfair Display', serif !important;
+}
+.goog-te-gadget-simple .goog-te-menu-value span {
+    color: white !important;
+}
+/* --- СТИЛИЗИРАНЕ НА GOOGLE TRANSLATE КАТО БУТОН --- */
+
+/* Позициониране на контейнера в хедъра */
+.lang-btn-container {
+    display: inline-block;
+    margin-left: 15px; /* Разстояние от другите иконки/бутони */
+    vertical-align: middle;
+}
+
+/* Скриване на горната лента (банера) на Google, която разваля дизайна */
+body { top: 0 !important; }
+.skiptranslate iframe { display: none !important; }
+
+/* Скриваме иконката (G) на Google вътре в бутона */
+.goog-te-gadget-icon {
+    display: none !important;
+}
+
+/* Дизайнът на самия бутон */
+.goog-te-gadget-simple {
+    background-color: transparent !important;
+    border: 1px solid white !important; /* Тънка бяла рамка */
+    border-radius: 20px !important; /* Прави го заоблен като хапче/бутон */
+    padding: 6px 12px !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ефект при посочване с мишката */
+.goog-te-gadget-simple:hover {
+    background-color: white !important;
+}
+
+/* Текстът вътре в бутона (текущият език) */
+.goog-te-gadget-simple .goog-te-menu-value span {
+    color: white !important;
+    font-family: 'Playfair Display', serif !important;
+    font-size: 13px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px;
+    border-left: none !important; /* Маха разделителната линия на Google */
+    transition: color 0.3s ease;
+}
+
+/* Промяна на цвета на текста при посочване */
+.goog-te-gadget-simple:hover .goog-te-menu-value span {
+    color: black !important;
+}
+
+/* Скрива надписа "Select Language", който Google понякога показва */
+.goog-te-gadget-simple .goog-te-menu-value span:nth-child(3) {
+    display: none !important;
+}
+/* Стил за новата иконка планета */
+.lang-icon {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 15px; /* Разстояние от MENU бутона */
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    vertical-align: middle;
+}
+
+.lang-icon:hover {
+    opacity: 0.7; /* Лек ефект при посочване, както при другите */
+}
+/* --- СТИЛОВЕ ЗА ЕЗИКА --- */
+.lang-wrapper {
+    position: relative; /* Махаме absolute, за да не се застъпва с другите иконки */
+    display: inline-flex;
+    align-items: center;
+    margin-left: 25px; /* Добавяме малко разстояние, за да се отдръпне от менюто */
+    padding: 10px 0;
+    z-index: 10000;
+}
+
+.lang-icon {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.custom-lang-menu {
+    display: none; 
+    position: absolute;
+    top: 100%; 
+    right: 0; /* Отваря се подравнено надясно */
+    background: #111; 
+    border: 1px solid #333; 
+    z-index: 9999;
+    min-width: 120px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.5);
+}
+
+.lang-wrapper:hover .custom-lang-menu {
+    display: block;
+}
+
+.custom-lang-menu a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.custom-lang-menu a:hover {
+    background: #333;
+}
+
+/* --- СКРИВАНЕ НА ОРИГИНАЛНИЯ GOOGLE TRANSLATE --- */
+#google_translate_element,
+.goog-te-gadget {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    width: 0 !important;
+    height: 0 !important;
+    overflow: hidden !important;
+}
+
+/* Махаме грозната лента най-горе */
+.goog-te-banner-frame { display: none !important; }
+body { top: 0px !important; }
+/* Специален клас за страници без горно меню (като Login) */
+/* Супер силен клас за страници без меню (Login) */
+.lang-wrapper.floating-lang {
+    position: fixed !important; /* FIXED го заковава за екрана */
+    top: 30px !important;
+    right: 40px !important;
+    margin: 0 !important;
+    z-index: 100000 !important; /* За да е над абсолютно всичко друго */
+}
+/* --- ПАДАЩО МЕНЮ ЗА ПОТРЕБИТЕЛЯ (INDEX) --- */
+/* --- ПАДАЩО МЕНЮ ЗА ПОТРЕБИТЕЛЯ (ХЕДЪР) --- */
+.user-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.user-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%; /* Позиционира го точно под иконката */
+    right: 0;  /* Подравнява го по десния ръб на иконката */
+    background: #fff;
+    border: 1px solid #ddd;
+    min-width: 180px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    z-index: 9999;
+    padding: 10px 0;
+    margin-top: 15px; /* Малко разстояние между иконката и менюто */
+}
+
+/* МАГИЯТА: Менюто се показва ПРИ ПОСОЧВАНЕ, САМО ако има клас logged-in */
+.user-wrapper.logged-in:hover .user-dropdown {
+    display: block;
+}
+
+/* Падащо меню за ПРОФИЛ (същия стил като филтър менюто) */
+.user-dropdown {
+    display: none; 
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #1a1a1a; /* Тъмният фон */
+    min-width: 220px;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    z-index: 1000;
+    margin-top: 25px; /* Отстояние от хедъра */
+    /* Ако филтърът има тънка бежова линия отгоре, остави този ред: */
+    border-top: 1px solid #e3d3c0; 
+}
+
+.user-dropdown.show {
+    display: block;
+}
+
+.user-dropdown a {
+    display: block;
+    color: #ffffff; /* Бял текст */
+    text-decoration: none;
+    padding: 12px 0;
+    font-family: 'Playfair Display', serif; /* Шрифта от другото меню */
+    font-size: 16px;
+    border-bottom: 1px solid #333333; /* Лека разделителна линия */
+    transition: color 0.3s ease;
+    text-align: left;
+}
+
+.user-dropdown a:last-child {
+    border-bottom: none; /* Премахва линията под последния елемент ("Изход") */
+}
+
+.user-dropdown a:hover {
+    color: #d4af37; /* Златист/бежов цвят при посочване с мишката */
+}
+/* --- ПРОФИЛ СТРАНИЦА (PROFILE.HTML) --- */
+.profile-page {
+    background: #f9f9f9; /* Светъл фон за профила */
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.profile-container {
+    background: #fff;
+    padding: 50px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.profile-title {
+    text-align: center;
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.cred-item {
+    margin-bottom: 20px;
+}
+
+.cred-label {
+    display: block;
+    font-size: 12px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.cred-value {
+    font-size: 16px;
+}
+
+.cred-divider {
+    border: none;
+    border-top: 1px solid #000;
+    margin: 20px 0;
+}
+
+.change-pass {
+    color: #000;
+    text-decoration: underline;
+    font-size: 14px;
+}
+
+.sign-out-btn {
+    margin-top: 40px;
+    border: 1px solid #eee;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s;
+}
+
+.sign-out-btn:hover {
+    background: #f5f5f5;
+}
+/* =========================================
+   FORUM PAGE STYLES (JUXURY x REDDIT STYLE)
+========================================= */
+
+.forum-container {
+    max-width: 1200px;
+    margin: 40px auto 100px auto;
+    padding: 0 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif; /* Използваме изчистен шрифт за четене */
+}
+
+/* Хедър на форума */
+.forum-header {
+    margin-bottom: 40px;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 30px;
+}
+
+.forum-title-area h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 42px;
+    margin: 0 0 10px 0;
+    color: #111;
+}
+
+.forum-title-area p {
+    color: #666;
+    margin: 0 0 25px 0;
+}
+
+.forum-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+/* Търсачка */
+.forum-search-box {
+    position: relative;
+    flex: 1;
+    max-width: 600px;
+}
+
+.forum-search-box i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+}
+
+.forum-search-box input {
+    width: 100%;
+    padding: 14px 20px 14px 45px;
+    border: 1px solid #ccc;
+    border-radius: 30px; /* Заоблена форма за по-модерен вид */
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.forum-search-box input:focus {
+    border-color: #111;
+}
+
+/* Бутон Създай тема */
+.new-topic-btn {
+    background-color: #111;
+    color: #fff;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 30px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.new-topic-btn:hover {
+    background-color: #444;
+}
+
+/* Основен лейаут (Грид) */
+.forum-layout {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.forum-main {
+    flex: 1; /* Взима останалото пространство */
+}
+
+/* Индивидуален пост */
+.forum-post {
+    position: relative; /* ТОВА Е НАЙ-ВАЖНОТО за позицията на кошчето */
+    background: #fff;
+    border: 1px solid #eaeaea;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    cursor: pointer;
+}
+
+.forum-post:hover {
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+    border-color: #ccc;
+}
+
+.post-meta {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 12px;
+}
+
+.post-meta strong {
+    color: #333;
+}
+
+.post-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin: 0 0 10px 0;
+    color: #111;
+}
+
+.post-excerpt {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #555;
+    margin: 0 0 20px 0;
+}
+
+.post-footer {
+    display: flex;
+    gap: 20px;
+    border-top: 1px solid #f5f5f5;
+    padding-top: 15px;
+}
+
+.post-stat {
+    font-size: 13px;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: bold;
+}
+
+/* Странична лента (Sidebar) */
+.forum-sidebar {
+    width: 300px;
+    flex-shrink: 0; /* Пречи ѝ да се смалява */
+}
+
+.sidebar-widget {
+    background: #fdfdfd;
+    border: 1px solid #eaeaea;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.sidebar-widget h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    margin: 0 0 20px 0;
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 10px;
+}
+
+.category-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.category-list li {
+    margin-bottom: 15px;
+}
+
+.category-list a {
+    text-decoration: none;
+    color: #555;
+    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    transition: color 0.3s;
+}
+
+.category-list a:hover {
+    color: #111;
+    font-weight: bold;
+}
+
+.category-list span {
+    color: #999;
+    font-size: 13px;
+}
+
+.rules-widget ol {
+    padding-left: 15px;
+    margin: 0;
+    color: #555;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+/* Мобилна адаптивност */
+@media (max-width: 900px) {
+    .forum-layout {
+        flex-direction: column;
+    }
+    .forum-sidebar {
+        width: 100%;
+    }
+    .forum-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+}
+/* --- МОДАЛЕН ПРОЗОРЕЦ ЗА НОВА ТЕМА --- */
+.modal-overlay {
+    display: none; /* Скрито по подразбиране */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Модерен ефект на замъгляване */
+}
+
+.modal-content {
+    background: #fff;
+    padding: 40px;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 12px;
+    position: relative;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    animation: modalFadeIn 0.3s ease;
+}
+
+@keyframes modalFadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #999;
+    transition: color 0.3s;
+}
+
+.close-modal:hover {
+    color: #111;
+}
+
+.modal-content h2 {
+    font-family: 'Playfair Display', serif;
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus, 
+.form-group select:focus, 
+.form-group textarea:focus {
+    border-color: #111;
+}
+
+.submit-topic-btn {
+    background: #111;
+    color: #fff;
+    border: none;
+    padding: 14px 30px;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+    margin-top: 10px;
+}
+
+.submit-topic-btn:hover {
+    background: #444;
+}
+/* --- БУТОН ЗА ИЗТРИВАНЕ НА СОБСТВЕНА ТЕМА --- */
+.forum-post {
+    position: relative; /* Позволява на бутона за триене да се позиционира спрямо поста */
+}
+
+/* --- КРАСИВ БУТОН ЗА ИЗТРИВАНЕ --- */
+.delete-post-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #fcfcfc;
+    border: 1px solid #eaeaea;
+    color: #b3b3b3;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Прави го на перфектно кръгче */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10; /* Държи го винаги най-отгоре */
+}
+
+.delete-post-btn:hover {
+    background-color: #ff4d4d; /* Става червено при посочване */
+    color: #ffffff;
+    border-color: #ff4d4d;
+    transform: scale(1.1);
+    box-shadow: 0 4px 10px rgba(255, 77, 77, 0.2);
+}
+/* =========================================
+   TOPIC PAGE STYLES (SINGLE POST & COMMENTS)
+========================================= */
+
+.topic-page-container {
+    max-width: 900px; /* По-тясно от форума за по-лесно четене */
+    margin: 40px auto 100px auto;
+    padding: 0 20px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+.back-to-forum {
+    display: inline-block;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 30px;
+    transition: color 0.3s;
+}
+
+.back-to-forum:hover {
+    color: #111;
+}
+
+.back-to-forum i {
+    margin-right: 8px;
+}
+
+/* Оригинален пост */
+.original-post-box {
+    background: #fff;
+    padding: 40px 0;
+    border-bottom: 2px solid #eaeaea;
+    margin-bottom: 40px;
+}
+
+.topic-main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    color: #111;
+    margin: 10px 0 25px 0;
+    line-height: 1.3;
+}
+
+.topic-main-content {
+    font-size: 18px;
+    line-height: 1.8;
+    color: #333;
+}
+
+/* Коментари */
+.comments-section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+
+.comment-box {
+    position: relative; /* <-- ДОБАВЯМЕ ТОВА за позицията на кошчето */
+    background: #fdfdfd;
+    border: 1px solid #eaeaea;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.comment-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.comment-header i {
+    font-size: 20px;
+    color: #999;
+}
+
+.comment-time {
+    color: #888;
+    font-size: 12px;
+}
+
+.comment-text {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* Добавяне на коментар */
+.add-comment-box {
+    margin-top: 50px;
+    background: #f9f9f9;
+    padding: 30px;
+    border-radius: 8px;
+}
+
+.add-comment-box h4 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+}
+
+.add-comment-box textarea {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 15px;
+    resize: vertical;
+    outline: none;
+    margin-bottom: 15px;
+}
+
+.add-comment-box textarea:focus {
+    border-color: #111;
+}
+/* Контейнерът, който държи всичко */
+.runway-slider-container {
+    overflow: hidden; /* Скрива излишното */
+    width: 100%;
+    padding: 20px 0;
+}
+
+/* Пътят, по който се движат картите */
+.runway-slider-track {
+    display: flex;
+    gap: 30px; /* Разстояние между картите */
+    overflow-x: auto; /* Позволява скролване настрани */
+    scroll-behavior: smooth;
+    padding-bottom: 15px;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Самата карта на статията */
+.article-card {
+    flex: 0 0 350px; /* ТОВА Е ВАЖНО: 350px е широчината. Увеличи я, ако искаш да са още по-големи */
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.article-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Снимката вътре в картата */
+.runway-img-wrapper {
+    width: 100%;
+    height: 230px; /* Височина на снимката - регулирай я тук */
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.runway-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Запълва пространството без да разтяга снимката */
+}
+
+/* Заглавията */
+.runway-slide-title {
+    font-size: 1.1rem;
+    line-height: 1.4;
+    margin: 10px 0 5px 0;
+    font-weight: bold;
+}
+
+.runway-slide-subtitle {
+    font-size: 0.9rem;
+    color: #666;
+    text-transform: uppercase;
+}
+
+/* Скрий грозния скролбар (по желание) */
+.runway-slider-track::-webkit-scrollbar {
+    height: 6px;
+}
+.runway-slider-track::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+/* --- СТИЛОВЕ ЗА БУТОНА RUNWAY --- */
+        .view-all-container {
+            display: flex;
+            justify-content: center;
+            margin: 60px 0 80px 0;
+            width: 100%;
+        }
+
+        .view-all-btn {
+            display: inline-block;
+            padding: 16px 45px;
+            background-color: #111 !important; /* Черен фон */
+            color: #fff !important; /* Бял текст */
+            text-decoration: none !important; /* Маха синьото подчертаване */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 13px;
+            border: 1px solid #111;
+            transition: all 0.3s ease;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            cursor: pointer;
+        }
+
+        .view-all-btn:hover {
+            background-color: transparent !important;
+            color: #111 !important;
+        }

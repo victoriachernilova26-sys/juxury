@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUXURY - Форум</title>
+    
+    <script>
+        if (localStorage.getItem('juxury_logged_in') !== 'true') {
+            window.location.replace('login.html'); // Връща към логин екрана
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="index.html" style="text-decoration: none; color: inherit;">
+                <h2>JUXURY</h2>
+            </a>
+        </div>
+        
+        <div class="mobile-toggle" id="mobileMenuBtn">
+            <i class="fas fa-bars"></i>
+        </div>
+
+        <nav class="main-nav">
+            <a href="index.html">HOME</a>
+            <a href="fashion.html">FASHION</a> 
+            <a href="lifestyle.html">LIFESTYLE</a>
+            <a href="forum.html" class="active">FORUM</a>
+        </nav>
+
+        <div class="header-actions">
+            <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+            
+            <div id="user-menu-container" style="position: relative; display: inline-flex; align-items: center;">
+               <button id="profile-dropdown-btn" style="background:none; border:none; color:#fff; font: size 30px; cursor:pointer; padding:0; margin-left: 15px; display: flex; align-items: center;">
+    <i class="far fa-user-circle"></i>
+</button>
+                <div id="user-dropdown-menu" class="user-dropdown">
+                    <a href="profile.html">Моят профил</a>
+                    <a href="#" onclick="logoutUser()">Изход</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="forum-container">
+        
+        <div class="forum-header">
+            <div class="forum-title-area">
+                <h1>The Lounge</h1>
+                <p>Ексклузивна дискусия за JUXURY общността в България.</p>
+            </div>
+            
+            <div class="forum-actions">
+                <div class="forum-search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="forumSearch" placeholder="Търси тема, ключова дума...">
+                </div>
+                <button class="new-topic-btn"><i class="fas fa-plus"></i> Създай тема</button>
+            </div>
+        </div>
+
+        <div class="forum-layout">
+            <div class="forum-main" id="forumPostsContainer">
+                
+                <div class="forum-post">
+                    <div class="post-meta">Публикувано от <strong>@fashion_lover</strong> преди 2 часа • <em>Fashion</em></div>
+                    <h3 class="post-title">Какво мислите за новата колекция на Chanel?</h3>
+                    <p class="post-excerpt">Стори ми се малко по-класическа от обикновено, но ми липсваха смелите цветове от миналата година. Някой друг на същото мнение?</p>
+                    <div class="post-footer">
+                        <span class="post-stat"><i class="far fa-heart"></i> 24 Likes</span>
+                        <span class="post-stat"><i class="far fa-comment"></i> 2 Коментара</span>
+                    </div>
+                </div>
+
+                <div class="forum-post">
+                    <div class="post-meta">Публикувано от <strong>@minimalist_soul</strong> преди 5 часа • <em>Lifestyle</em></div>
+                    <h3 class="post-title">Основи на капсулния гардероб за пролетта</h3>
+                    <p class="post-excerpt">Опитвам се да сведа гардероба си до 30 ключови елемента. Кои са вашите абсолютни задължителни дрехи за пролетния сезон?</p>
+                    <div class="post-footer">
+                        <span class="post-stat"><i class="far fa-heart"></i> 56 Likes</span>
+                        <span class="post-stat"><i class="far fa-comment"></i> 2 Коментара</span>
+                    </div>
+                </div>
+
+                <div class="forum-post">
+                    <div class="post-meta">Публикувано от <strong>@beauty_guru</strong> вчера • <em>Beauty & Wellness</em></div>
+                    <h3 class="post-title">Най-добрите слънцезащитни кремове под грим?</h3>
+                    <p class="post-excerpt">Търся нещо, което не оставя бял филм и не кара фон дьо тена ми да се размазва след няколко часа. Препоръки?</p>
+                    <div class="post-footer">
+                        <span class="post-stat"><i class="far fa-heart"></i> 18 Likes</span>
+                        <span class="post-stat"><i class="far fa-comment"></i> 2 Коментара</span>
+                    </div>
+                </div>
+
+                <div id="noResultsMsg" style="display: none; text-align: center; padding: 40px; color: #666;">
+                    Няма намерени теми с тази ключова дума.
+                </div>
+
+            </div>
+
+            <div class="forum-sidebar">
+                <div class="sidebar-widget">
+                    <h3>Категории</h3>
+                    <ul class="category-list">
+                        <li><a href="#">Всички теми </a></li>
+                        <li><a href="#">Fashion </a></li>
+                        <li><a href="#">Lifestyle </a></li>
+                        <li><a href="#">Beauty & Wellness </a></li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-widget rules-widget">
+                    <h3>Правила на форума</h3>
+                    <ol>
+                        <li>Бъдете учтиви и уважителни.</li>
+                        <li>Не публикувайте спам или реклами.</li>
+                        <li>Пишете на кирилица.</li>
+                        <li>Пазете елегантния тон на JUXURY.</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+<div id="newTopicModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Създай нова тема</h2>
+            <form id="newTopicForm">
+                <div class="form-group">
+                    <label for="topicTitle">Заглавие</label>
+                    <input type="text" id="topicTitle" required placeholder="Напр. Любими места за брънч в София?">
+                </div>
+                <div class="form-group">
+                    <label for="topicCategory">Категория</label>
+                    <select id="topicCategory">
+                        <option value="Lifestyle">Lifestyle</option>
+                        <option value="Fashion">Fashion</option>
+                        <option value="Beauty & Wellness">Beauty & Wellness</option>
+                    </select>
+                </div>
+                <ul class="category-list">
+                <div class="form-group">
+                    <label for="topicContent">Текст на публикацията</label>
+                    <textarea id="topicContent" rows="5" required placeholder="Сподели своите мисли тук..."></textarea>
+                </div>
+                <button type="submit" class="submit-topic-btn">Публикувай</button>
+            </form>
+        </div>
+    </div>
+
+ <script>
+        // 1. Логика за излизане
+        function logoutUser() {
+            localStorage.removeItem('juxury_logged_in');
+            window.location.href = 'login.html'; 
+        }
+
+        // 2. Падащо меню на профила
+        const profileBtn = document.getElementById('profile-dropdown-btn');
+        const userDropdown = document.getElementById('user-dropdown-menu');
+        
+        if (profileBtn) {
+            profileBtn.addEventListener('click', function(e) {
+                e.stopPropagation(); 
+                userDropdown.classList.toggle('show');
+            });
+        }
+        
+        window.addEventListener('click', function(e) {
+            if (userDropdown && userDropdown.classList.contains('show')) {
+                userDropdown.classList.remove('show');
+            }
+        });
+
+        // 3. ТЪРСАЧКА И ФИЛТЪР (ДИРЕКТНО ПО <em> ТАГА)
+        const searchInput = document.getElementById('forumSearch');
+        const postsContainer = document.getElementById('forumPostsContainer');
+        const noResults = document.getElementById('noResultsMsg');
+        
+        const categoryLinks = document.querySelectorAll('.category-list a'); 
+        
+        let currentCategory = 'all'; 
+
+        function filterForumPosts() {
+            const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
+            let visibleCount = 0;
+            const currentPosts = document.querySelectorAll('.forum-post');
+
+            currentPosts.forEach(post => {
+                const titleEl = post.querySelector('.post-title');
+                const excerptEl = post.querySelector('.post-excerpt');
+                
+                // ВЗИМАМЕ ДИРЕКТНО ТАГА В <em> (напр. Fashion, Lifestyle)
+                const categoryEl = post.querySelector('.post-meta em');
+
+                const title = titleEl ? titleEl.innerText.toLowerCase() : '';
+                const excerpt = excerptEl ? excerptEl.innerText.toLowerCase() : '';
+                const postCategory = categoryEl ? categoryEl.innerText.toLowerCase().trim() : '';
+
+                const matchesSearch = (searchTerm === '') || title.includes(searchTerm) || excerpt.includes(searchTerm);
+                
+                let matchesCategory = false;
+                if (currentCategory === 'all') {
+                    matchesCategory = true;
+                } else {
+                    // Търсим точно съвпадение с английската дума!
+                    matchesCategory = (postCategory === currentCategory);
+                }
+
+                if (matchesSearch && matchesCategory) {
+                    post.style.display = ''; 
+                    visibleCount++;
+                } else {
+                    post.style.display = 'none'; 
+                }
+            });
+
+            if (noResults) {
+                noResults.style.display = (visibleCount === 0) ? 'block' : 'none';
+            }
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', filterForumPosts);
+        }
+
+        if (categoryLinks.length > 0) {
+            categoryLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault(); 
+
+                    categoryLinks.forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+
+                    // Взимаме текста на линка (напр. "Fashion (45)")
+                    let rawText = this.innerText.toLowerCase();
+                    
+                    // Премахваме скобите и цифрите (остава само "fashion", "lifestyle", "beauty & wellness")
+                    let categoryName = rawText.replace(/\s*\(\d+\)/g, '').trim();
+
+                    if (categoryName.includes('всички')) {
+                        currentCategory = 'all';
+                    } else {
+                        currentCategory = categoryName;
+                    }
+
+                    filterForumPosts();
+                });
+            });
+        }
+
+        // 4. Модален прозорец
+        const modal = document.getElementById('newTopicModal');
+        const openModalBtn = document.querySelector('.new-topic-btn');
+        const closeModalBtn = document.querySelector('.close-modal');
+        const newTopicForm = document.getElementById('newTopicForm');
+
+        if (openModalBtn && modal) {
+            openModalBtn.addEventListener('click', function() {
+                modal.style.display = 'flex';
+            });
+        }
+
+        if (closeModalBtn && modal) {
+            closeModalBtn.addEventListener('click', function() {
+                modal.style.display = 'none';
+            });
+        }
+
+        window.addEventListener('click', function(e) {
+            if (modal && e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // 5. ОТВАРЯНЕ НА ТЕМА
+        if (postsContainer) {
+            postsContainer.addEventListener('click', function(e) {
+                const post = e.target.closest('.forum-post');
+                if (e.target.closest('.delete-post-btn')) return;
+
+                if (post) {
+                    const title = post.querySelector('.post-title').innerText;
+                    const content = post.querySelector('.post-excerpt').innerText;
+                    const metaHTML = post.querySelector('.post-meta').innerHTML;
+
+                    localStorage.setItem('current_topic_title', title);
+                    localStorage.setItem('current_topic_content', content);
+                    localStorage.setItem('current_topic_meta', metaHTML);
+
+                    window.location.href = 'topic.html';
+                }
+            });
+        }
+
+        // 6. Публикуване на тема
+        if (newTopicForm) {
+            newTopicForm.addEventListener('submit', function(e) {
+                e.preventDefault(); 
+
+                const title = document.getElementById('topicTitle').value;
+                const category = document.getElementById('topicCategory').value;
+                const content = document.getElementById('topicContent').value;
+
+                const newPostHTML = `
+                    <div class="forum-post" style="animation: modalFadeIn 0.5s ease; border-left: 4px solid #d4af37;">
+                        
+                        <button class="delete-post-btn" onclick="this.closest('.forum-post').remove()" title="Изтрий темата">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>
+
+                        <div class="post-meta">Публикувано от <strong>@моят_профил</strong> току-що • <em>${category}</em></div>
+                        <h3 class="post-title">${title}</h3>
+                        <p class="post-excerpt">${content}</p>
+                        <div class="post-footer">
+                            <span class="post-stat"><i class="far fa-heart"></i> 0 Likes</span>
+                            <span class="post-stat"><i class="far fa-comment"></i> 0 Коментара</span>
+                        </div>
+                    </div>
+                `;
+
+                if (noResults) {
+                    noResults.insertAdjacentHTML('afterend', newPostHTML);
+                }
+
+                if (modal) {
+                    modal.style.display = 'none';
+                }
+                newTopicForm.reset();
+                
+                // Ако сме публикували нов пост, го филтрираме веднага, за да се покаже/скрие правилно
+                filterForumPosts();
+            });
+        }
+</script>
+    <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Всички любими артикули | JUXURY</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+    <style>
+        /* Основен стил за страницата */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+
+        /* --- СТИЛОВЕ ЗА SHOP ALL СТРАНИЦАТА --- */
+        .shop-all-container {
+            max-width: 1400px;
+            margin: 40px auto 100px auto;
+            padding: 0 40px;
+        }
+
+        /* Въвеждащ текст */
+        .shop-all-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 60px auto;
+        }
+
+        .shop-all-intro h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .shop-all-intro p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        /* Мрежа с продукти */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 40px 30px; 
+        }
+
+        /* Отделен продукт */
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .product-image-link {
+            display: block;
+            overflow: hidden;
+            margin-bottom: 15px;
+            aspect-ratio: 3 / 4; 
+        }
+
+        .product-image-link img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .product-image-link:hover img {
+            transform: scale(1.05); 
+        }
+
+        /* Бутон Купи Сега */
+        .buy-now-btn {
+            display: inline-block;
+            background-color: #000;
+            color: #fff;
+            text-decoration: none;
+            padding: 12px 20px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background-color 0.3s, opacity 0.3s;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .buy-now-btn:hover {
+            background-color: #333;
+        }
+
+        /* Бутон Назад */
+        .back-btn-container {
+            text-align: center;
+            margin-top: 80px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            border: 1px solid #000;
+            color: #000;
+            text-decoration: none;
+            padding: 15px 40px;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: #000;
+            color: #fff;
+        }
+        header .logo h2, header .main-nav a {
+    font-family: 'Playfair Display', serif !important;
+}
+
+        /* Респонсив (за телефони) */
+        @media (max-width: 768px) {
+            .shop-all-container { padding: 0 20px; }
+            .products-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+            .shop-all-intro h1 { font-size: 2rem; }
+            .buy-now-btn { font-size: 0.8rem; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h2>JUXURY</h2>
+        </a>
+    </div>
+    
+    <div class="mobile-toggle" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="main-nav">
+        <a href="index.html" class="active">HOME</a>
+        <a href="fashion.html">FASHION</a> 
+        <a href="lifestyle.html">LIFESTYLE</a>
+        <a href="forum.html">FORUM</a>
+    </nav>
+
+    <div class="header-actions">
+        <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+        
+        <div class="menu-filter" id="filterToggle">
+            <i class="fas fa-bars"></i>
+            <div class="filter-dropdown" id="filterMenu">
+                <div class="filter-column">
+                    <h3>Fashion</h3>
+                    <a href="#">Гид за стил</a>
+                    <a href="#">Вечни класики</a>
+                    <a href="#">Модни ревюта</a>
+                    <a href="#">Звезден стил</a>
+                    <a href="#">Тенденции</a>
+                </div>
+                <div class="filter-column">
+                    <h3>Lifestyle</h3>
+                    <a href="#">Здравословно хранене</a>
+                    <a href="#">Фитнес и спорт</a>
+                    <a href="#">Баланс и здраве</a>
+                    <a href="#">Луксозни пътувания</a>
+                    <a href="#">Фокус</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="lang-wrapper">
+            <div class="lang-icon" onclick="toggleTranslate(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </div>
+            
+            <div class="custom-lang-menu notranslate" id="customLangMenu">
+                <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+            </div>
+
+            <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+        </div>
+
+        <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+
+        <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+            <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            
+            <div class="user-dropdown" id="user-dropdown-menu">
+                <a href="profile.html">Управление на профила</a>
+                <a href="saved.html">Запазени статии</a>
+                <a href="#" onclick="logoutUser(); return false;">Изход</a>
+            </div>
+        </div>
+
+    </div> 
+
+    <div class="search-overlay" id="searchBar">
+        <form action="#" method="GET" class="search-form">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" placeholder="Въведете ключова дума..." name="q">
+            <button type="submit">Търсене</button>
+        </form>
+    </div>
+</header>
+    <main class="shop-all-container">
+        
+        <section class="shop-all-intro">
+            <h1>Моята Селекция</h1>
+            <p>Добре дошли в моята ексклузивна селекция от любими модни находки. Тук съм събрала внимателно подбрани дрехи, които обожавам и силно препоръчвам, които ще обновявам всеки месец. Независимо дали търсите вдъхновение за ежедневието си или перфектния тоалет за специален повод, тук ще откриете качествени и стилни артикули, които да добавят елегантност към вашия гардероб. Разгледайте ги и намерете своето ново любимо попълнение!</p>
+        </section>
+
+        <section class="products-grid">
+
+            <div class="product-card">
+                <a href="https://www.bubulovers.com.br/products/vestido-tais-pre-venda?_pos=1&_sid=27ecc5a85&_ss=r" target="_blank" class="product-image-link"><img src="images/kupi1.jpg" alt="Дреха 1"></a>
+                <a href="https://www.bubulovers.com.br/products/vestido-tais-pre-venda?_pos=1&_sid=27ecc5a85&_ss=r" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.zimmermann.com/en-eu/rebellion-low-rise-flare-jean-night-sky.html?___store=en_eu_store_view&utm_source=social&utm_medium=paid&utm_campaign=PinterestProductFeed&utm_content=1160035" target="_blank" class="product-image-link"><img src="images/kupi2.jpg" alt="Дреха 2"></a>
+                <a href="https://www.zimmermann.com/en-eu/rebellion-low-rise-flare-jean-night-sky.html?___store=en_eu_store_view&utm_source=social&utm_medium=paid&utm_campaign=PinterestProductFeed&utm_content=1160035" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.farfetch.com/th/shopping/women/dolce-gabbana-floral-lace-asymmetric-blouse-item-22372365.aspx?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9Qk1TbGxUTnNDcTlpVGVxM1hSaDlkTTU1dzFubF93WncmcD0wJm49ZzF6TFlLT1BZVGpiaW9nWXJtY3ptUSZ0PUFBQUFBR21fNHVj" target="_blank" class="product-image-link"><img src="images/kupi3.jpg" alt="Дреха 3"></a>
+                <a href="https://www.farfetch.com/th/shopping/women/dolce-gabbana-floral-lace-asymmetric-blouse-item-22372365.aspx?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9Qk1TbGxUTnNDcTlpVGVxM1hSaDlkTTU1dzFubF93WncmcD0wJm49ZzF6TFlLT1BZVGpiaW9nWXJtY3ptUSZ0PUFBQUFBR21fNHVj" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/p/christopher-esber/ripple-drape-jersey-top/721766" target="_blank" class="product-image-link"><img src="images/kupi4.jpg" alt="Дреха 4"></a>
+                <a href="https://www.modaoperandi.com/women/p/christopher-esber/ripple-drape-jersey-top/721766" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://en-saudi.levelshoes.com/givenchy-shark-lock-pant-boots-black-satin-women-high-heels-s1dgda.html" target="_blank" class="product-image-link"><img src="images/kupi5.png" alt="Дреха 5"></a>
+                <a href="https://en-saudi.levelshoes.com/givenchy-shark-lock-pant-boots-black-satin-women-high-heels-s1dgda.html" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/p/salon-1884/farussi-bodysuit/688534?cjdata=MXxZfFl8WXww&AID=14544922&PID=100046537&SID=92X1711942Xa952275822af935188acd61e41b0c7db&cjevent=6d54105525ec11f1811b00fc0a18b8f6&utm_medium=affiliate&medium=affiliate&source=Skimlinks&utm_source=Skimlinks" target="_blank" class="product-image-link"><img src="images/kupi6.jpg" alt="Дреха 6"></a>
+                <a href="https://www.modaoperandi.com/women/p/salon-1884/farussi-bodysuit/688534?cjdata=MXxZfFl8WXww&AID=14544922&PID=100046537&SID=92X1711942Xa952275822af935188acd61e41b0c7db&cjevent=6d54105525ec11f1811b00fc0a18b8f6&utm_medium=affiliate&medium=affiliate&source=Skimlinks&utm_source=Skimlinks" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://ohpolly.ae/products/eden-embellished-draped-strapless-a-line-mini-dress-black" target="_blank" class="product-image-link"><img src="images/kupi7.jpg" alt="Дреха 7"></a>
+                <a href="https://ohpolly.ae/products/eden-embellished-draped-strapless-a-line-mini-dress-black" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.farfetch.com/shopping/women/liu-jo-logo-plaque-flare-jeans-item-31308688.aspx" target="_blank" class="product-image-link"><img src="images/kupi8.webp" alt="Дреха 8"></a>
+                <a href="https://www.farfetch.com/shopping/women/liu-jo-logo-plaque-flare-jeans-item-31308688.aspx" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://poshmark.com/listing/Jimmy-Choo-Cibelle-100-Lace-Suede-Pump-Black-62e39b4b33c601bf8ceff3b0" target="_blank" class="product-image-link"><img src="images/kupi9.jpg" alt="Дреха 9"></a>
+                <a href="https://poshmark.com/listing/Jimmy-Choo-Cibelle-100-Lace-Suede-Pump-Black-62e39b4b33c601bf8ceff3b0" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://m.romwe.com/de/Goth-Women-s-Faux-Fur-Patchwork-PU-Leather-Short-Jacket-Autumn-Winter-p-3067511.html?ref=m&rep=dir&ret=mde" target="_blank" class="product-image-link"><img src="images/kupi10.jpg" alt="Дреха 10"></a>
+                <a href="https://m.romwe.com/de/Goth-Women-s-Faux-Fur-Patchwork-PU-Leather-Short-Jacket-Autumn-Winter-p-3067511.html?ref=m&rep=dir&ret=mde" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://innovaredenim.com/pt/collections/best-sellers/products/danna-strapless-lace-fringe-stain-mini-dress" target="_blank" class="product-image-link"><img src="images/kupi11.png" alt="Дреха 11"></a>
+                <a href="https://innovaredenim.com/pt/collections/best-sellers/products/danna-strapless-lace-fringe-stain-mini-dress" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://editorialist.com/p/monot-florence-bead-embellished-tulle-halterneck-top-32394881/" target="_blank" class="product-image-link"><img src="images/kupi12.jpg" alt="Дреха 12"></a>
+                <a href="https://editorialist.com/p/monot-florence-bead-embellished-tulle-halterneck-top-32394881/" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/designer/coperni" target="_blank" class="product-image-link"><img src="images/kupi13.jpg" alt="Дреха 13"></a>
+                <a href="https://www.modaoperandi.com/women/designer/coperni" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://clothbase.com/items/98eeface_we11done-black-knee-high-knit-tall-boots_we11done" target="_blank" class="product-image-link"><img src="images/kupi14.png" alt="Дреха 14"></a>
+                <a href="https://clothbase.com/items/98eeface_we11done-black-knee-high-knit-tall-boots_we11done" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/designer/coperni" target="_blank" class="product-image-link"><img src="images/kupi15.jpg" alt="Дреха 15"></a>
+                <a href="https://www.modaoperandi.com/women/designer/coperni" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.aliceandolivia.com/olivia-pinstriped-wide-leg-pant/CL000R48116G980.html?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9dF9xZ2JLXzlJUWRqWFA0UFRzb3RqenZCX1owS21iYWgmcD0wJm49bUF4ZjM5US1CNUlaRXBGQm00aC1wQSZ0PUFBQUFBR21fN0cw" target="_blank" class="product-image-link"><img src="images/kupi16.jpg" alt="Дреха 16"></a>
+                <a href="https://www.aliceandolivia.com/olivia-pinstriped-wide-leg-pant/CL000R48116G980.html?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9dF9xZ2JLXzlJUWRqWFA0UFRzb3RqenZCX1owS21iYWgmcD0wJm49bUF4ZjM5US1CNUlaRXBGQm00aC1wQSZ0PUFBQUFBR21fN0cw" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.ebay.com/itm/186226447729" target="_blank" class="product-image-link"><img src="images/kupi17.png" alt="Дреха 17"></a>
+                <a href="https://www.ebay.com/itm/186226447729" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/designer/gaurav-gupta" target="_blank" class="product-image-link"><img src="images/kupi18.jpg" alt="Дреха 18"></a>
+                <a href="https://www.modaoperandi.com/women/designer/gaurav-gupta" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/designer/magda-butrym" target="_blank" class="product-image-link"><img src="images/kupi19.jpg" alt="Дреха 19"></a>
+                <a href="https://www.modaoperandi.com/women/designer/magda-butrym" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://editorialist.com/p/dolce-gabbana-105mm-bow-textured-pumps/?pla=true&size=37&utm_source=pinterest&utm_medium=pinterest&utm_campaign=pinterest" target="_blank" class="product-image-link"><img src="images/kupi20.jpg" alt="Дреха 20"></a>
+                <a href="https://editorialist.com/p/dolce-gabbana-105mm-bow-textured-pumps/?pla=true&size=37&utm_source=pinterest&utm_medium=pinterest&utm_campaign=pinterest" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.glami.ee/naiste-bomber-jakid/?highlight=c4823437&iid=4823437&utm_source=Pinterest&utm_medium=organic" target="_blank" class="product-image-link"><img src="images/kupi21.png" alt="Дреха 21"></a>
+                <a href="https://www.glami.ee/naiste-bomber-jakid/?highlight=c4823437&iid=4823437&utm_source=Pinterest&utm_medium=organic" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://editorialist.com/p/maticevski-incarnate-sequined-mesh-maxi-skirt/?pla=true&size=AU%2010" target="_blank" class="product-image-link"><img src="images/kupi22.jpg" alt="Дреха 22"></a>
+                <a href="https://editorialist.com/p/maticevski-incarnate-sequined-mesh-maxi-skirt/?pla=true&size=AU%2010" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.marieclaire.co.uk/fashion/shopping?utm_source=Pinterest&utm_medium=organic" target="_blank" class="product-image-link"><img src="images/kupi23.jpg" alt="Дреха 23"></a>
+                <a href="https://www.marieclaire.co.uk/fashion/shopping?utm_source=Pinterest&utm_medium=organic" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://shopamuseclub.com/products/maui-skirt?utm_source=Pinterest&utm_medium=organic" target="_blank" class="product-image-link"><img src="images/kupi24.png" alt="Дреха 24"></a>
+                <a href="https://shopamuseclub.com/products/maui-skirt?utm_source=Pinterest&utm_medium=organic" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://overthemoon.com/products/gardenia-pants?variant=47364477616345&utm_source=Pinterest&utm_medium=organic" target="_blank" class="product-image-link"><img src="images/kupi25.jpg" alt="Дреха 25"></a>
+                <a href="https://overthemoon.com/products/gardenia-pants?variant=47364477616345&utm_source=Pinterest&utm_medium=organic" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://smartcloset.me/product/20000919725/miu-miu-women-s-embroidered-lace-midi-skirt" target="_blank" class="product-image-link"><img src="images/kupi26.jpg" alt="Дреха 26"></a>
+                <a href="https://smartcloset.me/product/20000919725/miu-miu-women-s-embroidered-lace-midi-skirt" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.ebay.com/itm/396996151933" target="_blank" class="product-image-link"><img src="images/kupi27.jpg" alt="Дреха 27"></a>
+                <a href="https://www.ebay.com/itm/396996151933" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://en.aboutyou.de/p/no-matter-what/top-23915213" target="_blank" class="product-image-link"><img src="images/kupi28.jpg" alt="Дреха 28"></a>
+                <a href="https://en.aboutyou.de/p/no-matter-what/top-23915213" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/designer/brock" target="_blank" class="product-image-link"><img src="images/dreha9.jpg" alt="Дреха 29"></a>
+                <a href="https://www.modaoperandi.com/designer/brock" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.farfetch.com/jo/shopping/women/dolce-gabbana-satin-pumps-item-27164410.aspx" target="_blank" class="product-image-link"><img src="images/kupi30.png" alt="Дреха 30"></a>
+                <a href="https://www.farfetch.com/jo/shopping/women/dolce-gabbana-satin-pumps-item-27164410.aspx" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/designer/maticevski" target="_blank" class="product-image-link"><img src="images/kupi31.jpg" alt="Дреха 31"></a>
+                <a href="https://www.modaoperandi.com/women/designer/maticevski" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/designer/andres-otalora/collection/fw26" target="_blank" class="product-image-link"><img src="images/kupi32.jpg" alt="Дреха 32"></a>
+                <a href="https://www.modaoperandi.com/designer/andres-otalora/collection/fw26" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.neimanmarcus.com/c/womens-clothing-cat58290731?navpath=cat000000_cat000001&utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9cW9OaE9nbHIySnJYS0lCZk1pLUlaMmU2N2FaQkZFaXUmcD0wJm49S2l6NlN2ZGZUcVhQblRlUmc1eTNsZyZ0PUFBQUFBR21fOTNV" target="_blank" class="product-image-link"><img src="images/kupi33.png" alt="Дреха 33"></a>
+                <a href="https://www.neimanmarcus.com/c/womens-clothing-cat58290731?navpath=cat000000_cat000001&utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9cW9OaE9nbHIySnJYS0lCZk1pLUlaMmU2N2FaQkZFaXUmcD0wJm49S2l6NlN2ZGZUcVhQblRlUmc1eTNsZyZ0PUFBQUFBR21fOTNV" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/designer/aya-muse" target="_blank" class="product-image-link"><img src="images/kupi34.jpg" alt="Дреха 34"></a>
+                <a href="https://www.modaoperandi.com/women/designer/aya-muse" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://answear.bg/p/kozheno-yake-answear-lab-noa-from-the-unscripted-collection-cherno-1631732" target="_blank" class="product-image-link"><img src="images/kupi35.png" alt="Дреха 35"></a>
+                <a href="https://answear.bg/p/kozheno-yake-answear-lab-noa-from-the-unscripted-collection-cherno-1631732" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/women/designer/maticevski#zoom" target="_blank" class="product-image-link"><img src="images/kupi36.jpg" alt="Дреха 36"></a>
+                <a href="https://www.modaoperandi.com/women/designer/maticevski#zoom" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://smartcloset.me/product/3000020231928/magda-butrym-floral-devor-halterneck-top" target="_blank" class="product-image-link"><img src="images/kupi37.jpg" alt="Дреха 37"></a>
+                <a href="https://smartcloset.me/product/3000020231928/magda-butrym-floral-devor-halterneck-top" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://editorialist.com/p/alexandre-vauthier-faux-leather-boots/?pla=true&utm_source=pinterest&utm_medium=pinterest&utm_campaign=pinterest" target="_blank" class="product-image-link"><img src="images/kupi38.png" alt="Дреха 38"></a>
+                <a href="https://editorialist.com/p/alexandre-vauthier-faux-leather-boots/?pla=true&utm_source=pinterest&utm_medium=pinterest&utm_campaign=pinterest" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://www.modaoperandi.com/shop/the-balletcore-edit?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9YUlON1FiY0VGaG1FWTFENlZ6X0I0OEZtY1VIT2VKNngmcD0wJm49VXNKVjhWMmVBcnI5cnhWSnJvczRmdyZ0PUFBQUFBR21fLW9z" target="_blank" class="product-image-link"><img src="images/kupi39.jpg" alt="Дреха 39"></a>
+                <a href="https://www.modaoperandi.com/shop/the-balletcore-edit?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9YUlON1FiY0VGaG1FWTFENlZ6X0I0OEZtY1VIT2VKNngmcD0wJm49VXNKVjhWMmVBcnI5cnhWSnJvczRmdyZ0PUFBQUFBR21fLW9z" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+            <div class="product-card">
+                <a href="https://us.shein.com/Muchica-Pleated-Halter-Tie-Back-Cropped-Tank-Top-p-39303531.html?mallCode=1" target="_blank" class="product-image-link"><img src="images/kupi40.jpg" alt="Дреха 40"></a>
+                <a href="https://us.shein.com/Muchica-Pleated-Halter-Tie-Back-Cropped-Tank-Top-p-39303531.html?mallCode=1" target="_blank" class="buy-now-btn">Купи сега</a>
+            </div>
+
+        </section>
+
+        <div class="back-btn-container">
+            <a href="fashion.html" class="back-btn">НАЗАД КЪМ БЛОГА</a>
+        </div>
+       
+    </main>
+
+
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({
+            pageLanguage: 'bg',
+            includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+            autoDisplay: false
+          }, 'google_translate_element');
+        }
+
+        function doTranslate(langCode) {
+            var menu = document.getElementById('customLangMenu');
+            if (menu) menu.classList.remove('show');
+
+            if (langCode === 'bg') {
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+                window.location.reload();
+                return;
+            }
+
+            var select = document.querySelector('.goog-te-combo');
+            if (select) {
+                select.value = langCode;
+                select.dispatchEvent(new Event('change'));
+            } else {
+                document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+                document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+                window.location.reload();
+            }
+        }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <script>
+        function toggleTranslate(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            document.getElementById('customLangMenu').classList.toggle('show');
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            const mobileBtn = document.getElementById('mobileMenuBtn');
+            const navMenu = document.getElementById('navMenu');
+            const filterToggle = document.getElementById('filterToggle');
+            const filterMenu = document.getElementById('filterMenu');
+            const searchToggle = document.getElementById('searchToggle');
+            const searchBar = document.getElementById('searchBar');
+            const langMenu = document.getElementById('customLangMenu');
+
+            if(mobileBtn && navMenu) {
+                mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+            }
+
+            if(filterToggle && filterMenu) {
+                filterToggle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (searchBar) searchBar.classList.remove('active');
+                    if (langMenu) langMenu.classList.remove('show');
+                    filterMenu.classList.toggle('show');
+                });
+            }
+
+            if(searchToggle && searchBar) {
+                searchToggle.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    searchBar.classList.toggle('active');
+                });
+            }
+
+            [filterMenu, searchBar, langMenu].forEach(el => {
+                if(el) el.addEventListener('click', e => e.stopPropagation());
+            });
+
+            const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+            const loginIcon = document.getElementById('nav-login-icon');
+            const profileMenuContainer = document.getElementById('nav-profile-menu');
+            const profileBtn = document.getElementById('profile-dropdown-btn');
+            const userDropdown = document.getElementById('user-dropdown-menu');
+
+            if (isLoggedIn) {
+                if(loginIcon) loginIcon.style.display = 'none';
+                if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+                if(profileBtn) {
+                    profileBtn.addEventListener('click', function(e) {
+                        e.stopPropagation(); 
+                        if (filterMenu) filterMenu.classList.remove('show');
+                        if (langMenu) langMenu.classList.remove('show');
+                        userDropdown.classList.toggle('show');
+                    });
+                }
+            } else {
+                if(loginIcon) loginIcon.style.display = 'inline-flex';
+                if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+            }
+
+            window.addEventListener('click', function(e) {
+                if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+                if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+                if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+            });
+
+            function reveal() {
+                const reveals = document.querySelectorAll(".reveal");
+                for (let i = 0; i < reveals.length; i++) {
+                    const windowHeight = window.innerHeight;
+                    const elementTop = reveals[i].getBoundingClientRect().top;
+                    if (elementTop < windowHeight - 100) {
+                        reveals[i].classList.add("active");
+                    }
+                }
+            }
+            window.addEventListener("scroll", reveal);
+            reveal(); 
+        });
+
+        function logoutUser() {
+            localStorage.removeItem('juxury_logged_in');
+            window.location.href = 'login.html'; 
+        }
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

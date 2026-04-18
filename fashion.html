@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JUXURY - Fashion</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Хедър стилове */
+        header {
+            position: relative;
+            z-index: 9999 !important;
+        }
+        .search-overlay {
+            z-index: 9998 !important;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08) !important;
+        }
+
+        /* --- СТИЛОВЕ ЗА ГЛАВНАТА СЕКЦИЯ (HERO) --- */
+        .hero-section {
+            max-width: 1400px;
+            margin: 20px auto 60px auto;
+            padding: 0 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Голямата снимка най-отгоре */
+      .lifestyle-hero {
+    width: 100%; /* Контейнерът заема целия екран от край до край */
+    display: flex; /* Най-сигурният начин за центриране */
+    justify-content: center; /* Избутва снимката точно в центъра */
+    margin: 0 0 40px 0; /* 0 отгоре (за да е до менюто), 40px отдолу до статията */
+    padding: 0 20px;
+}
+
+.hero-img {
+    width: 100%;
+    max-width: 1100px; /* Ширината на самата снимка */
+    height: auto;
+    display: block;
+}
+
+        /* Долна част: Текст (ляво) + Слайдър (дясно) */
+        .hero-bottom-container {
+            display: flex;
+            gap: 20px;
+            height: 500px; 
+        }
+
+        /* Текстова кутия */
+        .hero-text-box {
+            flex: 1;
+            background-color: #f8f8f8; 
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .hero-category {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #666;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .hero-text-box h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            color: #000;
+        }
+        .hero-text-box p {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #444;
+            margin-bottom: 40px;
+        }
+        .btn-read-more {
+            display: inline-block;
+            align-self: flex-start;
+            padding: 15px 35px;
+            background-color: #000;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-read-more:hover {
+            background-color: #333;
+        }
+
+        /* Слайдър с дрехи */
+        .hero-slider-wrapper {
+            flex: 1;
+            position: relative;
+            overflow: hidden;
+            background-color: #ffffff; 
+        }
+        .slider-track {
+            display: flex;
+            height: 100%;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .slide {
+            min-width: 100%;
+            height: 100%;
+        }
+       .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Променихме cover на contain */
+            padding: 10px; /* Добавям леко отстояние от краищата, за да изглежда по-елегантно */
+        }
+        /* --- СЕКЦИЯ С 3 КВАДРАТНИ СТАТИИ --- */
+        .fashion-articles-section {
+            max-width: 1400px;
+            margin: 0 auto 80px auto;
+            padding: 0 40px;
+        }
+
+        .articles-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .article-card {
+            position: relative;
+            display: block;
+            width: 100%;
+            aspect-ratio: 1 / 1; /* Прави снимките перфектни квадрати */
+            overflow: hidden;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .article-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .article-card:hover img {
+            transform: scale(1.05); /* Лек зуум ефект при посочване */
+        }
+
+        .article-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.65); /* По-прозрачен бял фон */
+            padding: 15px 20px; /* По-малка кутийка */
+            text-align: center;
+            transition: background 0.3s ease;
+        }
+
+        .article-card:hover .article-info {
+            background: rgba(255, 255, 255, 0.85); /* Става малко по-плътно при посочване */
+        }
+
+        .article-category {
+            display: block;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .article-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            margin: 0;
+            line-height: 1.3;
+            color: #000;
+        }
+
+        /* Бутон "ВИЖТЕ ВСИЧКИ СТАТИИ" */
+        .view-all-container {
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .btn-view-all {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: transparent;
+            color: #000;
+            border: 1px solid #000;
+            text-transform: uppercase;
+            text-decoration: none;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-view-all:hover {
+            background-color: #000;
+            color: #fff;
+        }
+
+        /* Респонсив дизайн за по-малки екрани */
+        @media (max-width: 1024px) {
+            .articles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        @media (max-width: 768px) {
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            .fashion-articles-section {
+                padding: 0 20px;
+            }
+        }
+        /* --- СЕКЦИЯ SHOP SLIDER --- */
+        .shop-slider-section {
+            max-width: 1400px;
+            margin: 0 auto 80px auto;
+            padding: 0 40px;
+        }
+
+        .shop-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+        }
+
+        .shop-header h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            margin: 0;
+            text-transform: uppercase;
+        }
+
+        .shop-all-link {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            font-size: 0.85rem;
+            color: #000;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: opacity 0.3s;
+        }
+
+        .shop-all-link:hover {
+            opacity: 0.6;
+        }
+
+        .shop-slider-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .shop-track {
+            display: flex;
+            gap: 15px; /* Разстояние между снимките */
+            overflow-x: auto;
+            /* Скриване на грозния скролбар */
+            scrollbar-width: none; 
+            -ms-overflow-style: none; 
+        }
+
+        .shop-track::-webkit-scrollbar {
+            display: none; 
+        }
+
+        .shop-item {
+            /* Смятаме ширината така, че да се събират точно 8 наведнъж */
+            flex: 0 0 calc((100% - (7 * 15px)) / 8); 
+            aspect-ratio: 3 / 4; /* Пропорция за дрехи (по-скоро правоъгълна) */
+            display: block;
+            text-decoration: none;
+            overflow: hidden;
+        }
+
+        .shop-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .shop-item:hover img {
+            transform: scale(1.05); /* Лек зуум при посочване */
+        }
+
+        /* Стрелки за превъртане на продуктите */
+        .shop-arrow {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            position: absolute;
+            z-index: 10;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .shop-arrow:hover {
+            border-color: #000;
+            color: #000;
+        }
+
+        .shop-left-arrow { left: -20px; }
+        .shop-right-arrow { right: -20px; }
+
+        /* Респонсив дизайн за по-малки екрани */
+        @media (max-width: 1200px) {
+            .shop-item { flex: 0 0 calc((100% - (5 * 15px)) / 6); } /* 6 наведнъж */
+        }
+        @media (max-width: 768px) {
+            .shop-item { flex: 0 0 calc((100% - (3 * 15px)) / 4); } /* 4 наведнъж */
+            .shop-left-arrow { left: 0; }
+            .shop-right-arrow { right: 0; }
+            .shop-slider-section { padding: 0 20px; }
+        }
+        @media (max-width: 480px) {
+            .shop-item { flex: 0 0 calc((100% - 15px) / 2); } /* 2 наведнъж */
+        }
+        
+   
+
+        /* Респонсив дизайн */
+        @media (max-width: 1024px) {
+            .hero-bottom-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .hero-text-box {
+                padding: 40px;
+            }
+            .hero-slider-wrapper {
+                height: 500px; 
+            }
+        }
+        @media (max-width: 600px) {
+            .hero-section {
+                padding: 0 20px;
+            }
+            .hero-text-box h1 {
+                font-size: 2rem;
+            }
+            .hero-banner {
+                height: 40vh;
+            }
+            .hero-slider-wrapper {
+                height: 400px;
+            }
+        }
+        /* --- СТЪПКА 3: Заглавие Последни постове --- */
+.latest-posts-title {
+    text-align: center;
+    margin: 80px 0 40px 0; /* 80px разстояние от статията отгоре, за да "диша" дизайнът */
+}
+
+.latest-posts-title h2 {
+    font-size: 32px;
+    font-weight: 400;
+    letter-spacing: 4px; /* Разстояние между буквите за по-луксозен вид */
+    color: #111;
+    margin-bottom: 15px;
+}
+
+.title-line {
+    width: 40px;
+    height: 1px;
+    background-color: #111;
+    margin: 0 auto; /* Центрира линийката точно под текста */
+}
+.view-all-container {
+    display: flex;
+    justify-content: center;
+    margin: 50px 0 80px 0;
+    width: 100%;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 16px 45px;
+    background-color: #111 !important;
+    color: #fff !important;
+    text-decoration: none !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    border: 1px solid #111;
+    transition: all 0.3s ease;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+.view-all-btn:hover {
+    background-color: transparent !important;
+    color: #111 !important;
+}
+/* Админ бутон */
+.nav-special-btn {
+    background-color: #d9534f; /* Червено за внимание */
+    color: white !important;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+/* VIP статус */
+.vip-badge {
+    background: linear-gradient(45deg, #d4af37, #f9e27d); /* Златисто */
+    color: #1a1a1a;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+/* Заключени статии за обикновени потребители */
+.premium-content.locked {
+    filter: blur(4px);
+    pointer-events: none;
+    user-select: none;
+}
+    </style>
+   
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <a href="index.html" style="text-decoration: none; color: inherit;">
+            <h2>JUXURY</h2>
+        </a>
+    </div>
+    
+    <div class="mobile-toggle" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="main-nav" id="navMenu">
+    <a href="index.html">HOME</a>
+    <a href="fashion.html" class="active">FASHION</a> 
+    <a href="lifestyle.html">LIFESTYLE</a>
+    <a href="forum.html">FORUM</a>
+   </nav>
+
+    <div class="header-actions">
+        <a href="#" id="searchToggle" title="Search"><i class="fas fa-search"></i></a>
+        
+        <div class="menu-filter" id="filterToggle">
+            <i class="fas fa-bars"></i>
+            <div class="filter-dropdown" id="filterMenu">
+                <div class="filter-column">
+                    <h3>Fashion</h3>
+                    <a href="#">Гид за стил</a>
+                    <a href="#">Вечни класики</a>
+                    <a href="#">Модни ревюта</a>
+                    <a href="#">Звезден стил</a>
+                    <a href="#">Тенденции</a>
+                </div>
+                <div class="filter-column">
+                    <h3>Lifestyle</h3>
+                    <a href="#">Здравословно хранене</a>
+                    <a href="#">Фитнес и спорт</a>
+                    <a href="#">Баланс и здраве</a>
+                    <a href="#">Луксозни пътувания</a>
+                    <a href="#">Фокус</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="lang-wrapper">
+            <div class="lang-icon" onclick="toggleTranslate(event)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+            </div>
+            
+            <div class="custom-lang-menu notranslate" id="customLangMenu">
+                <a href="#" onclick="doTranslate('bg'); return false;">Български</a>
+                <a href="#" onclick="doTranslate('en'); return false;">English</a>
+                <a href="#" onclick="doTranslate('fr'); return false;">Français</a>
+                <a href="#" onclick="doTranslate('es'); return false;">Español</a>
+                <a href="#" onclick="doTranslate('de'); return false;">Deutsch</a>
+                <a href="#" onclick="doTranslate('ru'); return false;">Русский</a>
+                <a href="#" onclick="doTranslate('zh-CN'); return false;">中文</a>
+                <a href="#" onclick="doTranslate('ja'); return false;">日本語</a>
+            </div>
+
+            <div id="google_translate_element" style="position: absolute; top: -9999px; left: -9999px; visibility: hidden;"></div>
+        </div>
+
+        <a href="login.html" id="nav-login-icon" style="display: inline-flex; align-items: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </a>
+
+        <div class="user-wrapper" id="nav-profile-menu" style="display: none; position: relative; cursor: pointer;">
+            <div id="profile-dropdown-btn" style="display: flex; align-items: center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+            </div>
+            
+            <div class="user-dropdown" id="user-dropdown-menu">
+                <a href="profile.html">Управление на профила</a>
+                <a href="saved.html">Запазени статии</a>
+                <a href="#" onclick="logoutUser(); return false;">Изход</a>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="search-overlay" id="searchBar">
+        <form action="#" method="GET" class="search-form">
+            <i class="fas fa-search search-icon-inside"></i>
+            <input type="text" placeholder="Въведете ключова дума..." name="q">
+            <button type="submit">Търсене</button>
+        </form>
+    </div>
+</header>
+
+
+<main class="fashion-content">
+    
+    <section class="hero-section">
+        
+        <div class="hero-banner">
+            <img src="images/fashion.png" alt="Главна модна снимка">
+        </div>
+
+        <div class="hero-bottom-container">
+            
+            <div class="hero-text-box">
+                <span class="hero-category">Тенденции</span>
+                <h1>Модни тенденции за 2026</h1>
+                <p>Разгледайте ключови визии, които ще диктуват правилата на уличната мода и висшата кутюр сцена през следващия сезон. Какво си струва да добавите в гардероба си?</p>
+                <button onclick="window.location.href='statiq1.html'" class="btn-read-more">ПРОЧЕТИ ПОВЕЧЕ</button>
+            </div>
+
+            <div class="hero-slider-wrapper">
+                
+                <div class="slider-track" id="mainSliderTrack">
+                    <div class="slide"><img src="Images/dreha1.png" alt="Дреха 1"></div>
+                    <div class="slide"><img src="Images/dreha2.jpg" alt="Дреха 2"></div>
+                    <div class="slide"><img src="Images/dreha3.jpg" alt="Дреха 3"></div>
+                    <div class="slide"><img src="Images/dreha4.jpg" alt="Дреха 4"></div>
+                    <div class="slide"><img src="Images/dreha5.jpg" alt="Дреха 5"></div>
+                    <div class="slide"><img src="Images/dreha6.jpg" alt="Дреха 6"></div>
+                    <div class="slide"><img src="Images/dreha7.jpg" alt="Дреха 7"></div>
+                    <div class="slide"><img src="Images/dreha8.jpg" alt="Дреха 8"></div>
+                    <div class="slide"><img src="Images/dreha9.jpg" alt="Дреха 9"></div>
+                    <div class="slide"><img src="Images/dreha10.jpg" alt="Дреха 10"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="latest-posts-title">
+        <h2>ПОСЛЕДНИ ПОСТОВЕ</h2>
+        <div class="title-line"></div>
+    </div>
+
+<section class="fashion-articles-section">
+    <div class="articles-grid">
+        
+        <a href="statiq2.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+    <img src="images/statiq1.jpeg" alt="Гардероб">
+    <div class="article-info">
+        <span class="article-category">Гид за стил</span>
+        <h3 class="article-title">Как да изглеждаш сякаш имаш гардероб за 10 000 евро, когато нямаш пари</h3>
+    </div>
+</a>
+
+         <a href="statiq3.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+          <img src="images/statiq2.jpg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Гид за стил</span>
+                <h3 class="article-title">Как да използваш контуриране, за да промениш формата на лицето си (като знаменитост)</h3>
+            </div>
+        </a>
+
+        <a href="statiq4.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <img src="images/statiq3.jpeg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Вечни класики</span>
+                <h3 class="article-title">Дали Chanel наистина е „вечен“ или просто скъпа носталгия?</h3>
+            </div>
+        </a>
+         <a href="statiq2.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+    <img src="images/statiq1.jpeg" alt="Гардероб">
+    <div class="article-info">
+        <span class="article-category">Гид за стил</span>
+        <h3 class="article-title">Как да изглеждаш сякаш имаш гардероб за 10 000 евро, когато нямаш пари</h3>
+    </div>
+</a>
+
+         <a href="statiq3.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+          <img src="images/statiq2.jpg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Гид за стил</span>
+                <h3 class="article-title">Как да използваш контуриране, за да промениш формата на лицето си (като знаменитост)</h3>
+            </div>
+        </a>
+
+        <a href="statiq4.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <img src="images/statiq3.jpeg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Вечни класики</span>
+                <h3 class="article-title">Дали Chanel наистина е „вечен“ или просто скъпа носталгия?</h3>
+            </div>
+        </a>
+         <a href="statiq2.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+    <img src="images/statiq1.jpeg" alt="Гардероб">
+    <div class="article-info">
+        <span class="article-category">Гид за стил</span>
+        <h3 class="article-title">Как да изглеждаш сякаш имаш гардероб за 10 000 евро, когато нямаш пари</h3>
+    </div>
+</a>
+
+         <a href="statiq3.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+          <img src="images/statiq2.jpg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Гид за стил</span>
+                <h3 class="article-title">Как да използваш контуриране, за да промениш формата на лицето си (като знаменитост)</h3>
+            </div>
+        </a>
+
+        <a href="statiq4.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <img src="images/statiq3.jpeg" alt="Шанел">
+            <div class="article-info">
+                <span class="article-category">Вечни класики</span>
+                <h3 class="article-title">Дали Chanel наистина е „вечен“ или просто скъпа носталгия?</h3>
+            </div>
+        </a>
+
+    </div>
+
+   
+</section>
+<section class="shop-slider-section">
+    <div class="shop-header">
+        <h3>Мои любими</h3>
+        <a href="shop-all.html" class="shop-all-link">Виж всички &gt;</a>
+    </div>
+
+    <div class="shop-slider-wrapper">
+        <button class="shop-arrow shop-left-arrow" onclick="scrollShop(-1)">&#10094;</button>
+        
+        <div class="shop-track" id="shopSliderTrack">
+            
+            <a href="https://www.bubulovers.com.br/products/vestido-tais-pre-venda?_pos=1&_sid=27ecc5a85&_ss=r" target="_blank" class="shop-item">
+                <img src="images/kupi1.jpg" alt="Дреха 1">
+            </a>
+
+            <a href="https://www.zimmermann.com/en-eu/rebellion-low-rise-flare-jean-night-sky.html?___store=en_eu_store_view&utm_source=social&utm_medium=paid&utm_campaign=PinterestProductFeed&utm_content=1160035" target="_blank" class="shop-item">
+                <img src="images/kupi2.jpg" alt="Дреха 2">
+            </a>
+
+            <a href="https://www.farfetch.com/th/shopping/women/dolce-gabbana-floral-lace-asymmetric-blouse-item-22372365.aspx?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9Qk1TbGxUTnNDcTlpVGVxM1hSaDlkTTU1dzFubF93WncmcD0wJm49ZzF6TFlLT1BZVGpiaW9nWXJtY3ptUSZ0PUFBQUFBR21fNHVj" target="_blank" class="shop-item">
+                <img src="images/kupi3.jpg" alt="Дреха 3">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/p/christopher-esber/ripple-drape-jersey-top/721766" target="_blank" class="shop-item">
+                <img src="images/kupi4.jpg" alt="Дреха 4">
+            </a>
+
+            <a href="https://en-saudi.levelshoes.com/givenchy-shark-lock-pant-boots-black-satin-women-high-heels-s1dgda.html" target="_blank" class="shop-item">
+                <img src="images/kupi5.png" alt="Дреха 5">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/p/salon-1884/farussi-bodysuit/688534?cjdata=MXxZfFl8WXww&AID=14544922&PID=100046537&SID=92X1711942Xa952275822af935188acd61e41b0c7db&cjevent=6d54105525ec11f1811b00fc0a18b8f6&utm_medium=affiliate&medium=affiliate&source=Skimlinks&utm_source=Skimlinks" target="_blank" class="shop-item">
+                <img src="images/kupi6.jpg" alt="Дреха 6">
+            </a>
+
+            <a href="https://ohpolly.ae/products/eden-embellished-draped-strapless-a-line-mini-dress-black" target="_blank" class="shop-item">
+                <img src="images/kupi7.jpg" alt="Дреха 7">
+            </a>
+
+            <a href="https://www.farfetch.com/shopping/women/liu-jo-logo-plaque-flare-jeans-item-31308688.aspx" target="_blank" class="shop-item">
+                <img src="images/kupi8.webp" alt="Дреха 8">
+            </a>
+             <a href="https://poshmark.com/listing/Jimmy-Choo-Cibelle-100-Lace-Suede-Pump-Black-62e39b4b33c601bf8ceff3b0" target="_blank" class="shop-item">
+                <img src="images/kupi9.jpg" alt="Дреха 9">
+            </a>
+
+            <a href="https://m.romwe.com/de/Goth-Women-s-Faux-Fur-Patchwork-PU-Leather-Short-Jacket-Autumn-Winter-p-3067511.html?ref=m&rep=dir&ret=mde" target="_blank" class="shop-item">
+                <img src="images/kupi10.jpg" alt="Дреха 10">
+            </a>
+
+            <a href="https://innovaredenim.com/pt/collections/best-sellers/products/danna-strapless-lace-fringe-stain-mini-dress" target="_blank" class="shop-item">
+                <img src="images/kupi11.png" alt="Дреха 11">
+            </a>
+
+            <a href="https://editorialist.com/p/monot-florence-bead-embellished-tulle-halterneck-top-32394881/" target="_blank" class="shop-item">
+                <img src="images/kupi12.jpg" alt="Дреха 12">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/designer/coperni" target="_blank" class="shop-item">
+                <img src="images/kupi13.jpg" alt="Дреха 13">
+            </a>
+
+            <a href="https://clothbase.com/items/98eeface_we11done-black-knee-high-knit-tall-boots_we11done" target="_blank" class="shop-item">
+                <img src="images/kupi14.png" alt="Дреха 14">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/designer/coperni" target="_blank" class="shop-item">
+                <img src="images/kupi15.jpg" alt="Дреха 15">
+            </a>
+
+            <a href="https://www.aliceandolivia.com/olivia-pinstriped-wide-leg-pant/CL000R48116G980.html?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9dF9xZ2JLXzlJUWRqWFA0UFRzb3RqenZCX1owS21iYWgmcD0wJm49bUF4ZjM5US1CNUlaRXBGQm00aC1wQSZ0PUFBQUFBR21fN0cw" target="_blank" class="shop-item">
+                <img src="images/kupi16.jpg" alt="Дреха 16">
+            </a>
+             <a href="https://www.ebay.com/itm/186226447729" target="_blank" class="shop-item">
+                <img src="images/kupi17.png" alt="Дреха 17">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/designer/gaurav-gupta" target="_blank" class="shop-item">
+                <img src="images/kupi18.jpg" alt="Дреха 18">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/designer/magda-butrym" target="_blank" class="shop-item">
+                <img src="images/kupi19.jpg" alt="Дреха 19">
+            </a>
+
+            <a href="https://editorialist.com/p/dolce-gabbana-105mm-bow-textured-pumps/?pla=true&size=37&utm_source=pinterest&utm_medium=pinterest&utm_campaign=pinterest" target="_blank" class="shop-item">
+                <img src="images/kupi20.jpg" alt="Дреха 20">
+            </a>
+
+            <a href="https://www.glami.ee/naiste-bomber-jakid/?highlight=c4823437&iid=4823437&utm_source=Pinterest&utm_medium=organic" target="_blank" class="shop-item">
+                <img src="images/kupi21.png" alt="Дреха 21">
+            </a>
+
+            <a href="https://editorialist.com/p/maticevski-incarnate-sequined-mesh-maxi-skirt/?pla=true&size=AU%2010" target="_blank" class="shop-item">
+                <img src="images/kupi22.jpg" alt="Дреха 22">
+            </a>
+
+            <a href="https://www.marieclaire.co.uk/fashion/shopping?utm_source=Pinterest&utm_medium=organic" target="_blank" class="shop-item">
+                <img src="images/kupi23.jpg" alt="Дреха 23">
+            </a>
+
+            <a href="https://shopamuseclub.com/products/maui-skirt?utm_source=Pinterest&utm_medium=organic" target="_blank" class="shop-item">
+                <img src="images/kupi24.png" alt="Дреха 24">
+            </a>
+             <a href="https://overthemoon.com/products/gardenia-pants?variant=47364477616345&utm_source=Pinterest&utm_medium=organic" target="_blank" class="shop-item">
+                <img src="images/kupi25.jpg" alt="Дреха 25">
+            </a>
+
+            <a href="https://smartcloset.me/product/20000919725/miu-miu-women-s-embroidered-lace-midi-skirt" target="_blank" class="shop-item">
+                <img src="images/kupi26.jpg" alt="Дреха 26">
+            </a>
+
+            <a href="https://www.ebay.com/itm/396996151933" target="_blank" class="shop-item">
+                <img src="images/kupi27.jpg" alt="Дреха 27">
+            </a>
+
+            <a href="https://en.aboutyou.de/p/no-matter-what/top-23915213" target="_blank" class="shop-item">
+                <img src="images/kupi28.jpg" alt="Дреха 28">
+            </a>
+
+            <a href="https://www.modaoperandi.com/designer/brock" target="_blank" class="shop-item">
+                <img src="images/dreha9.jpg" alt="Дреха 29">
+            </a>
+
+            <a href="https://www.farfetch.com/jo/shopping/women/dolce-gabbana-satin-pumps-item-27164410.aspx" target="_blank" class="shop-item">
+                <img src="images/kupi30.png" alt="Дреха 30">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/designer/maticevski" target="_blank" class="shop-item">
+                <img src="images/kupi31.jpg" alt="Дреха 31">
+            </a>
+
+            <a href="https://www.modaoperandi.com/designer/andres-otalora/collection/fw26" target="_blank" class="shop-item">
+                <img src="images/kupi32.jpg" alt="Дреха 32">
+            </a>
+             <a href="https://www.neimanmarcus.com/c/womens-clothing-cat58290731?navpath=cat000000_cat000001&utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9cW9OaE9nbHIySnJYS0lCZk1pLUlaMmU2N2FaQkZFaXUmcD0wJm49S2l6NlN2ZGZUcVhQblRlUmc1eTNsZyZ0PUFBQUFBR21fOTNV" target="_blank" class="shop-item">
+                <img src="images/kupi33.png" alt="Дреха 33">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/designer/aya-muse" target="_blank" class="shop-item">
+                <img src="images/kupi34.jpg" alt="Дреха 34">
+            </a>
+
+            <a href="https://answear.bg/p/kozheno-yake-answear-lab-noa-from-the-unscripted-collection-cherno-1631732" target="_blank" class="shop-item">
+                <img src="images/kupi35.png" alt="Дреха 35">
+            </a>
+
+            <a href="https://www.modaoperandi.com/women/designer/maticevski#zoom" target="_blank" class="shop-item">
+                <img src="images/kupi36.jpg" alt="Дреха 36">
+            </a>
+
+            <a href="https://smartcloset.me/product/3000020231928/magda-butrym-floral-devor-halterneck-top" target="_blank" class="shop-item">
+                <img src="images/kupi37.jpg" alt="Дреха 37">
+            </a>
+
+            <a href="https://editorialist.com/p/alexandre-vauthier-faux-leather-boots/?pla=true&utm_source=pinterest&utm_medium=pinterest&utm_campaign=pinterest" target="_blank" class="shop-item">
+                <img src="images/kupi38.png" alt="Дреха 38">
+            </a>
+
+            <a href="https://www.modaoperandi.com/shop/the-balletcore-edit?utm_source=Pinterest&utm_medium=organic&epik=dj0yJnU9YUlON1FiY0VGaG1FWTFENlZ6X0I0OEZtY1VIT2VKNngmcD0wJm49VXNKVjhWMmVBcnI5cnhWSnJvczRmdyZ0PUFBQUFBR21fLW9z" target="_blank" class="shop-item">
+                <img src="images/kupi39.jpg" alt="Дреха 39">
+            </a>
+
+            <a href="https://us.shein.com/Muchica-Pleated-Halter-Tie-Back-Cropped-Tank-Top-p-39303531.html?mallCode=1" target="_blank" class="shop-item">
+                <img src="images/kupi40.jpg" alt="Дреха 40">
+            </a>
+
+            </div>
+
+        <button class="shop-arrow shop-right-arrow" onclick="scrollShop(1)">&#10095;</button>
+    </div>
+</section>
+
+    </div>
+
+    
+</section>
+<style>
+    /* Премахваме всички отстъпи на самата страница, за да запълним всичко */
+    body, html {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden;
+    }
+
+    .jux-full-gallery {
+        width: 100%;
+        /* 100% от ширината на екрана */
+        margin: 0 auto;
+        padding: 20px 0; /* Малко разстояние само отгоре и отдолу */
+    }
+
+    .jux-grid-container {
+        display: grid;
+        /* Точно 4 еднакви колони */
+        grid-template-columns: repeat(4, 1fr); 
+        /* Тънки, стилни линии между снимките */
+        gap: 5px; 
+        width: 100%;
+    }
+
+    .jux-grid-item {
+        width: 100%;
+        /* Пропорция 4:5 - класика за модни снимки */
+        aspect-ratio: 4 / 5; 
+        background-color: #f5f5f5;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .jux-grid-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s ease;
+    }
+
+    /* Ефект при посочване */
+    .jux-grid-item:hover img {
+        transform: scale(1.03);
+    }
+
+    /* Заглавието също да е широко */
+    .jux-section-header {
+        text-align: center;
+        padding: 60px 0;
+    }
+    .jux-section-header h2 {
+        font-family: 'Playfair Display', serif;
+        font-size: 32px;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        margin: 0;
+        color: #000;
+    
+    }
+    /* Бутон "ОЩЕ" */
+    .jux-bento-footer {
+        padding: 40px 20px;
+        text-align: right;
+    }
+    .jux-bento-footer a {
+        font-size: 14px;
+        color: #000;
+        text-decoration: none;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+    }
+    .jux-custom-arrow {
+        width: 60px; /* Още по-дълга стрелка */
+        height: 1px;
+        background-color: #000;
+        position: relative;
+    }
+    .jux-custom-arrow::after {
+        content: '';
+        position: absolute;
+        right: 0; top: -4px;
+        width: 8px; height: 8px;
+        border-top: 1px solid #000;
+        border-right: 1px solid #000;
+        transform: rotate(45deg);
+    }
+
+    /* Мобилна версия - на телефон да са по 2 на ред, за да не са твърде малки */
+    @media (max-width: 900px) {
+        .jux-grid-container {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    /* --- RUNWAY & STREET STYLE СЛАЙДЪР --- */
+.runway-section {
+    max-width: 1400px;
+    margin: 0 auto 80px auto;
+    padding: 0 40px;
+}
+
+.runway-slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.runway-slider-track {
+    display: flex;
+    gap: 20px; /* Намаляваме излишното бяло пространство между тях */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory; /* ТОВА Е МАГИЯТА: Прави скролването плавно и "магнитно" */
+    scrollbar-width: none; 
+    -ms-overflow-style: none; 
+    width: 100%;
+    padding-bottom: 20px; /* Леко отстояние отдолу */
+}
+
+.runway-slide {
+    /* Разделяме екрана така, че да се съберат точно 3.5 статии */
+    flex: 0 0 calc(28.5% - 20px); 
+    scroll-snap-align: start; /* Кара статията да "залепва" плътно вляво при скрол */
+    display: flex;
+    flex-direction: column;
+}
+
+.runway-slider-track::-webkit-scrollbar {
+    display: none; /* Скрива скролбара за Chrome/Safari */
+}
+
+.runway-slide img {
+    width: 100%;
+    height: 400px; /* Издължени стилни снимки */
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+/* --- СТИЛ ЗА СТРЕЛКИТЕ НА СЛАЙДЪРА --- */
+.runway-slider-btn {
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #ddd;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: #111;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+}
+
+.runway-slider-btn:hover {
+    background: #111;
+    color: #fff;
+    border-color: #111;
+}
+
+.prev-btn { left: -20px; }
+.next-btn { right: -20px; }
+
+/* --- МАХАМЕ БЯЛОТО ПРОСТРАНСТВО ОТ ПРЕДНАТА СЕКЦИЯ --- */
+.lifestyle-grid-section {
+    margin-bottom: 10px; /* Беше 100px, сега го смаляваме */
+}
+
+/* --- НОВИЯТ ХЕДЪР НА RUNWAY --- */
+.runway-section {
+    max-width: 1400px;
+    margin: 0 auto 80px auto;
+    padding: 0 40px;
+}
+
+.runway-header {
+    display: flex;
+    justify-content: space-between; /* Бута заглавието вляво, стрелките вдясно */
+    align-items: center;
+    margin-bottom: 30px;
+    border-top: 1px solid #ddd; /* Тънката линия отгоре, ако искаш да има разделител */
+    padding-top: 20px;
+}
+
+.runway-header h2 {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+.runway-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 13px;
+    letter-spacing: 2px;
+}
+
+.runway-nav button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #111;
+    transition: opacity 0.3s;
+}
+
+.runway-nav button:hover {
+    opacity: 0.5;
+}
+
+/* Скриваме старите кръгли стрелки, вече не ни трябват */
+.runway-slider-btn {
+    display: none; 
+}
+
+/* --- ЛЕГНАЛИ ПРАВОЪГЪЛНИЦИ ЗА СНИМКИТЕ --- */
+.runway-slide {
+    flex: 0 0 calc(28.5% - 20px); 
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+}
+
+.runway-slide img {
+    width: 100%;
+    height: 220px; /* ТУК Е МАГИЯТА: Намаляваме височината, за да станат "легнали" */
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+/* --- ХЕДЪР (БЕЗ ЛИНИЯ) --- */
+.runway-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 30px;
+    border-top: none; /* Премахваме дългата черта категорично */
+    padding-top: 0;
+}
+
+/* --- ПОДРАВНЯВАНЕ НА "1/4" ПОД "STREET STYLE" --- */
+.title-and-counter {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* Подравнява текста по десния ръб на заглавието */
+}
+
+.title-and-counter h2 {
+    font-size: 40px;
+    font-weight: 1000;
+    letter-spacing: 2px;
+    margin: 0;
+    line-height: 1.2;
+}
+
+.runway-counter {
+    font-size: 11px;
+    color: #000000;
+    letter-spacing: 2px;
+    margin-top: 5px; /* Леко отстояние под заглавието */
+}
+
+/* --- ХЕДЪР НА RUNWAY --- */
+.runway-header {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; /* Центрира всичко вертикално */
+    margin-bottom: 30px;
+}
+
+.runway-header h2 {
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    margin: 0;
+}
+
+/* --- НАВИГАЦИЯ (СТРЕЛКИ И ЦИФРИ) --- */
+.runway-nav {
+    display: flex;
+    align-items: center;
+}
+
+.runway-counter {
+    font-size: 16px; /* Правим цифрите значително по-големи */
+    font-weight: 400;
+    color: #111; /* Тъмен, ясен и четлив цвят */
+    letter-spacing: 3px; /* Повече въздух между 1 / 4 */
+    margin: 0 20px; /* Отстояние от стрелките отляво и отдясно */
+}
+
+.runway-nav button {
+    background: none;
+    border: none;
+    font-size: 26px; /* Големина на стрелките */
+    font-weight: 300; 
+    color: #111;
+    cursor: pointer;
+    padding: 0;
+    transition: opacity 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.runway-nav button:hover {
+    opacity: 0.4;
+}
+/* --- СТИЛОВЕ ЗА ЗАГЛАВИЯТА В СЛАЙДЪРА --- */
+.runway-slide-title {
+    font-size: 15px;
+    font-weight: 700; /* Прави текста удебелен */
+    text-transform: uppercase; /* Прави всички букви главни */
+    color: #111;
+    margin: 0 0 5px 0; /* Малко разстояние само отдолу */
+    letter-spacing: 1px;
+}
+
+.runway-slide-subtitle {
+    font-size: 14px;
+    font-weight: 400; /* Тънък/нормален шрифт */
+    color: #666; /* Леко сив цвят за контраст с главното заглавие */
+    margin: 0;
+    line-height: 1.4;
+}
+/* --- ОСНОВЕН КОНТЕЙНЕР НА СЛАЙДА (ВЕЧЕ Е ЛИНК) --- */
+.runway-slide {
+    flex: 0 0 calc(28.5% - 20px); 
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none; /* Премахва грозното подчертаване на линковете */
+    cursor: pointer;
+}
+
+/* --- КОНТЕЙНЕР ЗА СНИМКАТА (Нужен за ефекта) --- */
+.runway-imgg-wrapper {
+    width: 100%;
+    height: 490px;
+    overflow: hidden; /* Скрива частта от снимката, която излиза при зуум */
+    margin-bottom: 15px;
+}
+
+.runway-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease; /* Прави движението плавно */
+    display: block;
+}
+
+/* --- ЕФЕКТИТЕ ПРИ ПОСОЧВАНЕ С МИШКА (HOVER) --- */
+.runway-slide:hover img {
+    transform: scale(1.05); /* Леко приближава снимката */
+}
+
+.runway-slide:hover .runway-slide-title {
+    color: #666; /* Леко изсветлява главното заглавие, за да покаже, че е активно */
+}
+.latest-posts-title {
+    margin-top: 20px; /* 👈 Намали това число (може дори на 0), за да вдигнеш заглавието нагоре */
+    margin-bottom: 30px; /* Това е разстоянието под заглавието до снимките */
+}
+/* --- СТРУКТУРА: 3 СТАТИИ ЕДНА ДО ДРУГА --- */
+.street-style-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 20px; /* 👈 Намаляваме разстоянието (дупката) между статиите */
+    max-width: 1000px; /* 👈 Ограничаваме ширината, за да ги сближим */
+    margin: 0 auto 50px auto; /* 👈 Центрираме цялата тройка в средата на екрана */
+}
+
+/* Използваме същия hover ефект (zoom) за новите статии */
+.street-grid-item {
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+}
+
+.street-grid-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    display: block;
+}
+
+.street-grid-item:hover img {
+    transform: scale(1.05);
+}
+
+.street-grid-item:hover .runway-slide-title {
+    color: #666;
+}
+
+/* --- ПРОЗРАЧЕН БУТОН С РАМКА --- */
+.view-all-container {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.view-all-btn {
+    display: inline-block;
+    background-color: transparent; /* Прозрачен фон */
+    color: #111; /* Черен текст */
+    border: 1px solid #111; /* Тънка и елегантна черна рамка */
+    padding: 15px 50px; 
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s ease; /* Плавен преход за цвета и фона */
+}
+
+/* Ефект при посочване с мишката */
+.view-all-btn:hover {
+    background-color: #111; /* Запълва се с черно */
+    color: #fff; /* Текстът става бял */
+}
+.view-all-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    width: 100%;
+    z-index: 10; /* Гарантира, че нищо не го покрива */
+    position: relative;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 16px 45px;
+    background-color: #111;
+    color: #fff;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    border: 1px solid #111;
+    transition: all 0.3s ease;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+.view-all-btn:hover {
+    background-color: transparent;
+    color: #111;
+}
+.view-all-container {
+    display: flex;
+    justify-content: center;
+    margin: 60px 0; /* Дава хубаво разстояние отгоре и отдолу */
+    width: 100%;
+}
+
+.view-all-btn {
+    display: inline-block;
+    padding: 16px 45px;
+    background-color: #111 !important; /* Черния фон */
+    color: #fff !important; /* Бели букви */
+    text-decoration: none !important; /* Маха подчертаването */
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 13px;
+    border: 1px solid #111;
+    transition: all 0.3s ease;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    cursor: pointer;
+}
+
+.view-all-btn:hover {
+    background-color: transparent !important;
+    color: #111 !important;
+}
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+    <section class="runway-section">
+        <div class="runway-header">
+            <h2>STREET STYLE</h2>
+
+            <div class="runway-nav">
+                <button onclick="moveRunwaySlider(-1)"><i class="fa-solid fa-angle-left"></i></button>
+                <span id="runwayCounter" class="runway-counter">1 / 4</span>
+                <button onclick="moveRunwaySlider(1)"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+        </div>
+
+       <div class="runway-slider-container">
+    <div class="runway-slider-track" id="runwayTrack">
+        
+        <a href="statiq5.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street1.jpg" alt="Gucci">
+            </div>
+            <h3 class="runway-slide-title">Вижте най-добрите street style снимки от ревютата пролет 2026 в Шанхай</h3>
+            <p class="runway-slide-subtitle">Shanghai Fashion Week</p>
+        </a>
+        
+        <a href="statiq6.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street2.jpg" alt="Paris Street">
+            </div>
+            <h3 class="runway-slide-title">Този сезон беше извънземен! Вижте най-добрия street style от ревютата пролет 2026 в Париж</h3>
+            <p class="runway-slide-subtitle">Paris Fashion Week</p>
+        </a>
+        
+        <a href="statiq7.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street3.jpg" alt="Prada">
+            </div>
+            <h3 class="runway-slide-title">Най-добрите street style снимки от ревютата 2026 в Париж</h3>
+            <p class="runway-slide-subtitle">Paris Fashion Week</p>
+        </a>
+        
+        <a href="statiq8.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street4.jpg" alt="NY Street">
+            </div>
+            <h3 class="runway-slide-title">Най-добрите street style снимки от ревютата 2026 в Милано</h3>
+            <p class="runway-slide-subtitle">Milano Fashion Week</p>
+        </a>
+
+        <a href="statiq9.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street5.jpg" alt="Chanel">
+            </div>
+            <h3 class="runway-slide-title">Най-добрите street style снимки от ревютата 2026 в Лондон</h3>
+            <p class="runway-slide-subtitle">London Fashion Week</p>
+        </a>
+
+        <a href="statiq10.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street6.jpg" alt="Milan">
+            </div>
+            <h3 class="runway-slide-title">Най-добрите street style снимки от ready-to-wear ревютата 2026 в Ню Йорк</h3>
+            <p class="runway-slide-subtitle">New York Fashion Week</p>
+        </a>
+
+        <a href="statiq11.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street7.jpg" alt="Dior">
+            </div>
+            <h3 class="runway-slide-title">Най-добрите street style снимки от ревютата пролет 2026 в Лагос</h3>
+            <p class="runway-slide-subtitle">Lagos Fashion Week</p>
+        </a>
+
+        <a href="statiq12.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street8.jpg" alt="London">
+            </div>
+            <h3 class="runway-slide-title">Това е Седмицата на модата в Лондон! Снимки на най-добре облечените гости от ревютата пролет 2026</h3>
+            <p class="runway-slide-subtitle">London Fashion Week</p>
+        </a>
+
+        <a href="statiq13.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street9.jpg" alt="Versace">
+            </div>
+            <h3 class="runway-slide-title">Усмивките са на мода на NYFW — вижте най-добрите street style снимки от ревютата пролет 2026</h3>
+            <p class="runway-slide-subtitle">New York Fashion Week</p>
+        </a>
+
+        <a href="statiq14.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street10.jpg" alt="Tokyo">
+            </div>
+            <h3 class="runway-slide-title">Наслояване на ново ниво и грим в манга стил означават само едно: време е за Седмицата на модата в Токио</h3>
+            <p class="runway-slide-subtitle">Tokyo Fashion Week</p>
+        </a>
+
+        <a href="statiq15.html" class="article-card" style="text-decoration: none; color: inherit; display: block;">
+            <div class="runway-img-wrapper">
+                <img src="images/street11.jpg" alt="YSL">
+            </div>
+            <h3 class="runway-slide-title">Luci, Motore, Azione! Снимки на най-добрия street style от ревютата пролет 2026 в Милано</h3>
+            <p class="runway-slide-subtitle">Milano Fashion Week</p>
+        </a>
+        
+    </div>
+</div>
+    </section>
+
+    <div class="latest-posts-title">
+        <h2>НАЙ-НОВОТО ОТ МОДНИЯ ПОДИУМ</h2>
+        <div class="title-line"></div>
+    </div>
+
+    <section class="street-style-section">
+        
+        <div class="street-style-grid">
+            <a href="#" class="street-grid-item">
+                <div class="runway-imgg-wrapper">
+                    <img src="images/runway1.jpg" alt="August Barron">
+                </div>
+                <h3 class="runway-slide-title">August Barron</h3>
+                <p class="runway-slide-subtitle">От Bror August Vestbø & Benjamin Barron</p>
+            </a>
+            
+            <a href="#" class="street-grid-item">
+                <div class="runway-imgg-wrapper">
+                    <img src="images/runway2.jpg" alt="Vaquera">
+                </div>
+                <h3 class="runway-slide-title">Vaquera</h3>
+                <p class="runway-slide-subtitle">От Patric DiCaprio & Bryn Taubensee</p>
+            </a>
+            
+            <a href="#" class="street-grid-item">
+                <div class="runway-imgg-wrapper">
+                    <img src="images/runway3.jpg" alt="Marie Adam-Leenaerdt">
+                </div>
+                <h3 class="runway-slide-title">Marie Adam-Leenaerdt</h3>
+                <p class="runway-slide-subtitle">От Marie Adam-Leenaerdt</p>
+            </a>
+        </div>
+
+        <div style="display: flex; justify-content: center; margin: 60px 0 80px 0; width: 100%;">
+    <a href="runway.html" 
+       style="display: inline-block; padding: 16px 45px; background-color: #111; color: #fff; text-decoration: none; text-transform: uppercase; letter-spacing: 2px; font-size: 13px; border: 1px solid #111; transition: all 0.3s ease; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; cursor: pointer;"
+       onmouseover="this.style.backgroundColor='transparent'; this.style.color='#111';"
+       onmouseout="this.style.backgroundColor='#111'; this.style.color='#fff';">
+       Вижте всички статии
+    </a>
+</div>
+
+    </section>
+
+<div class="jux-full-gallery">
+    <div class="latest-posts-title">
+        <h2>Вдъхновение за твоя аутфит</h2>
+    </div>
+
+    <div class="jux-grid-container">
+        <div class="jux-grid-item"><img src="images/fit1.jpg" alt="Outfit 1"></div>
+        <div class="jux-grid-item"><img src="images/fit2.jpg" alt="Outfit 2"></div>
+        <div class="jux-grid-item"><img src="images/fit3.jpg" alt="Outfit 3"></div>
+        <div class="jux-grid-item"><img src="images/fit4.jpg" alt="Outfit 4"></div>
+        
+        <div class="jux-grid-item"><img src="images/fit5.jpg" alt="Outfit 5"></div>
+        <div class="jux-grid-item"><img src="images/fit6.jpg" alt="Outfit 6"></div>
+        <div class="jux-grid-item"><img src="images/fit7.jpg" alt="Outfit 7"></div>
+        <div class="jux-grid-item"><img src="images/fit8.jpg" alt="Outfit 8"></div>
+
+        <div class="jux-grid-item"><img src="images/fit9.jpg" alt="Outfit 9"></div>
+        <div class="jux-grid-item"><img src="images/fit10.jpg" alt="Outfit 10"></div>
+        <div class="jux-grid-item"><img src="images/fit11.jpg" alt="Outfit 11"></div>
+        <div class="jux-grid-item"><img src="images/fit12.jpg" alt="Outfit 12"></div>
+
+        <div class="jux-grid-item"><img src="images/fit13.jpg" alt="Outfit 13"></div>
+        <div class="jux-grid-item"><img src="images/fit14.jpg" alt="Outfit 14"></div>
+        <div class="jux-grid-item"><img src="images/fit15.jpg" alt="Outfit 15"></div>
+        <div class="jux-grid-item"><img src="images/fit16.jpg" alt="Outfit 16"></div>
+
+        <div class="jux-grid-item"><img src="images/fit17.png" alt="Outfit 17"></div>
+        <div class="jux-grid-item"><img src="images/fit18.jpg" alt="Outfit 18"></div>
+        <div class="jux-grid-item"><img src="images/fit19.jpg" alt="Outfit 19"></div>
+        <div class="jux-grid-item"><img src="images/fit20.jpg" alt="Outfit 20"></div>
+
+        <div class="jux-grid-item"><img src="images/fit21.jpg" alt="Outfit 21"></div>
+        <div class="jux-grid-item"><img src="images/fit22.jpg" alt="Outfit 22"></div>
+        <div class="jux-grid-item"><img src="images/fit23.jpg" alt="Outfit 23"></div>
+        <div class="jux-grid-item"><img src="images/fit24.jpg" alt="Outfit 24"></div>
+
+        <div class="jux-grid-item"><img src="images/fit25.jpg" alt="Outfit 25"></div>
+        <div class="jux-grid-item"><img src="images/fit26.jpg" alt="Outfit 26"></div>
+        <div class="jux-grid-item"><img src="images/fit27.jpg" alt="Outfit 27"></div>
+        <div class="jux-grid-item"><img src="images/fit28.jpg" alt="Outfit 28"></div>
+
+        </div>
+</div>
+
+</div>
+
+</main>
+
+
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({
+        pageLanguage: 'bg',
+        includedLanguages: 'en,fr,es,ru,de,zh-CN,ja',
+        autoDisplay: false
+      }, 'google_translate_element');
+    }
+
+    function doTranslate(langCode) {
+        var menu = document.getElementById('customLangMenu');
+        if (menu) menu.classList.remove('show');
+
+        if (langCode === 'bg') {
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            document.cookie = "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+            return;
+        }
+
+        var select = document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = langCode;
+            select.dispatchEvent(new Event('change'));
+        } else {
+            document.cookie = "googtrans=/bg/" + langCode + "; path=/;";
+            document.cookie = "googtrans=/bg/" + langCode + "; domain=" + window.location.hostname + "; path=/;";
+            window.location.reload();
+        }
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    function toggleTranslate(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        document.getElementById('customLangMenu').classList.toggle('show');
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        const mobileBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        const filterToggle = document.getElementById('filterToggle');
+        const filterMenu = document.getElementById('filterMenu');
+        const searchToggle = document.getElementById('searchToggle');
+        const searchBar = document.getElementById('searchBar');
+        const langMenu = document.getElementById('customLangMenu');
+
+        if(mobileBtn && navMenu) {
+            mobileBtn.addEventListener('click', () => navMenu.classList.toggle('open'));
+        }
+
+        if(filterToggle && filterMenu) {
+            filterToggle.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (searchBar) searchBar.classList.remove('active');
+                if (langMenu) langMenu.classList.remove('show');
+                filterMenu.classList.toggle('show');
+            });
+        }
+
+        if(searchToggle && searchBar) {
+            searchToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                if (filterMenu) filterMenu.classList.remove('show');
+                if (langMenu) langMenu.classList.remove('show');
+                searchBar.classList.toggle('active');
+            });
+        }
+
+        [filterMenu, searchBar, langMenu].forEach(el => {
+            if(el) el.addEventListener('click', e => e.stopPropagation());
+        });
+
+        const isLoggedIn = localStorage.getItem('juxury_logged_in') === 'true';
+        const loginIcon = document.getElementById('nav-login-icon');
+        const profileMenuContainer = document.getElementById('nav-profile-menu');
+        const profileBtn = document.getElementById('profile-dropdown-btn');
+        const userDropdown = document.getElementById('user-dropdown-menu');
+
+        if (isLoggedIn) {
+            if(loginIcon) loginIcon.style.display = 'none';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'inline-flex';
+
+            if(profileBtn) {
+                profileBtn.addEventListener('click', function(e) {
+                    e.stopPropagation(); 
+                    if (filterMenu) filterMenu.classList.remove('show');
+                    if (langMenu) langMenu.classList.remove('show');
+                    userDropdown.classList.toggle('show');
+                });
+            }
+        } else {
+            if(loginIcon) loginIcon.style.display = 'inline-flex';
+            if(profileMenuContainer) profileMenuContainer.style.display = 'none';
+        }
+
+        window.addEventListener('click', function(e) {
+            if (filterMenu && filterMenu.classList.contains('show')) filterMenu.classList.remove('show');
+            if (langMenu && langMenu.classList.contains('show')) langMenu.classList.remove('show');
+            if (userDropdown && userDropdown.classList.contains('show')) userDropdown.classList.remove('show');
+        });
+    });
+
+    function logoutUser() {
+        localStorage.removeItem('juxury_logged_in');
+        window.location.href = 'login.html'; 
+    }
+
+ /* --- ЛОГИКА ЗА БЕЗКРАЕН СЛАЙДЪР --- */
+    const track = document.getElementById('mainSliderTrack');
+    const slides = document.querySelectorAll('.slide');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    // 1. Копираме първия слайд и го добавяме тайно най-накрая
+    const firstClone = slides[0].cloneNode(true);
+    track.appendChild(firstClone);
+
+    function moveNextSlide() {
+        currentSlide++;
+        // Връщаме плавното движение
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    }
+
+    // 2. Когато снимката се смени, проверяваме дали сме на тайното копие
+    track.addEventListener('transitionend', () => {
+        if (currentSlide === totalSlides) {
+            // Изключваме анимацията и скачаме мигновено на истинския първи слайд
+            track.style.transition = 'none';
+            currentSlide = 0;
+            track.style.transform = `translateX(0)`;
+        }
+    });
+
+    // 3. Въртим автоматично на 1 секунда
+    setInterval(moveNextSlide, 1000);
+
+ /* --- ЛОГИКА ЗА SHOP SLIDER-a --- */
+    function scrollShop(direction) {
+        const track = document.getElementById('shopSliderTrack');
+        const scrollAmount = track.clientWidth; 
+
+        if (direction === 1) {
+            // Ако сме накрая -> скачаме директно в началото БЕЗ анимация
+            if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 1) {
+                track.scrollTo({ left: 0, behavior: 'auto' });
+            } else {
+                track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+            }
+        } else {
+            // Ако сме в началото и цъкнем наляво -> скачаме директно в края БЕЗ анимация
+            if (track.scrollLeft <= 0) {
+                track.scrollTo({ left: track.scrollWidth, behavior: 'auto' });
+            } else {
+                track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+            }
+        }
+    }
+</script>
+<script>
+let currentRunwayPage = 1;
+    const totalRunwayPages = 4;
+
+    function moveRunwaySlider(direction) {
+        const track = document.getElementById('runwayTrack');
+        // Превъртаме малко повече от екрана за плавност
+        const scrollAmount = track.clientWidth * 0.75; 
+
+        if (direction === 1 && currentRunwayPage < totalRunwayPages) {
+            currentRunwayPage++;
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        } else if (direction === -1 && currentRunwayPage > 1) {
+            currentRunwayPage--;
+            track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        }
+        
+        // Обновяваме текста горе (1/4, 2/4 и т.н.)
+        document.getElementById('runwayCounter').innerText = `${currentRunwayPage} / ${totalRunwayPages}`;
+    }
+    const articlesDatabase = [
+    {
+        title: "Как да изглеждаш сякаш имаш гардероб за 10 000 евро, когато нямаш пари",
+        category: "ГИД ЗА СТИЛ",
+        img: "images/statiq1.jpeg", /* Провери името на снимката с дрешника */
+        link: "statiq2.html" /* Тук ще сложиш линка, когато направиш страницата */
+    },
+    {
+        title: "Как да използваш контуриране, за да промениш формата на лицето си (като знаменитост)",
+        category: "ГИД ЗА СТИЛ",
+        img: "images/statiq2.jpg", /* Провери името на снимката с грима */
+        link: "statiq3.html" 
+    },
+    {
+        title: "Дали Chanel наистина е „вечен“ или просто скъпа носталгия?",
+        category: "ВЕЧНИ КЛАСИКИ",
+        img: "images/statiq3.jpeg", /* Провери името на снимката с торбите Chanel */
+        link: "statiq4.html" 
+    },
+    {
+        title: "Вижте най-добрите Street Style снимки от ревютата пролет 2026 в Шанхай",
+        category: "STREET STYLE",
+        img: "images/street1.jpg",
+        link: "statiq5.html"
+    },
+    {
+        title: "Този сезон беше извънземен! Най-добрият Street Style от Париж пролет 2026",
+        category: "STREET STYLE",
+        img: "images/street2.jpg",
+        link: "statiq6.html"
+    },
+    {
+        title: "Най-добрите Street Style снимки от ревютата 2026 в Париж",
+        category: "STREET STYLE",
+        img: "images/street3.jpg",
+        link: "statiq7.html"
+    },
+    {
+        title: "Най-добрите Street Style снимки от ревютата 2026 в Милано",
+        category: "STREET STYLE",
+        img: "images/street4.jpg",
+        link: "statiq8.html"
+    },
+    {
+        title: "Най-добрите Street Style снимки от ревютата 2026 в Лондон",
+        category: "STREET STYLE",
+        img: "images/street5.jpg",
+        link: "statiq9.html"
+    },
+    {
+        title: "Най-добрите Street Style снимки от Ready-to-Wear ревютата 2026 в Ню Йорк",
+        category: "STREET STYLE",
+        img: "images/street6.jpg",
+        link: "statiq10.html"
+    },
+    {
+        title: "Най-добрите Street Style снимки от ревютата пролет 2026 в Лагос",
+        category: "STREET STYLE",
+        img: "images/street7.jpg",
+        link: "statiq11.html"
+    },
+    {
+        title: "Това е седмицата на модата в Лондон! Най-добре облечените гости пролет 2026",
+        category: "STREET STYLE",
+        img: "images/street8.jpg",
+        link: "statiq12.html"
+    },
+    {
+        title: "Усмивките са на мода на NYFW – Вижте най-добрия Street Style пролет 2026",
+        category: "STREET STYLE",
+        img: "images/street9.jpg",
+        link: "statiq13.html"
+    },
+    {
+        title: "Наслояване на ново ниво и грим в манга стил: Време е за седмицата на модата в Токио",
+        category: "STREET STYLE",
+        img: "images/street10.jpg",
+        link: "statiq14.html"
+    },
+    {
+        title: "Luci, Motore, Azione! Най-добрият Street Style от ревютата пролет 2026 в Милано",
+        category: "STREET STYLE",
+        img: "images/street11.jpg",
+        link: "statiq15.html"
+    }
+];
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>
